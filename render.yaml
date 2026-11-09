@@ -1,0 +1,5 @@
+services:
+  - type: web
+    name: hana-messaging
+    runtime: static
+    staticPublishPath: .
