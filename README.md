@@ -1,1 +1,1 @@
-Daniel Reece – Personal Messaging (Meet Hana). Static SMS disclosure site for toll-free +1 833-408-5702. Designed for GitHub Pages / Render static hosting (publish dir = repo root, no build).
+Daniel Jordan Reece, d/b/a Rivencast — Hana by Rivencast. Static SMS disclosure site for toll-free +1 833-408-5702. Designed for GitHub Pages / Render static hosting (publish dir = public).
