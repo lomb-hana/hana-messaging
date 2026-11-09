@@ -2,4 +2,9 @@ services:
   - type: web
     name: hana-messaging
     runtime: static
+    buildCommand: echo static
     staticPublishPath: .
+    routes:
+      - type: rewrite
+        source: /
+        destination: /index.html
