@@ -21,7 +21,7 @@
   --card: rgba(255, 255, 255, 0.045);
   --card-solid: rgba(18, 24, 38, 0.72);
   --accent: #d7b57a;
-  --link: #8fd9d8;
+  --link: #e3c48a;
   --max: 1120px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --radius: 20px;
@@ -92,8 +92,8 @@ body::before {
 .brand-mark {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
+  border-radius: 22px;
+  object-fit: contain;
   border: 2px solid rgba(110, 231, 245, 0.55);
   box-shadow: 0 0 16px rgba(110, 231, 245, 0.35);
 }
@@ -201,7 +201,7 @@ nav.links a[aria-current="page"] {
   position: absolute;
   inset: -14%;
   border-radius: 50%;
-  background: conic-gradient(from 180deg, var(--gold), var(--teal), var(--blush), var(--gold));
+  background: conic-gradient(from 180deg, var(--gold), var(--teal), var(--gold));
   opacity: 0.5;
   filter: blur(12px);
   z-index: 0;
@@ -388,8 +388,8 @@ nav.links a[aria-current="page"] {
   background: transparent !important;
 }
 .legal-content .notice {
-  background: rgba(232, 154, 184, 0.12);
-  border-left: 3px solid var(--blush);
+  background: rgba(215, 181, 122, 0.10);
+  border-left: 3px solid var(--gold);
   padding: 0.9rem 1.1rem;
   margin: 0 0 1.25rem;
   border-radius: 0 12px 12px 0;
