@@ -648,9 +648,77 @@ h1, h2, h3 {
 .site-footer .foot-links { display: flex; flex-wrap: wrap; gap: 0.75rem 1.1rem; }
 .site-footer .foot-copy { margin: 0; font-size: 0.82rem; }
 
+
+/* Home v2 sections */
+.cap-grid,
+.infra-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+.connector-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.connector-list li {
+  padding: 0.5rem 0.95rem;
+  border-radius: 999px;
+  background: var(--card);
+  border: 1px solid var(--stroke);
+  color: var(--text);
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+.made-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.85rem;
+}
+.made-list > div {
+  padding: 1rem 1.2rem;
+  border-radius: 16px;
+  background: var(--card);
+  border: 1px solid var(--stroke);
+}
+.made-list strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.05rem;
+}
+.made-list span { color: #d5dbe6; }
+.roadmap-card {
+  border-color: rgba(215, 181, 122, 0.38);
+  background: linear-gradient(160deg, rgba(215,181,122,0.13), rgba(110,200,201,0.05));
+}
+.meet-strip {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 1.5rem 1.5rem 1.6rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--stroke);
+  background: linear-gradient(160deg, rgba(215,181,122,0.12), rgba(110,200,201,0.06));
+}
+.meet-strip h2 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.5rem, 2.6vw, 1.95rem);
+}
+.meet-strip p { margin: 0; color: #d5dbe6; max-width: 44rem; }
+.meet-strip .btn { white-space: nowrap; }
+
 @media (max-width: 980px) {
   .feature-grid,
-  .task-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .task-grid,
+  .cap-grid,
+  .infra-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .steps li { grid-template-columns: 1fr; }
   .hero {
     grid-template-columns: 1fr;
@@ -670,6 +738,9 @@ h1, h2, h3 {
   body.nav-open nav.links { display: flex; }
   .about-card { grid-template-columns: 1fr; }
   .about-meta { text-align: left; }
+  .meet-strip { grid-template-columns: 1fr; }
+  .cap-grid,
+  .infra-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
   .agent-grid { grid-template-columns: 1fr; }
@@ -678,7 +749,9 @@ h1, h2, h3 {
   .topbar { padding: 0.75rem 1rem; }
   .brand-logo { height: 30px; }
   .feature-grid,
-  .task-grid { grid-template-columns: 1fr; }
+  .task-grid,
+  .cap-grid,
+  .infra-grid { grid-template-columns: 1fr; }
   .hero, .home-main, .page-main, .page-hero, .profile-hero, .site-footer {
     padding-left: 1rem;
     padding-right: 1rem;

@@ -1,27 +1,30 @@
 @import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Outfit:wght@300;400;500;600;700&display=swap");
 
 :root {
-  --ink: #0d1118;
-  --ink-soft: #1a2230;
-  --cream: #f7f1ea;
-  --petal: #f3c6d8;
-  --blush: #e89ab8;
-  --sakura: #ffd6e7;
-  --lilac: #b9a7ff;
-  --cyan: #6ee7f5;
-  --cyan-deep: #2bb8c9;
+  --ink: #0b0d12;
+  --ink-soft: #10141c;
+  --cream: #f3efe6;
+  --petal: #f0d9a8;
+  --blush: #d9899c;
+  --sakura: #d7b57a;
+  --lilac: #6ec8c9;
+  --cyan: #6ec8c9;
+  --cyan-deep: #3a9ea0;
+  --gold: #d7b57a;
+  --gold-2: #f0d9a8;
+  --teal: #6ec8c9;
   --glass: rgba(255, 255, 255, 0.08);
   --glass-strong: rgba(255, 255, 255, 0.14);
-  --stroke: rgba(255, 255, 255, 0.18);
-  --text: #f4f7fb;
-  --muted: #b7c0d0;
-  --card: rgba(255, 255, 255, 0.06);
+  --stroke: rgba(243, 239, 230, 0.12);
+  --text: #f3efe6;
+  --muted: #a4adbb;
+  --card: rgba(255, 255, 255, 0.045);
   --card-solid: rgba(18, 24, 38, 0.72);
-  --accent: #e89ab8;
-  --link: #6ee7f5;
-  --max: 1180px;
+  --accent: #d7b57a;
+  --link: #8fd9d8;
+  --max: 1120px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --radius: 22px;
+  --radius: 20px;
 }
 
 * { box-sizing: border-box; }
@@ -34,10 +37,10 @@ body {
   font-weight: 400;
   line-height: 1.65;
   background:
-    radial-gradient(1200px 700px at 85% -10%, rgba(232, 154, 184, 0.35), transparent 55%),
-    radial-gradient(900px 600px at -10% 20%, rgba(110, 231, 245, 0.22), transparent 50%),
-    radial-gradient(700px 500px at 50% 110%, rgba(185, 167, 255, 0.2), transparent 45%),
-    linear-gradient(165deg, #070a10 0%, #121826 45%, #1a1424 100%);
+    radial-gradient(1000px 560px at 88% -8%, rgba(215, 181, 122, 0.16), transparent 55%),
+    radial-gradient(900px 520px at -12% 18%, rgba(110, 200, 201, 0.12), transparent 50%),
+    radial-gradient(700px 480px at 50% 110%, rgba(217, 137, 156, 0.08), transparent 50%),
+    linear-gradient(165deg, #080a0e 0%, #10141c 48%, #14101a 100%);
   overflow-x: hidden;
 }
 body::before {
@@ -64,7 +67,7 @@ body::before {
   z-index: 40;
   backdrop-filter: blur(18px) saturate(1.3);
   -webkit-backdrop-filter: blur(18px) saturate(1.3);
-  background: rgba(7, 10, 16, 0.72);
+  background: rgba(8, 10, 14, 0.78);
   border-bottom: 1px solid var(--stroke);
 }
 .topbar {
@@ -198,7 +201,7 @@ nav.links a[aria-current="page"] {
   position: absolute;
   inset: -14%;
   border-radius: 50%;
-  background: conic-gradient(from 180deg, var(--cyan), var(--petal), var(--lilac), var(--cyan));
+  background: conic-gradient(from 180deg, var(--gold), var(--teal), var(--blush), var(--gold));
   opacity: 0.5;
   filter: blur(12px);
   z-index: 0;
@@ -224,9 +227,9 @@ nav.links a[aria-current="page"] {
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--cyan);
-  background: rgba(110, 231, 245, 0.1);
-  border: 1px solid rgba(110, 231, 245, 0.28);
+  color: var(--gold-2);
+  background: rgba(215, 181, 122, 0.1);
+  border: 1px solid rgba(215, 181, 122, 0.28);
 }
 .legal-hero h1 {
   margin: 0 0 0.45rem;
