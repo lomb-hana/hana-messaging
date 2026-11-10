@@ -372,7 +372,8 @@ h1, h2, h3 {
   font-family: "Fraunces", Georgia, serif;
   font-size: 1.6rem;
 }
-.agent-card .eyebrow { margin-bottom: 0.55rem; }
+.agent-card .eyebrow { margin-bottom: 0.55rem; flex: 0 0 auto; align-self: flex-start; }
+.agent-card .byline { flex: 0 0 auto; }
 .agent-card h3 {
   margin: 0 0 0.2rem;
   font-size: 1.35rem;
