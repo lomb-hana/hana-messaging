@@ -3,78 +3,115 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Hana by Rivencast — your personal AI agent. She handles tasks for you: messaging, reminders, scheduling, looking things up, and keeping track of to-dos." />
-  <title>Hana by Rivencast</title>
-  <link rel="icon" href="hana-avatar.png" type="image/png" />
+  <meta name="description" content="Rivencast makes personal AI agents that complete real tasks for you. Meet Hana, the first agent by Rivencast." />
+  <title>Rivencast — AI agents that get things done</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <a class="skip" href="#main">Skip to content</a>
   <div class="site">
     <div class="topbar-wrap">
       <header class="topbar">
         <a class="brand" href="index.html">
-          <img class="brand-mark" src="hana-avatar.png" alt="Hana" width="40" height="40" />
-          <span>Rivencast</span>
+          <img class="brand-logo" src="assets/rivencast-logo.svg" alt="Rivencast" width="180" height="36" />
         </a>
-        <nav class="links" aria-label="Primary">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+          <span class="sr-only">Menu</span>
+          <span aria-hidden="true"></span>
+        </button>
+        <nav id="site-nav" class="links" aria-label="Primary">
           <a href="index.html" aria-current="page">Home</a>
-          <a href="privacy.html">Privacy Policy</a>
-          <a href="terms.html">Terms of Service</a>
+          <a href="agents.html">Agents</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
         </nav>
       </header>
     </div>
 
-    <section class="home-hero">
-      <div class="home-hero-orb" aria-hidden="true">
-        <img class="home-hero-photo" src="hana-avatar.png" alt="" width="220" height="220" />
-      </div>
-      <div class="home-hero-copy">
-        <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Your personal AI agent · by Rivencast</p>
-        <h1>Hey. I’m Hana.</h1>
+    <section class="hero">
+      <div>
+        <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Personal AI agents</p>
+        <h1>AI agents that actually <span class="nowrap">get things done.</span></h1>
         <p class="lede">
-          An AI agent that actually gets things done for you — not just chat.
-          Calm, a little teasing, mostly useful. I text people on your behalf when you’re busy,
-          handle reminders and scheduling, look things up, and keep track of the small stuff.
-          No hype. Just the agent in your pocket.
+          Rivencast makes AI agents you can put to work — not just chat with.
+          Each one has a real personality, and each one can handle tasks for you:
+          errands, schedules, messages, research, and the small stuff that piles up.
         </p>
-        <div class="pill-row">
-          <span class="pill">Personal messaging</span>
-          <span class="pill">+1 (833) 408-5702</span>
-          <span class="pill">Hana by Rivencast</span>
+        <div class="hero-actions">
+          <a class="btn" href="agents.html">Meet the agents</a>
+          <a class="btn btn-ghost" href="#opt-in">Texting with Hana</a>
         </div>
-        <p class="section-lede">
-          Rivencast is building a cast of AI agents. Hana is the first.
-        </p>
+      </div>
+      <div class="hero-mark" aria-hidden="true">
+        <img src="assets/favicon.svg" alt="" width="220" height="220" />
       </div>
     </section>
 
-    <main class="home-main">
+    <main class="home-main" id="main">
+      <section class="section" aria-labelledby="cast-heading">
+        <div class="section-head">
+          <p class="eyebrow">The cast</p>
+          <h2 id="cast-heading">Agents by Rivencast</h2>
+          <p class="section-lede">Every agent can complete real tasks for you. Hana is first. Others — including one built around you — are on the way.</p>
+        </div>
+        <div class="agent-grid">
+          <article class="agent-card is-live">
+            <img class="agent-photo" src="hana-avatar.png" alt="Hana" width="88" height="88" />
+            <p class="eyebrow">Available now</p>
+            <h3>Hana</h3>
+            <p class="byline">Hana by Rivencast</p>
+            <p>Your personal AI assistant. Calm, a little teasing, and useful first — she handles real tasks, not just conversation.</p>
+            <a class="btn" href="agents/hana.html">Meet Hana</a>
+          </article>
+
+          <article class="agent-card is-soon">
+            <div class="agent-photo-fallback" aria-hidden="true">C</div>
+            <p class="eyebrow">Coming soon</p>
+            <h3>Custom Agent</h3>
+            <p class="byline">Built around you</p>
+            <p>An AI agent shaped around your own needs and personality — a cast member made for how you actually live and work.</p>
+            <span class="btn btn-soon" aria-disabled="true">Coming soon</span>
+          </article>
+
+          <article class="agent-card is-soon">
+            <div class="agent-photo-fallback" aria-hidden="true">+</div>
+            <p class="eyebrow">Coming soon</p>
+            <h3>More agents</h3>
+            <p class="byline">The rest of the cast</p>
+            <p>Rivencast is building a cast of agents, each with their own voice. New names will show up here when they’re ready.</p>
+            <span class="btn btn-soon" aria-disabled="true">Coming soon</span>
+          </article>
+        </div>
+      </section>
+
       <section class="section" aria-labelledby="what-heading">
         <div class="section-head">
           <p class="eyebrow">Capabilities</p>
-          <h2 id="what-heading">What Hana does</h2>
-          <p class="section-lede">Tasks I can take on so you stay reachable without living on your phone.</p>
+          <h2 id="what-heading">What an agent can do for you</h2>
+          <p class="section-lede">Not a chatbot with a to-do list taped on. Agents take work off your plate — and they ask before they spend money or send messages on your behalf.</p>
         </div>
         <div class="feature-grid">
           <article class="feature-card">
             <span class="feature-icon" aria-hidden="true">01</span>
-            <h3>Text on your behalf</h3>
-            <p>When you’re tied up, I message the people you already know with whatever you asked me to say.</p>
+            <h3>Handle real tasks</h3>
+            <p>Errands, shopping, scheduling, reminders, research, inbox help, and the everyday things you’d otherwise drop.</p>
           </article>
           <article class="feature-card">
             <span class="feature-icon" aria-hidden="true">02</span>
-            <h3>Relay the replies</h3>
-            <p>Their answers come back to you through me. Conversational, low-volume, no marketing blast ever.</p>
+            <h3>Talk like a person</h3>
+            <p>Each agent has a personality — opinions, humor, moods — and speaks plainly. No corporate cheerleading.</p>
           </article>
           <article class="feature-card">
             <span class="feature-icon" aria-hidden="true">03</span>
-            <h3>Handle everyday tasks</h3>
-            <p>Reminders, scheduling, looking things up, keeping track of to-dos you’d otherwise drop. I’m useful; I’m not magic.</p>
+            <h3>Stay in your loop</h3>
+            <p>They check with you before spending or messaging anyone for you, then bring the results back so things keep moving.</p>
           </article>
           <article class="feature-card">
             <span class="feature-icon" aria-hidden="true">04</span>
-            <h3>Warm, dry, honest</h3>
-            <p>I keep a calm tone with a little teasing. If I don’t know something, I say so. No corporate cheerleading.</p>
+            <h3>Keep it private</h3>
+            <p>Your conversations and tasks stay between you and your agent. No marketing blasts, no selling your number.</p>
           </article>
         </div>
       </section>
@@ -87,11 +124,11 @@
         <ol class="steps">
           <li>
             <strong>You ask.</strong>
-            <span>Tell me who to reach and what to say — or hand me a reminder, a schedule, a lookup, a to-do.</span>
+            <span>Tell your agent what you need — a reminder, a schedule, a lookup, a message, a to-do, a bill to track.</span>
           </li>
           <li>
-            <strong>I get it done (with consent).</strong>
-            <span>I only message people who texted first or who already gave you permission for me to reach them. Other tasks, I just handle.</span>
+            <strong>They get it done (with consent).</strong>
+            <span>Agents handle the work. They ask before spending money or sending messages on your behalf, and they only text people who opted in.</span>
           </li>
           <li>
             <strong>You stay in the loop.</strong>
@@ -104,11 +141,10 @@
         <div class="about-card">
           <div>
             <p class="eyebrow">About</p>
-            <h2 id="about-heading">Hana by Rivencast</h2>
+            <h2 id="about-heading">Rivencast</h2>
             <p>
-              I’m your personal AI agent — not just a chatbot, not a marketing line.
-              I perform tasks for you: messaging, reminders, scheduling, looking things up, keeping track of to-dos.
-              Rivencast is building a cast of AI agents, and I’m the first.
+              Rivencast is building a cast of AI agents — personal assistants that actually complete tasks for you.
+              Hana is the first: <strong>Hana by Rivencast</strong>.
               Operated by <strong>Daniel Jordan Reece</strong>, d/b/a Rivencast, in Houston, Texas.
             </p>
           </div>
@@ -137,18 +173,19 @@
 
     <footer class="site-footer">
       <div class="foot-brand">
-        <img src="hana-avatar.png" alt="" width="32" height="32" />
-        <span>Rivencast</span>
+        <img src="assets/rivencast-logo.svg" alt="" width="140" height="28" />
       </div>
       <div class="foot-links">
         <a href="index.html">Home</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms of Service</a>
+        <a href="agents.html">Agents</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
         <a href="mailto:inquiry@rivencast.com">inquiry@rivencast.com</a>
         <span>Text HELP to +1 (833) 408-5702</span>
       </div>
       <p class="foot-copy">© 2026 Daniel Jordan Reece, d/b/a Rivencast · Houston, Texas</p>
     </footer>
   </div>
+  <script src="site.js"></script>
 </body>
 </html>

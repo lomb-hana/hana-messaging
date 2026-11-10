@@ -6,21 +6,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Privacy Policy for Rivencast / Hana by Rivencast, operated by Daniel Jordan Reece." />
   <title>Privacy Policy – Rivencast</title>
-  <link rel="icon" href="hana-avatar.png" type="image/png" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32" />
   <link rel="stylesheet" href="legal.css" />
 </head>
 <body>
+  <a class="skip" href="#main">Skip to content</a>
   <div class="site">
   <div class="topbar-wrap">
     <header class="topbar">
       <a class="brand" href="index.html">
-        <img class="brand-mark" src="hana-avatar.png" alt="Hana" width="40" height="40" />
-        <span>Rivencast</span>
+        <img class="brand-logo" src="assets/rivencast-logo.svg" alt="Rivencast" width="180" height="36" />
       </a>
-      <nav class="links" aria-label="Primary">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="sr-only">Menu</span>
+        <span aria-hidden="true"></span>
+      </button>
+      <nav id="site-nav" class="links" aria-label="Primary">
         <a href="index.html">Home</a>
-        <a href="privacy.html" aria-current="page">Privacy Policy</a>
-        <a href="terms.html">Terms of Service</a>
+        <a href="agents.html">Agents</a>
+        <a href="privacy.html" aria-current="page">Privacy</a>
+        <a href="terms.html">Terms</a>
       </nav>
     </header>
   </div>
@@ -37,7 +43,7 @@
       </div>
     </section>
 
-    <div class="legal-shell">
+    <div class="legal-shell" id="main">
             <nav class="toc-side" aria-label="Table of contents">
         <h2>On this page</h2>
         <ol>
@@ -69,18 +75,19 @@
 
   <footer class="site-footer">
     <div class="foot-brand">
-      <img src="hana-avatar.png" alt="" width="32" height="32" />
-      <span>Rivencast</span>
+      <img src="assets/rivencast-logo.svg" alt="" width="140" height="28" />
     </div>
     <div class="foot-links">
       <a href="index.html">Home</a>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms of Service</a>
+      <a href="agents.html">Agents</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
       <a href="mailto:inquiry@rivencast.com">inquiry@rivencast.com</a>
       <span>Text HELP to +1 (833) 408-5702</span>
     </div>
     <p class="foot-copy">© 2026 Daniel Jordan Reece, d/b/a Rivencast · Houston, Texas</p>
   </footer>
   </div>
+  <script src="site.js"></script>
 </body>
 </html>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Rivencast">
+
+  <defs>
+    <linearGradient id="riftGold" x1="12" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F6E6C4"/>
+      <stop offset="48%" stop-color="#D7B57A"/>
+      <stop offset="100%" stop-color="#9A7340"/>
+    </linearGradient>
+    <linearGradient id="markBg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1C2534"/>
+      <stop offset="100%" stop-color="#0A0E14"/>
+    </linearGradient>
+    <linearGradient id="riftTeal" x1="20" y1="12" x2="48" y2="52" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#9BE7E4"/>
+      <stop offset="100%" stop-color="#4AA8AA"/>
+    </linearGradient>
+  </defs>
+  <g id="mark">
+    <rect x="2.25" y="2.25" width="59.5" height="59.5" rx="16" fill="url(#markBg)" stroke="url(#riftGold)" stroke-width="1.5"/>
+    <!-- Stem -->
+    <rect x="19" y="15" width="7.4" height="34" rx="1.2" fill="url(#riftGold)"/>
+    <!-- Bowl -->
+    <path fill="url(#riftGold)" d="M26.2 15h7.1c8.6 0 15.1 4.15 15.1 11.15 0 6.2-4.4 10.05-12.15 11.15l13.95 11.7h-9.15L27.8 27.8V15z"/>
+    <!-- Bowl counter (cut) -->
+    <path fill="url(#markBg)" d="M26.4 20.15V26.7h6.15c3.85 0 6.35-1.55 6.35-4.85 0-3.15-2.45-4.7-6.5-4.7H26.4z"/>
+    <!-- Teal rift slash -->
+    <path d="M33.5 17.8 L47.2 47.6" fill="none" stroke="url(#riftTeal)" stroke-width="1.65" stroke-linecap="round"/>
+    <!-- Raven-eye diamond -->
+    <path fill="#F6E6C4" d="M37.15 22.35 l1.55 1.55 -1.55 1.55 -1.55-1.55 z"/>
+  </g>
+
+</svg>
