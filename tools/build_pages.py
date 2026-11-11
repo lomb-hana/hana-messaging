@@ -11,8 +11,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent / "public"
 SITE = "https://rivencast.com"
-BUILD = "rc-story-2026-11-11"
-CSSV = "16"
+BUILD = "rc-demo-2026-11-11"
+CSSV = "17"
 
 ICONS = {
   "wallet": '<rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18M16 14.5h2"/>',
@@ -235,35 +235,106 @@ EARLY_BTN = f'<a class="btn" href="{EARLY}">Request early access <span class="ar
 NOT_AFFIL = "Rivencast is independent and not affiliated with or endorsed by any platform named on this site."
 PUBLIC_LINE = "Rivencast works from publicly visible activity and from inboxes you choose to connect. It doesn’t see private accounts, private messages, or anything behind a login without permission."
 
-SCAN_ROWS = [
-  ("review", "j.example_reviewer", "on “Example Bakery” business page", 91, "high", ["5-star reviews for 6 businesses in 1 hour", "AI-writing patterns", "account 2 days old"]),
-  ("email", "lead@example-leads.test", "inbound lead · connected inbox", 74, "mid", ["templated pitch with swapped names", "sender domain is days old"]),
-  ("forum", "sample_user_42", "public forum account", 63, "mid", ["posts at fixed 10-min intervals", "same link in 4 threads"]),
-  ("social", "@demo_regular", "social account", 8, "low", ["years of varied public activity", "human-paced, across sites"]),
+def _line(arrow, text, status, cls=""):
+    return f'<div class="d-line d-step{cls}"><span class="d-arrow">{arrow}</span><span class="d-lt">{text}</span><span class="d-st" data-st="{status}"><i class="d-spin" aria-hidden="true"></i><em>{status}</em></span></div>'
+
+def _row(user, where, score, lvl, reasons, tag=None):
+    lab = tag or {"high": "likely bot", "mid": "review", "low": "likely human"}[lvl]
+    if score is not None:
+        left = f'<span class="d-score"><b data-score="{score}">{score}</b><small>/100</small></span>'
+        detail = " · ".join(reasons)
+    else:
+        glyph = {"high": "✕", "mid": "!", "low": "✓"}[lvl]
+        left = f'<span class="d-score d-glyph">{glyph}</span>'
+        detail = where
+    return f'''<div class="d-flag d-res d-step lvl-{lvl}" style="--s:{score or 0}">
+                  {left}<div class="d-fbody"><div class="d-ftop"><span class="d-fuser">{user}</span><span class="scan-tag">{lab}</span></div><p>{detail}</p></div>
+                </div>'''
+
+DEMO = [
+  {"key": "reddit", "tab": "r/example", "status": "scanning",
+   "prompt": "Can you check r/example for any bot activity?",
+   "lines": [
+     _line("→", "GET <b>reddit.com/r/example/new.json?limit=100</b>", "200"),
+     _line("↻", "paginate <b>after=t3_…</b> to latest 1,000 posts (listing max)", "10 pages"),
+     _line("→", "GET <b>/comments/&lt;id&gt;.json</b> for each thread", "1,000 threads"),
+     _line("◇", "building account timelines for 2,316 commenters", "ok"),
+     _line("◇", "analyzing comments: cadence, repeats, vote timing", "ok"),
+   ],
+   "results": [
+     _row("u/example_account", "", 94, "high", ["posts every 6 min, around the clock", "near-identical comments in 31 threads", "upvote timing cluster"]),
+     _row("u/sample_poster_7", "", 81, "high", ["account 3 days old", "same link in 12 threads", "replies within 40s of u/example_account"]),
+     _row("u/demo_helper", "", 64, "mid", ["templated praise with swapped product names"]),
+   ],
+   "summary": "flagged 3 accounts for mod review: <b>people make the call</b>"},
+  {"key": "phish", "tab": "phishing sim", "status": "reading inbox",
+   "prompt": "Any update on the phishing training email we sent out? Who clicked?",
+   "lines": [
+     _line("→", "reading connected inbox <b>security@example.com</b>", "ok"),
+     _line("→", "campaign <b>“Q4 phishing awareness”</b> · internal training simulation", "found"),
+     _line("◇", "matching sends, opens, clicks, and reports", "ok"),
+   ],
+   "stats": [("sent", 48), ("opened", 31), ("clicked", 4), ("reported", 19)],
+   "results": [
+     _row("j.doe@example.com", "clicked 9:14 AM · did not report", None, "high", [], tag="clicked"),
+     _row("m.ortiz@example.com", "clicked 10:02 AM · reported 10:05 AM", None, "mid", [], tag="clicked"),
+     _row("a.lee@example.com", "reported 8:51 AM · did not click", None, "low", [], tag="reported"),
+   ],
+   "summary": "suggest: assign the 5-minute refresher to <b>the 4 people who clicked</b>"},
+  {"key": "watch", "tab": "page watch", "status": "watching",
+   "prompt": "Monitor example.com/reviews for suspicious activity.",
+   "lines": [
+     _line("✓", "watch created · <b>example.com/reviews</b> · every 15 min", "on"),
+     _line("→", "check 9:00 AM · 2 new reviews", "normal"),
+     _line("→", "check 9:45 AM · 7 new reviews", "burst"),
+     _line("◇", "comparing reviewer accounts, timing, and wording", "ok"),
+   ],
+   "results": [
+     _row("review burst · example.com/reviews", "", 88, "high", ["7 five-star reviews in 52 min", "6 from accounts under a week old", "same phrases, reordered"], tag="alert"),
+     _row("reviewer_example_3", "", 72, "mid", ["account 2 days old", "same wording as 4 other reviews"]),
+     _row("reviewer_example_6", "", 66, "mid", ["first review anywhere", "posted 4 min after reviewer_example_3"]),
+   ],
+   "summary": "<span class=\"dot live\"></span>watching: next check in 15 min"},
 ]
 
-def scan_rows():
+def demo_scenes():
     out = []
-    for (surf, u, where, sc, lvl, rs) in SCAN_ROWS:
-        lab = {"high": "likely bot", "mid": "review", "low": "likely human"}[lvl]
-        reasons = "".join(f"<li>{r}</li>" for r in rs)
-        out.append(f'''              <div class="scan-row lvl-{lvl}" style="--s:{sc}">
-                <div class="scan-top"><span class="scan-user"><span class="scan-surf">{surf}</span>{u}</span><span class="scan-score"><b data-score="{sc}">{sc}</b><small>/100</small></span></div>
-                <div class="scan-where">{where}</div>
-                <div class="scan-bar"><i></i></div>
-                <div class="scan-meta"><span class="scan-tag">{lab}</span><ul class="scan-why">{reasons}</ul></div>
-              </div>''')
+    for i, d in enumerate(DEMO):
+        stats = ""
+        if d.get("stats"):
+            stats = '<div class="d-stats d-step">' + "".join(f'<div><b data-score="{n}">{n}</b><span>{k}</span></div>' for k, n in d["stats"]) + "</div>"
+        badge = '<p class="d-sim d-step">training simulation · authorized internal test</p>' if d["key"] == "phish" else ""
+        lines = "\n                ".join(d["lines"])
+        res = "\n                ".join(d["results"])
+        active = " is-active" if i == 0 else ""
+        hidden = "" if i == 0 else " hidden"
+        out.append(f'''            <section class="d-scene{active}" id="demo-{d["key"]}" role="tabpanel" aria-labelledby="demo-tab-{i}" data-status="{d["status"]}" data-prompt="{d["prompt"]}"{hidden}>
+              <div class="d-user d-step"><span class="d-who">you</span><p>{d["prompt"]}</p></div>
+              <div class="d-agent">
+                <div class="d-who d-step"><span class="d-mark">R</span>rivencast agents</div>
+                {badge}
+                {lines}
+                {stats}
+                <div class="d-results">
+                {res}
+                </div>
+                <div class="d-sum d-step"><span>{d["summary"]}</span></div>
+              </div>
+            </section>''')
     return "\n".join(out)
 
-CONSOLE = f'''<div class="terminal console" role="img" aria-label="Illustrative demo: a Rivencast detection console scoring a fictional review, inbound email, forum account, and social account with risk scores and plain-language reasons">
-            <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span class="term-title">rivencast · scan</span><span class="term-badge"><span class="dot live"></span>scanning</span></div>
-            <div class="term-body" aria-hidden="true">
-              <div class="ln"><span class="t-prompt">~</span><span class="t-cmd">rivencast scan <span class="t-str">--surfaces</span> reviews,email,forums,social</span></div>
-              <div class="ln scan-status"><span class="t-arrow">→</span><span class="t-step">reading public activity + connected inbox · no platform API</span><span class="t-ok">ok</span></div>
-              <div class="scan-list" id="scan-list">
-{scan_rows()}
-              </div>
-              <div class="ln scan-foot"><span class="t-q">?</span><span class="t-step">flagged for review: <span class="t-wait">people make the call</span><span class="caret"></span></span></div>
+def demo_tabs():
+    return "".join(f'<button type="button" role="tab" id="demo-tab-{i}" aria-controls="demo-{d["key"]}" aria-selected="{"true" if i == 0 else "false"}"{"" if i == 0 else " tabindex=\"-1\""}><span>{i+1:02d}</span>{d["tab"]}<i aria-hidden="true"></i></button>' for i, d in enumerate(DEMO))
+
+CONSOLE = f'''<div class="terminal console agent-demo" id="agent-demo" role="region" aria-roledescription="demo" aria-label="Illustrative demo with fictional names: Rivencast agents answering three example requests">
+            <div class="term-bar"><i></i><i></i><i></i><span class="term-title">rivencast · agent</span><span class="term-badge"><span class="dot live"></span><span id="demo-status">scanning</span></span></div>
+            <div class="d-tabs" role="tablist" aria-label="Demo scenarios">{demo_tabs()}</div>
+            <div class="d-stage" aria-live="off">
+{demo_scenes()}
+            </div>
+            <div class="d-input">
+              <input type="text" id="demo-input" readonly tabindex="-1" aria-label="Demo prompt (not connected)" placeholder="Ask Rivencast agents… (demo, not connected)" value="" />
+              <button type="button" class="d-send" tabindex="-1" aria-hidden="true" disabled><svg viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
             </div>
             <p class="demo-label">illustrative demo · fictional names, not real results</p>
           </div>'''

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Rivencast: AI agents that catch the bots</title>
   <meta name="description" content="Rivencast detects bots, AI-generated content, and fake accounts across inboxes, reviews, websites, forums, and social platforms. No platform API needed. Explainable risk scores; people decide. Early access." />
-  <meta name="rc-build" content="rc-story-2026-11-11" />
+  <meta name="rc-build" content="rc-demo-2026-11-11" />
   <link rel="canonical" href="https://rivencast.com/" />
   <meta name="theme-color" content="#06080c" />
   <meta name="color-scheme" content="dark" />
@@ -30,7 +30,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&amp;family=Geist+Mono:wght@400..600&amp;display=swap" />
-  <link rel="stylesheet" href="/styles.css?v=16" />
+  <link rel="stylesheet" href="/styles.css?v=17" />
   <script>document.documentElement.classList.add("js")</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Rivencast", "url": "https://rivencast.com/", "logo": "https://rivencast.com/assets/icon-512.png", "email": "inquiry@rivencast.com", "description": "Rivencast is an independent AI studio in Houston, Texas, building AI agents that detect bots, AI-generated content, and fake accounts across inboxes, reviews, websites, forums, and social platforms. The agents read publicly visible activity without relying on platform APIs and explain every risk score in plain language, so people make the call.", "address": {"@type": "PostalAddress", "addressLocality": "Houston", "addressRegion": "TX", "addressCountry": "US"}, "contactPoint": [{"@type": "ContactPoint", "contactType": "customer support", "email": "inquiry@rivencast.com"}]}</script>
 </head>
@@ -80,38 +80,86 @@
         </div>
         <div class="hero-visual reveal" style="--d:.2s">
           <div class="orb" aria-hidden="true"></div>
-          <div class="terminal console" role="img" aria-label="Illustrative demo: a Rivencast detection console scoring a fictional review, inbound email, forum account, and social account with risk scores and plain-language reasons">
-            <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span class="term-title">rivencast · scan</span><span class="term-badge"><span class="dot live"></span>scanning</span></div>
-            <div class="term-body" aria-hidden="true">
-              <div class="ln"><span class="t-prompt">~</span><span class="t-cmd">rivencast scan <span class="t-str">--surfaces</span> reviews,email,forums,social</span></div>
-              <div class="ln scan-status"><span class="t-arrow">→</span><span class="t-step">reading public activity + connected inbox · no platform API</span><span class="t-ok">ok</span></div>
-              <div class="scan-list" id="scan-list">
-              <div class="scan-row lvl-high" style="--s:91">
-                <div class="scan-top"><span class="scan-user"><span class="scan-surf">review</span>j.example_reviewer</span><span class="scan-score"><b data-score="91">91</b><small>/100</small></span></div>
-                <div class="scan-where">on “Example Bakery” business page</div>
-                <div class="scan-bar"><i></i></div>
-                <div class="scan-meta"><span class="scan-tag">likely bot</span><ul class="scan-why"><li>5-star reviews for 6 businesses in 1 hour</li><li>AI-writing patterns</li><li>account 2 days old</li></ul></div>
+          <div class="terminal console agent-demo" id="agent-demo" role="region" aria-roledescription="demo" aria-label="Illustrative demo with fictional names: Rivencast agents answering three example requests">
+            <div class="term-bar"><i></i><i></i><i></i><span class="term-title">rivencast · agent</span><span class="term-badge"><span class="dot live"></span><span id="demo-status">scanning</span></span></div>
+            <div class="d-tabs" role="tablist" aria-label="Demo scenarios"><button type="button" role="tab" id="demo-tab-0" aria-controls="demo-reddit" aria-selected="true"><span>01</span>r/example<i aria-hidden="true"></i></button><button type="button" role="tab" id="demo-tab-1" aria-controls="demo-phish" aria-selected="false" tabindex="-1"><span>02</span>phishing sim<i aria-hidden="true"></i></button><button type="button" role="tab" id="demo-tab-2" aria-controls="demo-watch" aria-selected="false" tabindex="-1"><span>03</span>page watch<i aria-hidden="true"></i></button></div>
+            <div class="d-stage" aria-live="off">
+            <section class="d-scene is-active" id="demo-reddit" role="tabpanel" aria-labelledby="demo-tab-0" data-status="scanning" data-prompt="Can you check r/example for any bot activity?">
+              <div class="d-user d-step"><span class="d-who">you</span><p>Can you check r/example for any bot activity?</p></div>
+              <div class="d-agent">
+                <div class="d-who d-step"><span class="d-mark">R</span>rivencast agents</div>
+                
+                <div class="d-line d-step"><span class="d-arrow">→</span><span class="d-lt">GET <b>reddit.com/r/example/new.json?limit=100</b></span><span class="d-st" data-st="200"><i class="d-spin" aria-hidden="true"></i><em>200</em></span></div>
+                <div class="d-line d-step"><span class="d-arrow">↻</span><span class="d-lt">paginate <b>after=t3_…</b> to latest 1,000 posts (listing max)</span><span class="d-st" data-st="10 pages"><i class="d-spin" aria-hidden="true"></i><em>10 pages</em></span></div>
+                <div class="d-line d-step"><span class="d-arrow">→</span><span class="d-lt">GET <b>/comments/&lt;id&gt;.json</b> for each thread</span><span class="d-st" data-st="1,000 threads"><i class="d-spin" aria-hidden="true"></i><em>1,000 threads</em></span></div>
+                <div class="d-line d-step"><span class="d-arrow">◇</span><span class="d-lt">building account timelines for 2,316 commenters</span><span class="d-st" data-st="ok"><i class="d-spin" aria-hidden="true"></i><em>ok</em></span></div>
+                <div class="d-line d-step"><span class="d-arrow">◇</span><span class="d-lt">analyzing comments: cadence, repeats, vote timing</span><span class="d-st" data-st="ok"><i class="d-spin" aria-hidden="true"></i><em>ok</em></span></div>
+                
+                <div class="d-results">
+                <div class="d-flag d-res d-step lvl-high" style="--s:94">
+                  <span class="d-score"><b data-score="94">94</b><small>/100</small></span><div class="d-fbody"><div class="d-ftop"><span class="d-fuser">u/example_account</span><span class="scan-tag">likely bot</span></div><p>posts every 6 min, around the clock · near-identical comments in 31 threads · upvote timing cluster</p></div>
+                </div>
+                <div class="d-flag d-res d-step lvl-high" style="--s:81">
+                  <span class="d-score"><b data-score="81">81</b><small>/100</small></span><div class="d-fbody"><div class="d-ftop"><span class="d-fuser">u/sample_poster_7</span><span class="scan-tag">likely bot</span></div><p>account 3 days old · same link in 12 threads · replies within 40s of u/example_account</p></div>
+                </div>
+                <div class="d-flag d-res d-step lvl-mid" style="--s:64">
+                  <span class="d-score"><b data-score="64">64</b><small>/100</small></span><div class="d-fbody"><div class="d-ftop"><span class="d-fuser">u/demo_helper</span><span class="scan-tag">review</span></div><p>templated praise with swapped product names</p></div>
+                </div>
+                </div>
+                <div class="d-sum d-step"><span>flagged 3 accounts for mod review: <b>people make the call</b></span></div>
               </div>
-              <div class="scan-row lvl-mid" style="--s:74">
-                <div class="scan-top"><span class="scan-user"><span class="scan-surf">email</span>lead@example-leads.test</span><span class="scan-score"><b data-score="74">74</b><small>/100</small></span></div>
-                <div class="scan-where">inbound lead · connected inbox</div>
-                <div class="scan-bar"><i></i></div>
-                <div class="scan-meta"><span class="scan-tag">review</span><ul class="scan-why"><li>templated pitch with swapped names</li><li>sender domain is days old</li></ul></div>
+            </section>
+            <section class="d-scene" id="demo-phish" role="tabpanel" aria-labelledby="demo-tab-1" data-status="reading inbox" data-prompt="Any update on the phishing training email we sent out? Who clicked?" hidden>
+              <div class="d-user d-step"><span class="d-who">you</span><p>Any update on the phishing training email we sent out? Who clicked?</p></div>
+              <div class="d-agent">
+                <div class="d-who d-step"><span class="d-mark">R</span>rivencast agents</div>
+                <p class="d-sim d-step">training simulation · authorized internal test</p>
+                <div class="d-line d-step"><span class="d-arrow">→</span><span class="d-lt">reading connected inbox <b>security@example.com</b></span><span class="d-st" data-st="ok"><i class="d-spin" aria-hidden="true"></i><em>ok</em></span></div>
+                <div class="d-line d-step"><span class="d-arrow">→</span><span class="d-lt">campaign <b>“Q4 phishing awareness”</b> · internal training simulation</span><span class="d-st" data-st="found"><i class="d-spin" aria-hidden="true"></i><em>found</em></span></div>
+                <div class="d-line d-step"><span class="d-arrow">◇</span><span class="d-lt">matching sends, opens, clicks, and reports</span><span class="d-st" data-st="ok"><i class="d-spin" aria-hidden="true"></i><em>ok</em></span></div>
+                <div class="d-stats d-step"><div><b data-score="48">48</b><span>sent</span></div><div><b data-score="31">31</b><span>opened</span></div><div><b data-score="4">4</b><span>clicked</span></div><div><b data-score="19">19</b><span>reported</span></div></div>
+                <div class="d-results">
+                <div class="d-flag d-res d-step lvl-high" style="--s:0">
+                  <span class="d-score d-glyph">✕</span><div class="d-fbody"><div class="d-ftop"><span class="d-fuser">j.doe@example.com</span><span class="scan-tag">clicked</span></div><p>clicked 9:14 AM · did not report</p></div>
+                </div>
+                <div class="d-flag d-res d-step lvl-mid" style="--s:0">
+                  <span class="d-score d-glyph">!</span><div class="d-fbody"><div class="d-ftop"><span class="d-fuser">m.ortiz@example.com</span><span class="scan-tag">clicked</span></div><p>clicked 10:02 AM · reported 10:05 AM</p></div>
+                </div>
+                <div class="d-flag d-res d-step lvl-low" style="--s:0">
+                  <span class="d-score d-glyph">✓</span><div class="d-fbody"><div class="d-ftop"><span class="d-fuser">a.lee@example.com</span><span class="scan-tag">reported</span></div><p>reported 8:51 AM · did not click</p></div>
+                </div>
+                </div>
+                <div class="d-sum d-step"><span>suggest: assign the 5-minute refresher to <b>the 4 people who clicked</b></span></div>
               </div>
-              <div class="scan-row lvl-mid" style="--s:63">
-                <div class="scan-top"><span class="scan-user"><span class="scan-surf">forum</span>sample_user_42</span><span class="scan-score"><b data-score="63">63</b><small>/100</small></span></div>
-                <div class="scan-where">public forum account</div>
-                <div class="scan-bar"><i></i></div>
-                <div class="scan-meta"><span class="scan-tag">review</span><ul class="scan-why"><li>posts at fixed 10-min intervals</li><li>same link in 4 threads</li></ul></div>
+            </section>
+            <section class="d-scene" id="demo-watch" role="tabpanel" aria-labelledby="demo-tab-2" data-status="watching" data-prompt="Monitor example.com/reviews for suspicious activity." hidden>
+              <div class="d-user d-step"><span class="d-who">you</span><p>Monitor example.com/reviews for suspicious activity.</p></div>
+              <div class="d-agent">
+                <div class="d-who d-step"><span class="d-mark">R</span>rivencast agents</div>
+                
+                <div class="d-line d-step"><span class="d-arrow">✓</span><span class="d-lt">watch created · <b>example.com/reviews</b> · every 15 min</span><span class="d-st" data-st="on"><i class="d-spin" aria-hidden="true"></i><em>on</em></span></div>
+                <div class="d-line d-step"><span class="d-arrow">→</span><span class="d-lt">check 9:00 AM · 2 new reviews</span><span class="d-st" data-st="normal"><i class="d-spin" aria-hidden="true"></i><em>normal</em></span></div>
+                <div class="d-line d-step"><span class="d-arrow">→</span><span class="d-lt">check 9:45 AM · 7 new reviews</span><span class="d-st" data-st="burst"><i class="d-spin" aria-hidden="true"></i><em>burst</em></span></div>
+                <div class="d-line d-step"><span class="d-arrow">◇</span><span class="d-lt">comparing reviewer accounts, timing, and wording</span><span class="d-st" data-st="ok"><i class="d-spin" aria-hidden="true"></i><em>ok</em></span></div>
+                
+                <div class="d-results">
+                <div class="d-flag d-res d-step lvl-high" style="--s:88">
+                  <span class="d-score"><b data-score="88">88</b><small>/100</small></span><div class="d-fbody"><div class="d-ftop"><span class="d-fuser">review burst · example.com/reviews</span><span class="scan-tag">alert</span></div><p>7 five-star reviews in 52 min · 6 from accounts under a week old · same phrases, reordered</p></div>
+                </div>
+                <div class="d-flag d-res d-step lvl-mid" style="--s:72">
+                  <span class="d-score"><b data-score="72">72</b><small>/100</small></span><div class="d-fbody"><div class="d-ftop"><span class="d-fuser">reviewer_example_3</span><span class="scan-tag">review</span></div><p>account 2 days old · same wording as 4 other reviews</p></div>
+                </div>
+                <div class="d-flag d-res d-step lvl-mid" style="--s:66">
+                  <span class="d-score"><b data-score="66">66</b><small>/100</small></span><div class="d-fbody"><div class="d-ftop"><span class="d-fuser">reviewer_example_6</span><span class="scan-tag">review</span></div><p>first review anywhere · posted 4 min after reviewer_example_3</p></div>
+                </div>
+                </div>
+                <div class="d-sum d-step"><span><span class="dot live"></span>watching: next check in 15 min</span></div>
               </div>
-              <div class="scan-row lvl-low" style="--s:8">
-                <div class="scan-top"><span class="scan-user"><span class="scan-surf">social</span>@demo_regular</span><span class="scan-score"><b data-score="8">8</b><small>/100</small></span></div>
-                <div class="scan-where">social account</div>
-                <div class="scan-bar"><i></i></div>
-                <div class="scan-meta"><span class="scan-tag">likely human</span><ul class="scan-why"><li>years of varied public activity</li><li>human-paced, across sites</li></ul></div>
-              </div>
-              </div>
-              <div class="ln scan-foot"><span class="t-q">?</span><span class="t-step">flagged for review: <span class="t-wait">people make the call</span><span class="caret"></span></span></div>
+            </section>
+            </div>
+            <div class="d-input">
+              <input type="text" id="demo-input" readonly tabindex="-1" aria-label="Demo prompt (not connected)" placeholder="Ask Rivencast agents… (demo, not connected)" value="" />
+              <button type="button" class="d-send" tabindex="-1" aria-hidden="true" disabled><svg viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
             </div>
             <p class="demo-label">illustrative demo · fictional names, not real results</p>
           </div>
@@ -272,6 +320,6 @@
       </div>
     </footer>
   </div>
-  <script src="/site.js?v=16" defer></script>
+  <script src="/site.js?v=17" defer></script>
 </body>
 </html>
