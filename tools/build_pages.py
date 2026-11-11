@@ -6,13 +6,36 @@ Marketing pages are rendered from the templates below. The legal pages
 head, header chrome, hero, and footer are swapped in place.
 Run: python3 tools/build_pages.py
 """
-import json, re
+import hashlib, json, re, subprocess, tempfile
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent / "public"
+REPO = Path(__file__).resolve().parent.parent
+ROOT = REPO / "public"
+SRC = REPO / "src"
 SITE = "https://rivencast.com"
-BUILD = "rc-connect-2026-11-11"
-CSSV = "24"
+BUILD = "rc-polish-2026-11-11"
+CSS_SLOT = "/*__RC_CSS__*/"
+
+def esbuild(src, loader):
+    """Minify with esbuild (npx). Sources live in src/, minified output is served from public/."""
+    out = subprocess.run(["npx", "-y", "esbuild@0.24", f"--loader={loader}", "--minify", "--target=es2020,chrome100,safari15,firefox100"],
+                         input=src, capture_output=True, text=True, check=True, cwd=REPO)
+    return out.stdout
+
+def short_hash(text):
+    return hashlib.sha256(text.encode()).hexdigest()[:10]
+
+JS_MIN = esbuild((SRC / "site.js").read_text(encoding="utf-8"), "js")
+(ROOT / "site.js").write_text(JS_MIN, encoding="utf-8")
+JSV = short_hash(JS_MIN)
+LEGAL_CSS = esbuild((SRC / "legal.css").read_text(encoding="utf-8"), "css")
+(ROOT / "legal.css").write_text(LEGAL_CSS, encoding="utf-8")
+LCSSV = short_hash(LEGAL_CSS)
+FONTS = [("Geist", "300 700", "/assets/fonts/geist-latin.woff2"), ("Geist Mono", "400 600", "/assets/fonts/geist-mono-latin.woff2")]
+LATIN = "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD"
+FONT_FACE = "".join(f"@font-face{{font-family:\"{n}\";font-style:normal;font-weight:{w};font-display:swap;src:url({u}) format(\"woff2\");unicode-range:{LATIN}}}" for n, w, u in FONTS)
+FONT_PRELOAD = "".join(f'\n  <link rel="preload" href="{u}" as="font" type="font/woff2" crossorigin />' for _, _, u in FONTS)
+SPEC_RULES = json.dumps({"prerender": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/thanks*"}}, {"not": {"selector_matches": "[rel~=nofollow], [download]"}}]}, "eagerness": "moderate"}]})
 
 ICONS = {
   "wallet": '<rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18M16 14.5h2"/>',
@@ -102,13 +125,11 @@ def head(title, desc, path, extra_ld=None, css="styles.css", noindex=False):
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  <link rel="manifest" href="/site.webmanifest" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&amp;family=Geist+Mono:wght@400..600&amp;display=swap" />
-  <link rel="stylesheet" href="/styles.css?v={CSSV}" />{'' if css == 'styles.css' else f'''
-  <link rel="stylesheet" href="/{css}?v={CSSV}" />'''}
+  <link rel="manifest" href="/site.webmanifest" />{FONT_PRELOAD}
+  <style>{CSS_SLOT}</style>{'' if css == 'styles.css' else f'''
+  <link rel="stylesheet" href="/{css}?v={LCSSV}" />'''}
   <script>document.documentElement.classList.add("js")</script>
+  <script type="speculationrules">{SPEC_RULES}</script>
 {ld_html}
 </head>'''
 
@@ -175,7 +196,7 @@ FOOTER = '''    <div class="disclaimer-strip"><p>{PUBLIC_LINE} {NOT_AFFIL}</p></
       </div>
     </footer>
   </div>
-  <script src="/site.js?v=''' + CSSV + '''" defer></script>'''
+  <script src="/site.js?v=''' + JSV + '''" defer></script>'''
 
 def page(title, desc, path, active, body, extra_ld=None, noindex=False):
     return f'''<!DOCTYPE html>
@@ -595,7 +616,7 @@ AGENTS = f'''    <header class="page-hero">
               <p style="color:var(--muted);margin:14px 0 24px">Access to Hana is by request. Once you’re approved, you can text or call her to ask what Rivencast does or get support. Early-access customers can also have her check on a scan and explain any flag in plain language.</p>
               <div class="hero-actions" style="margin:0">{HANA_BTN}<a class="btn btn-ghost" href="/agents/hana.html">How Hana helps</a></div>
             </div>
-            <div class="avatars"><img src="/hana-avatar.png" alt="Hana, the Rivencast mascot" width="96" height="96" loading="lazy" style="width:96px;height:96px" /></div>
+            <div class="avatars"><img src="/assets/hana-96.webp" srcset="/assets/hana-96.webp 96w, /assets/hana-192.webp 192w" sizes="64px" alt="Hana, the Rivencast assistant" width="96" height="96" loading="lazy" decoding="async" style="width:96px;height:96px" /></div>
           </div>
         </div>
       </section>
@@ -610,7 +631,7 @@ QUOTES = [
 
 HANA = f'''    <header class="wrap profile-hero">
       <div class="profile-photo-wrap reveal">
-        <img class="profile-photo" src="/hana-avatar.png" alt="Hana, the Rivencast mascot" width="260" height="260" />
+        <img class="profile-photo" src="/assets/hana-512.webp" srcset="/assets/hana-192.webp 192w, /assets/hana-512.webp 512w" sizes="(max-width: 640px) 180px, 260px" alt="Hana, the Rivencast assistant" width="260" height="260" fetchpriority="high" decoding="async" />
       </div>
       <div>
         <p class="label reveal"><span class="dot live" aria-hidden="true"></span> rivencast assistant</p>
@@ -671,7 +692,7 @@ HANA = f'''    <header class="wrap profile-hero">
             <h2 id="talks-heading" class="reveal" style="margin-bottom:12px">What a reply looks like</h2>
             <p class="reveal" style="color:var(--muted);margin-bottom:28px">A few illustrative examples (not real accounts or results):</p>
             <ul class="chat">
-{"".join(f'              <li class="reveal" style="--d:{i*0.08:.2f}s"><img src="/hana-avatar.png" alt="" width="36" height="36" loading="lazy" /><div class="bubble"><p>“{q}”</p></div></li>{chr(10)}' for i, q in enumerate(QUOTES))}            </ul>
+{"".join(f'              <li class="reveal" style="--d:{i*0.08:.2f}s"><img src="/assets/hana-96.webp" srcset="/assets/hana-96.webp 96w, /assets/hana-192.webp 192w" sizes="36px" alt="" width="36" height="36" loading="lazy" decoding="async" /><div class="bubble"><p>“{q}”</p></div></li>{chr(10)}' for i, q in enumerate(QUOTES))}            </ul>
           </div>
         </div>
       </section>
@@ -1062,7 +1083,7 @@ CONTACT = f'''    <header class="page-hero">
               {EARLY_BTN}
             </article>
             <article class="card contact-card hana-card reveal" id="hana" style="--d:.06s">
-              <div class="hana-card-top">{icon("phone")}<img src="/hana-avatar.png" alt="Hana, the Rivencast mascot" width="44" height="44" loading="lazy" /></div>
+              <div class="hana-card-top">{icon("phone")}<img src="/assets/hana-96.webp" srcset="/assets/hana-96.webp 96w, /assets/hana-192.webp 192w" sizes="44px" alt="Hana, the Rivencast assistant" width="44" height="44" loading="lazy" decoding="async" /></div>
               <p class="label no-slash" style="margin:0">hana · by request</p>
               <p class="big">Request access to Hana</p>
               <p style="color:var(--muted)">Hana is the Rivencast assistant. Once you’re approved, you can text or call her to learn what Rivencast does, get a flag explained in plain language, check on a scan (for early-access customers), or get support. Access is by request.</p>
@@ -1152,6 +1173,28 @@ def build_legal():
         p.write_text(src, encoding="utf-8")
         print("patched", name)
 
+def inline_css():
+    """Minify src/styles.css, drop selectors no page or script uses, and inline it into every page."""
+    css = esbuild((SRC / "styles.css").read_text(encoding="utf-8"), "css")
+    pages = sorted(ROOT.glob("*.html")) + sorted(ROOT.glob("agents/*.html"))
+    with tempfile.TemporaryDirectory() as td:
+        (Path(td) / "in.css").write_text(css, encoding="utf-8")
+        cfg = {"css": [f"{td}/in.css"], "content": [str(p) for p in pages] + [str(SRC / "site.js")], "output": td,
+               "variables": False, "keyframes": False, "fontFace": False,
+               "safelist": {"standard": ["js", "in"], "greedy": [r"view-transition"]}}
+        (Path(td) / "purgecss.config.cjs").write_text("module.exports=" + json.dumps(cfg).replace('"view-transition"', "/view-transition/"), encoding="utf-8")
+        subprocess.run(["npx", "-y", "purgecss@6", "--config", f"{td}/purgecss.config.cjs"], check=True, cwd=REPO, capture_output=True)
+        purged = (Path(td) / "in.css").read_text(encoding="utf-8")
+    purged = esbuild(purged, "css").strip()
+    inline = FONT_FACE + purged
+    for p in pages:
+        html = p.read_text(encoding="utf-8")
+        html = re.sub(r"<style>.*?</style>", lambda m: "<style>" + inline + "</style>", html, count=1, flags=re.S)
+        p.write_text(html, encoding="utf-8")
+    (ROOT / "styles.css").write_text(inline, encoding="utf-8")  # same CSS, for anything still linking /styles.css
+    print(f"css: {len(css)} min -> {len(purged)} purged, inlined into {len(pages)} pages")
+
 if __name__ == "__main__":
     build_marketing()
     build_legal()
+    inline_css()
