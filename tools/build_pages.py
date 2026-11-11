@@ -11,8 +11,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent / "public"
 SITE = "https://rivencast.com"
-BUILD = "rc-forms-ajax-2026-11-11"
-CSSV = "21"
+BUILD = "rc-disclaimer-2026-11-11"
+CSSV = "22"
 
 ICONS = {
   "wallet": '<rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18M16 14.5h2"/>',
@@ -136,7 +136,8 @@ def header(active):
       </header>
     </div>'''
 
-FOOTER = '''    <footer class="site-footer">
+FOOTER = '''    <div class="disclaimer-strip"><p>{PUBLIC_LINE} {NOT_AFFIL}</p></div>
+    <footer class="site-footer">
       <div class="foot-inner">
         <div class="foot-brand">
           <img src="/assets/rivencast-logo.svg" alt="Rivencast" width="150" height="44" />
@@ -236,7 +237,8 @@ HANA_REQ = "/hana-access"
 HANA_BTN = '<a class="btn" href="/hana-access">Request access to Hana <span class="arr" aria-hidden="true">→</span></a>'
 EARLY_BTN = f'<a class="btn" href="{EARLY}">Request early access <span class="arr" aria-hidden="true">→</span></a>'
 NOT_AFFIL = "Rivencast is independent and not affiliated with or endorsed by any platform named on this site."
-PUBLIC_LINE = "Rivencast works from publicly visible activity and from inboxes you choose to connect. It doesn’t see private accounts, private messages, or anything behind a login without permission."
+PUBLIC_LINE = "Rivencast works from publicly visible activity and from accounts and tools you choose to connect. It doesn’t see private accounts, private messages, or anything behind a login without permission."
+FOOTER = FOOTER.replace("{PUBLIC_LINE}", PUBLIC_LINE).replace("{NOT_AFFIL}", NOT_AFFIL)
 
 def _line(arrow, text, status, cls=""):
     return f'<div class="d-line d-step{cls}"><span class="d-arrow">{arrow}</span><span class="d-lt">{text}</span><span class="d-st" data-st="{status}"><i class="d-spin" aria-hidden="true"></i><em>{status}</em></span></div>'
@@ -488,7 +490,6 @@ HOME = f'''    <section class="hero" aria-labelledby="hero-heading">
             <h2 id="use-heading">For anyone dealing with bots</h2>
           </div>
           {use_grid()}
-          <p class="fine reveal">{NOT_AFFIL}</p>
         </div>
       </section>
 
@@ -612,7 +613,6 @@ AGENTS = f'''    <header class="page-hero">
             </div>
             <div class="avatars"><img src="/hana-avatar.png" alt="Hana, the Rivencast mascot" width="96" height="96" loading="lazy" style="width:96px;height:96px" /></div>
           </div>
-          <p class="fine reveal">{PUBLIC_LINE} {NOT_AFFIL}</p>
         </div>
       </section>
     </main>'''
@@ -806,7 +806,7 @@ ABOUT = f'''    <header class="page-hero">
               Our agents read the web the way a person would. They look at publicly visible activity: when and
               where accounts post, how old they are, what their text looks like, and who they move in step with,
               so detection doesn’t depend on any platform’s API. For email, they work only on inboxes a
-              customer chooses to connect. {PUBLIC_LINE}
+              customer chooses to connect.
             </p>
             <p>
               The platform is in <strong>early access</strong>. <strong>Hana</strong>, the Rivencast
@@ -880,7 +880,6 @@ ABOUT = f'''    <header class="page-hero">
             <article class="card reveal" style="--d:.12s"><div class="card-top">{icon("ram")}<span class="hw-tag">RAM</span></div><h3>ECC DDR5 memory</h3><p>Error-correcting server memory keeps long-running work stable and accurate.</p></article>
             <article class="card reveal" style="--d:.18s"><div class="card-top">{icon("layers")}<span class="hw-tag">MODELS</span></div><h3>Shaped on top, not trained from scratch</h3><p>Rivencast does not train its own foundation model. Agents are shaped and tuned on top of models for detection and explanation.</p></article>
           </div>
-          <p class="fine reveal">{NOT_AFFIL}</p>
         </div>
       </section>
 
@@ -1159,7 +1158,9 @@ def build_legal():
         start = src.index('<a class="skip"')
         src = src[:start] + header(None).lstrip() + "\n\n    " + hero + src[m.end():]
         # footer
-        fstart = src.index('<footer class="site-footer">')
+        fstart = src.find('<div class="disclaimer-strip">')
+        if fstart < 0:
+            fstart = src.index('<footer class="site-footer">')
         fstart = src.rfind("\n", 0, fstart) + 1
         src = src[:fstart] + FOOTER + "\n</body>\n</html>\n"
         p.write_text(src, encoding="utf-8")

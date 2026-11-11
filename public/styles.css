@@ -790,3 +790,8 @@ html, body { overflow-x: clip; }
 .thanks-check svg { width: 30px; height: 30px; fill: none; stroke: var(--teal); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
 .thanks .hero-actions .btn { min-width: 180px; justify-content: center; }
 .form-status.is-error { color: #f28b82; }
+/* site-wide disclaimer strip, just above the footer */
+.disclaimer-strip { position: relative; z-index: 1; margin-top: 64px; border-top: 1px solid var(--line-2); }
+.disclaimer-strip p { max-width: var(--max); margin: 0 auto; padding: 18px 24px; font: 400 11.5px/1.65 var(--mono); color: var(--dim); }
+.disclaimer-strip + .site-footer { margin-top: 0; }
+@media (max-width: 640px) { .disclaimer-strip { margin-top: 48px; } .disclaimer-strip p { padding: 16px 20px; font-size: 11px; } }
