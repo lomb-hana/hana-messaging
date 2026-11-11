@@ -48,121 +48,41 @@
   const nfPath = document.getElementById("nf-path");
   if (nfPath) nfPath.textContent = window.location.pathname;
 
-  /* Terminal demo */
-  const term = document.getElementById("term-body");
-  const scripts = [
-    {
-      title: "hana — groceries",
-      cmd: "reorder my usual groceries, keep it under $60",
-      steps: [
-        ["pulling your usual list from memory", "done"],
-        ["comparing prices at two stores", "done"],
-        ["cart built · $54.12 · delivery after 9 AM", "done"],
-        ["card filled from encrypted vault · never shown to agent", "lock"],
-      ],
-      ask: "place the order?",
-    },
-    {
-      title: "hana — inbox",
-      cmd: "clean up my inbox and tell me what matters",
-      steps: [
-        ["reading your connected inbox", "done"],
-        ["sorting promos, receipts, and real mail", "done"],
-        ["2 need you: a bill due Friday, a reply from your landlord", "done"],
-        ["drafting the reply in your voice", "done"],
-      ],
-      ask: "send the reply?",
-    },
-    {
-      title: "hana — calendar",
-      cmd: "find a time with Sam next week and set it up",
-      steps: [
-        ["checking your calendar", "done"],
-        ["open: Tue 2:00 PM · Thu 11:30 AM", "done"],
-        ["drafting the invite for Tue 2:00 PM", "done"],
-      ],
-      ask: "send the invite?",
-    },
-  ];
-  if (!term) return;
-  const titleEl = document.getElementById("term-title");
-  const dotsWrap = document.getElementById("term-dots");
-  const esc = (s) => s.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+  /* Detection console demo (illustrative) */
+  const list = document.getElementById("scan-list");
+  if (!list || reduce) return;
+  const rows = Array.from(list.querySelectorAll(".scan-row"));
+  const foot = document.querySelector(".scan-foot");
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-  const frames = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
-  let run = 0;
-  let current = 0;
-
-  const line = (html) => { const d = document.createElement("div"); d.className = "ln"; d.innerHTML = html; term.appendChild(d); return d; };
-  const tail = (kind) => kind === "lock" ? '<span class="t-lock">sealed</span>' : '<span class="t-ok">done</span>';
-
-  const renderStatic = (s) => {
-    term.innerHTML = "";
-    line(`<span class="t-prompt">~</span><span class="t-cmd">hana <span class="t-str">"${esc(s.cmd)}"</span></span>`);
-    s.steps.forEach(([t, k]) => line(`<span class="t-arrow">→</span><span class="t-step">${esc(t)}</span>${tail(k)}`));
-    line(`<span class="t-q">?</span><span class="t-step"><span class="t-cmd">${esc(s.ask)}</span> <span class="t-wait">waiting for your OK</span><span class="caret"></span></span>`);
-  };
-
-  const setDots = (i) => {
-    if (!dotsWrap) return;
-    dotsWrap.querySelectorAll("button").forEach((b, j) => b.setAttribute("aria-current", String(i === j)));
-  };
-
-  const play = async (i) => {
-    const my = ++run;
-    current = i;
-    const s = scripts[i];
-    setDots(i);
-    if (titleEl) titleEl.textContent = s.title;
-    if (reduce) { renderStatic(s); return; }
-    term.innerHTML = "";
-    const l = line('<span class="t-prompt">~</span><span class="t-cmd"></span><span class="caret"></span>');
-    const cmdEl = l.querySelector(".t-cmd");
-    const full = `hana "${s.cmd}"`;
-    for (let c = 1; c <= full.length; c++) {
-      if (my !== run) return;
-      const typed = full.slice(0, c);
-      const q = typed.indexOf('"');
-      cmdEl.innerHTML = q < 0 ? esc(typed) : `${esc(typed.slice(0, q))}<span class="t-str">${esc(typed.slice(q))}</span>`;
-      await sleep(18 + Math.random() * 38);
+  const count = (el, to, ms) => new Promise((res) => {
+    const t0 = performance.now();
+    const tick = (t) => {
+      const k = Math.min(1, (t - t0) / ms);
+      el.textContent = String(Math.round(to * (1 - Math.pow(1 - k, 3))));
+      k < 1 ? requestAnimationFrame(tick) : res();
+    };
+    requestAnimationFrame(tick);
+  });
+  const run = async () => {
+    list.classList.add("animating");
+    rows.forEach((r) => r.classList.remove("on", "done"));
+    if (foot) foot.classList.remove("on");
+    await sleep(500);
+    for (const r of rows) {
+      r.classList.add("on");
+      const b = r.querySelector("[data-score]");
+      await count(b, +b.dataset.score, 900);
+      r.classList.add("done");
+      await sleep(350);
     }
-    l.querySelector(".caret").remove();
-    await sleep(380);
-    for (const [t, k] of s.steps) {
-      if (my !== run) return;
-      const sl = line(`<span class="spin-ch">${frames[0]}</span><span class="t-step">${esc(t)}</span><span class="t-dim">…</span>`);
-      const sp = sl.querySelector(".spin-ch");
-      const dur = 600 + Math.random() * 700;
-      const t0 = performance.now();
-      let f = 0;
-      while (performance.now() - t0 < dur) {
-        if (my !== run) return;
-        sp.textContent = frames[f++ % frames.length];
-        await sleep(70);
-      }
-      sl.innerHTML = `<span class="t-arrow">→</span><span class="t-step">${esc(t)}</span>${tail(k)}`;
-      await sleep(160);
-    }
-    if (my !== run) return;
-    await sleep(250);
-    line(`<span class="t-q">?</span><span class="t-step"><span class="t-cmd">${esc(s.ask)}</span> <span class="t-wait">waiting for your OK</span><span class="caret"></span></span>`);
-    await sleep(4200);
-    if (my !== run) return;
-    play((i + 1) % scripts.length);
+    if (foot) foot.classList.add("on");
+    await sleep(6000);
+    run();
   };
-
-  if (dotsWrap) {
-    dotsWrap.innerHTML = scripts.map((s, i) => `<button type="button" aria-label="Show demo ${i + 1}: ${esc(s.title)}"></button>`).join("");
-    dotsWrap.querySelectorAll("button").forEach((b, i) => b.addEventListener("click", () => play(i)));
-  }
-  // Start when visible
-  if ("IntersectionObserver" in window) {
-    let started = false;
-    const tio = new IntersectionObserver((en) => {
-      if (en[0].isIntersecting && !started) { started = true; play(0); tio.disconnect(); }
-    });
-    tio.observe(term);
-  } else { play(0); }
+  let started = false;
+  new IntersectionObserver((en, obs) => {
+    if (en[0].isIntersecting && !started) { started = true; obs.disconnect(); run(); }
+  }).observe(list);
 })();
 
 /* Hero particle network */
