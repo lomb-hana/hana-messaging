@@ -414,7 +414,7 @@ html, body { overflow-x: clip; }
 .agent-card .btn { align-self: flex-start; }
 
 /* ---------- Profile (Hana) ---------- */
-.profile-hero { padding: 80px 0 40px; display: grid; grid-template-columns: auto minmax(0,1fr); gap: 56px; align-items: center; }
+.profile-hero { padding-top: 80px; padding-bottom: 40px; display: grid; grid-template-columns: auto minmax(0,1fr); gap: 56px; align-items: center; }
 .profile-photo-wrap { position: relative; width: 260px; height: 260px; }
 .profile-photo-wrap::before { content: ""; position: absolute; inset: -18px; border-radius: 50%; background: conic-gradient(from 0deg, var(--gold), var(--teal), var(--gold-lo), var(--gold)); filter: blur(28px); opacity: .45; animation: spin 16s linear infinite; }
 .profile-photo-wrap::after { content: ""; position: absolute; inset: -10px; border-radius: 50%; border: 1px dashed rgba(215,181,122,0.4); animation: spin 50s linear infinite; }
@@ -519,7 +519,7 @@ html, body { overflow-x: clip; }
   .brand-logo { height: 30px; }
   .section { padding: 64px 0; }
   .hero { padding: 40px 0 64px; }
-  .page-hero, .profile-hero { padding: 48px 0 24px; }
+  .page-hero, .profile-hero { padding-top: 48px; padding-bottom: 24px; }
   .grid-2, .grid-3, .grid-4, .grid-5, .flow, .flow.flow-2, .agent-grid { grid-template-columns: minmax(0,1fr); }
   .card { padding: 22px; }
   .terminal { font-size: 12px; }

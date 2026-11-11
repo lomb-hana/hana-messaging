@@ -12,7 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent / "public"
 SITE = "https://rivencast.com"
 BUILD = "rc-pivot-2026-11-11"
-CSSV = "13"
+CSSV = "14"
 
 ICONS = {
   "wallet": '<rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18M16 14.5h2"/>',
