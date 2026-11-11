@@ -11,7 +11,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent / "public"
 SITE = "https://rivencast.com"
-BUILD = "rc-demo-2026-11-11"
+BUILD = "rc-hana-help-2026-11-11"
 CSSV = "17"
 
 ICONS = {
@@ -147,7 +147,7 @@ FOOTER = '''    <footer class="site-footer">
           <ul>
             <li><a href="/agents.html">Detection agents</a></li>
             <li><a href="/#how">How it works</a></li>
-            <li><a href="/agents/hana.html">Hana, our mascot</a></li>
+            <li><a href="/agents/hana.html">Hana, our assistant</a></li>
             <li><a href="/#opt-in">Texting with Hana</a></li>
           </ul>
         </div>
@@ -493,11 +493,11 @@ HOME = f'''    <section class="hero" aria-labelledby="hero-heading">
         <div class="wrap">
           <div class="card cast-card reveal">
             <div>
-              <p class="label"><span class="idx">06</span> our mascot</p>
+              <p class="label"><span class="idx">06</span> need a hand?</p>
               <h2 id="hana-heading">Meet Hana</h2>
-              <p style="color:var(--muted);margin:14px 0 24px">The face of Rivencast: a little smug about catching bots, and the one you text to ask about Rivencast, request early access, or get help.</p>
+              <p style="color:var(--muted);margin:14px 0 24px">Hana is the Rivencast assistant. Text or call her at <span class="mono" style="color:var(--gold-hi)">+1 (833) 408-5702</span> to find out what Rivencast does, request early access, get a flag explained in plain language, or get help.</p>
               <div class="hero-actions" style="margin:0">
-                <a class="btn btn-ghost" href="/agents/hana.html">Meet Hana <span class="arr" aria-hidden="true">→</span></a>
+                <a class="btn btn-ghost" href="/agents/hana.html">How Hana helps <span class="arr" aria-hidden="true">→</span></a>
               </div>
             </div>
             <div class="avatars">
@@ -559,7 +559,7 @@ ROLES = [
 AGENTS = f'''    <header class="page-hero">
       <div class="wrap">
         <p class="label reveal">detection agents</p>
-        <h1 class="reveal" style="--d:.05s">A team of detection agents. <span class="grad-text">One face.</span></h1>
+        <h1 class="reveal" style="--d:.05s">A team of <span class="grad-text">detection agents.</span></h1>
         <p class="lede reveal" style="--d:.1s">
           Rivencast splits detection into focused AI agents, each watching one kind of signal. They read
           publicly visible activity the way a person would (no platform API needed), plus any inbox you connect.
@@ -601,10 +601,10 @@ AGENTS = f'''    <header class="page-hero">
         <div class="wrap">
           <div class="card cast-card reveal">
             <div>
-              <p class="label">the face of rivencast</p>
-              <h2 id="face-heading">Hana, our mascot</h2>
-              <p style="color:var(--muted);margin:14px 0 24px">The agents do the detecting. Hana does the talking. Text her at <span class="mono" style="color:var(--gold-hi)">+1 (833) 408-5702</span> to ask about Rivencast, request early access, or get help.</p>
-              <a class="btn btn-ghost" href="/agents/hana.html">Meet Hana <span class="arr" aria-hidden="true">→</span></a>
+              <p class="label">need a hand?</p>
+              <h2 id="face-heading">Hana, the Rivencast assistant</h2>
+              <p style="color:var(--muted);margin:14px 0 24px">Text or call Hana at <span class="mono" style="color:var(--gold-hi)">+1 (833) 408-5702</span> to ask what Rivencast does, request early access, or get support. Once you’re in early access, she can check on a scan and explain any flag in plain language.</p>
+              <a class="btn btn-ghost" href="/agents/hana.html">How Hana helps <span class="arr" aria-hidden="true">→</span></a>
             </div>
             <div class="avatars"><img src="/hana-avatar.png" alt="Hana, the Rivencast mascot" width="96" height="96" loading="lazy" style="width:96px;height:96px" /></div>
           </div>
@@ -614,10 +614,10 @@ AGENTS = f'''    <header class="page-hero">
     </main>'''
 
 QUOTES = [
-  "Bots think they’re subtle. Babe, you posted forty identical comments before breakfast.",
-  "I don’t ban anyone. I just tell your mods exactly why that account smells like a script.",
-  "Yes, I’m an AI. Takes one to know one.",
-  "Want early access? Text me. I’ll make sure the team hears about you. I’m very persuasive.",
+  "Rivencast reads public activity, like when and where accounts post and what their text looks like, and flags what looks automated. Want me to add you to the early-access list?",
+  "That account scored 91: forty near-identical comments in an hour, from an account two days old. Your mods make the call.",
+  "Your scan of example.com/reviews is still running. I’ll text you when it’s done.",
+  "Yes, I’m an AI. If I’m not sure about something, I’ll tell you and pass it to the team.",
 ]
 
 HANA = f'''    <header class="wrap profile-hero">
@@ -625,19 +625,19 @@ HANA = f'''    <header class="wrap profile-hero">
         <img class="profile-photo" src="/hana-avatar.png" alt="Hana, the Rivencast mascot" width="260" height="260" />
       </div>
       <div>
-        <p class="label reveal"><span class="dot live" aria-hidden="true"></span> the face of rivencast</p>
+        <p class="label reveal"><span class="dot live" aria-hidden="true"></span> rivencast assistant</p>
         <h1 class="reveal" style="--d:.05s"><span class="grad-text">Hana</span></h1>
-        <p class="byline reveal" style="--d:.08s">Hana by Rivencast · mascot</p>
+        <p class="byline reveal" style="--d:.08s">Hana by Rivencast · assistant</p>
         <p class="lede reveal" style="--d:.1s">
-          Rivencast’s detection agents do the quiet work. Hana is the one with the mouth on her:
-          the AI mascot you text or talk to at +1 (833) 408-5702 to ask about Rivencast,
-          request early access, or get help.
+          Hana is the Rivencast assistant. Text or call her at +1 (833) 408-5702 to find out what
+          Rivencast does, request early access, or get help. Once you’re in early access, she can
+          check on a scan and explain any flag in plain language.
         </p>
         <ul class="kv reveal" style="--d:.15s" aria-label="Hana at a glance">
-          <li><b>role</b>mascot</li>
-          <li><b>text</b>+1 (833) 408-5702</li>
-          <li><b>vibe</b>confident, a little smug</li>
-          <li><b>is</b>an AI, obviously</li>
+          <li><b>role</b>assistant</li>
+          <li><b>text or call</b>+1 (833) 408-5702</li>
+          <li><b>helps with</b>questions, early access, support</li>
+          <li><b>is</b>an AI, and says so</li>
         </ul>
       </div>
     </header>
@@ -646,42 +646,41 @@ HANA = f'''    <header class="wrap profile-hero">
       <section class="section" aria-labelledby="ask-heading">
         <div class="wrap">
           <div class="section-head reveal">
-            <p class="label">text hana</p>
-            <h2 id="ask-heading">What to text her about</h2>
+            <p class="label">how she helps</p>
+            <h2 id="ask-heading">What Hana can help with</h2>
           </div>
-          <div class="grid grid-3">
-            <article class="card reveal">{icon("radar")}<h3>Ask about Rivencast</h3><p>How the detection agents work, what signals they read, and what a risk score actually means.</p></article>
-            <article class="card reveal" style="--d:.06s">{icon("flag")}<h3>Request early access</h3><p>Tell her where you’re fighting bots. She’ll pass it to the team.</p></article>
-            <article class="card reveal" style="--d:.12s">{icon("msg")}<h3>Get help</h3><p>Questions about the platform or the texting program. Reply HELP anytime for help, STOP to opt out.</p></article>
+          <div class="grid grid-4">
+            <article class="card reveal">{icon("radar")}<h3>Learn what Rivencast does</h3><p>How the detection agents work, what signals they read, and what a risk score actually means.</p></article>
+            <article class="card reveal" style="--d:.06s">{icon("flag")}<h3>Request early access</h3><p>Tell her where bots are showing up for you. She passes it to the team.</p></article>
+            <article class="card reveal" style="--d:.12s">{icon("pulse")}<h3>Check on a scan</h3><p>For early-access customers: ask where a scan stands, or why an account was flagged, and get the reasons in plain language.</p></article>
+            <article class="card reveal" style="--d:.18s">{icon("msg")}<h3>Get help and support</h3><p>Questions about the platform, your account, or the texting program. Reply HELP anytime for help, STOP to opt out.</p></article>
           </div>
         </div>
       </section>
 
-      <section class="section tight" aria-labelledby="personality-heading">
+      <section class="section tight" aria-labelledby="plain-heading">
         <div class="wrap two-col">
-          <p class="label reveal">personality</p>
+          <p class="label reveal">plain answers</p>
           <div class="prose reveal">
-            <h2 id="personality-heading">Sassy, confident, a little smug</h2>
+            <h2 id="plain-heading">Answers you can act on</h2>
             <p>
-              Hana knows she’s good at this and doesn’t pretend otherwise. She’s playful, quick,
-              and a bit smug about catching bots, and she’ll tease you a little while she answers.
+              Hana turns what the detection agents found into plain language: what was flagged, why,
+              and what a score means. She doesn’t make decisions for you. You and your team make the call.
             </p>
             <p>
-              Under the attitude, she’s straight with you. She’s an AI and says so. If she doesn’t
-              know something, she tells you. When something’s serious, the sass takes a back seat
-              and she just helps.
+              If she can’t answer something, she says so and passes it to the team. Rivencast is in
+              <strong>early access</strong>, so scan check-ins are for early-access customers.
             </p>
-            <p class="aside-note">One small request, if you’re going to hang around: don’t call her Hana Banana.</p>
           </div>
         </div>
       </section>
 
       <section class="section tight" aria-labelledby="talks-heading">
         <div class="wrap two-col">
-          <p class="label reveal">how she talks</p>
+          <p class="label reveal">sample replies</p>
           <div>
-            <h2 id="talks-heading" class="reveal" style="margin-bottom:12px">How she talks</h2>
-            <p class="reveal" style="color:var(--muted);margin-bottom:28px">A few lines in her voice, so you know what you’re getting:</p>
+            <h2 id="talks-heading" class="reveal" style="margin-bottom:12px">What a reply looks like</h2>
+            <p class="reveal" style="color:var(--muted);margin-bottom:28px">A few illustrative examples (not real accounts or results):</p>
             <ul class="chat">
 {"".join(f'              <li class="reveal" style="--d:{i*0.08:.2f}s"><img src="/hana-avatar.png" alt="" width="36" height="36" loading="lazy" /><div class="bubble"><p>“{q}”</p></div></li>{chr(10)}' for i, q in enumerate(QUOTES))}            </ul>
           </div>
@@ -696,7 +695,7 @@ HANA = f'''    <header class="wrap profile-hero">
           </div>
           <div class="spec reveal">
             <div class="spec-row"><div class="spec-key">01 · honest</div><div><strong>She’s an AI, and she says so.</strong><span class="v">No pretending to be a person. If she isn’t sure, she tells you.</span></div></div>
-            <div class="spec-row"><div class="spec-key">02 · opt-in</div><div><strong>You text her first.</strong><span class="v">The number is only for people texting Hana directly. She doesn’t text anyone’s friends or family on their behalf.</span></div></div>
+            <div class="spec-row"><div class="spec-key">02 · opt-in</div><div><strong>You start the conversation.</strong><span class="v">For texts, you opt in by texting her first. The number is only for people contacting Hana directly. She doesn’t text or call anyone’s friends or family on their behalf.</span></div></div>
             <div class="spec-row"><div class="spec-key">03 · in control</div><div><strong>STOP means stop.</strong><span class="v">Reply STOP to opt out and HELP for help, anytime.</span></div></div>
             <div class="spec-row"><div class="spec-key">04 · private</div><div><strong>She keeps things private.</strong><span class="v">Mobile opt-in data is never shared with third parties for marketing.</span></div></div>
           </div>
@@ -709,7 +708,7 @@ HANA = f'''    <header class="wrap profile-hero">
             <p class="label" style="justify-content:center">get in touch</p>
             <h2 id="cta-heading">Want to talk to Hana?</h2>
             <p>
-              Text her at +1 (833) 408-5702. See the SMS details on the
+              Text or call her at +1 (833) 408-5702. See the SMS details on the
               <a href="/#opt-in">home page</a>, plus the <a href="/privacy.html">Privacy Policy</a> and
               <a href="/terms.html">Terms of Service</a>. Prefer email? Write to
               <a href="mailto:inquiry@rivencast.com">inquiry@rivencast.com</a>.
@@ -804,9 +803,9 @@ ABOUT = f'''    <header class="page-hero">
               customer chooses to connect. {PUBLIC_LINE}
             </p>
             <p>
-              The platform is in <strong>early access</strong>. Our mascot, <strong>Hana</strong>, is the
-              face of Rivencast. You can <a href="/#sms">text her</a> at +1 (833) 408-5702 to ask about
-              Rivencast, request early access, or get help.
+              The platform is in <strong>early access</strong>. <strong>Hana</strong>, the Rivencast
+              assistant, is there to help: <a href="/#sms">text</a> or call her at +1 (833) 408-5702 to ask
+              what Rivencast does, request early access, or get support.
             </p>
           </div>
         </div>
@@ -918,7 +917,7 @@ FAQ = [
   ("How do I get early access?",
    f'<p>Email <a href="{EARLY}">inquiry@rivencast.com</a> and tell us where bots are showing up for you, or text Hana and she’ll pass it to the team.</p>'),
   ("Who is Hana?",
-   "<p>Hana is Rivencast’s mascot, an AI with a confident, slightly smug personality. She’s the one you text or talk to about Rivencast, early access, or help. She’s an AI and says so.</p>"),
+   "<p>Hana is the Rivencast assistant. Text or call her at +1 (833) 408-5702 to ask what Rivencast does, request early access, or get support. Early-access customers can also ask her to check on a scan or explain a flag in plain language. She’s an AI and says so.</p>"),
   ("How does texting Hana work?",
    '<p>You opt in by texting Hana first at +1 (833) 408-5702. Messages are conversational; message frequency varies. Message and data rates may apply. Reply STOP to opt out, HELP for help. Mobile opt-in data is never shared with third parties for marketing. Details are in the <a href="/privacy.html">Privacy Policy</a> and <a href="/terms.html">Terms of Service</a>.</p>'),
   ("Will Hana text my friends or family?",
@@ -959,7 +958,7 @@ CONTACT = f'''    <header class="page-hero">
               {icon("phone")}
               <p class="label no-slash" style="margin:0">text hana</p>
               <p class="big">+1 (833) 408-5702</p>
-              <p style="color:var(--muted)">Text Hana, our mascot, to ask about Rivencast, request early access, or get help. You opt in by texting her first. Reply STOP to opt out, HELP for help. Message and data rates may apply.</p>
+              <p style="color:var(--muted)">Text or call Hana, the Rivencast assistant, to ask what Rivencast does, request early access, or get help. For texts, you opt in by texting her first. Reply STOP to opt out, HELP for help. Message and data rates may apply.</p>
               <a class="btn btn-ghost" href="/#opt-in">SMS program details</a>
             </article>
           </div>
@@ -985,8 +984,8 @@ PAGES = {
   "agents.html": ("Detection agents | Rivencast",
                   "How Rivencast’s detection agents work: focused AI agents that read publicly visible activity and roll their findings into one risk score with a plain-language explanation. Early access.",
                   "/agents.html", "Agents", AGENTS, None),
-  "agents/hana.html": ("Hana, the Rivencast mascot",
-                       "Meet Hana, Rivencast’s sassy AI mascot. Text her at +1 (833) 408-5702 to ask about Rivencast, request early access, or get help.",
+  "agents/hana.html": ("Hana, the Rivencast assistant",
+                       "Hana is the Rivencast assistant. Text or call +1 (833) 408-5702 to learn what Rivencast does, request early access, get a flag explained, or get help.",
                        "/agents/hana.html", "Agents", HANA, None),
   "about.html": ("About Us | Rivencast",
                  "Rivencast is an independent AI studio in Houston building AI agents that detect bots, AI-generated content, and fake accounts, with explainable risk scores and people making the call.",
