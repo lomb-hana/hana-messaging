@@ -1,4 +1,4 @@
-/* Rivencast site interactions — rc-tech */
+/* Rivencast site interactions (rc-tech) */
 (() => {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 

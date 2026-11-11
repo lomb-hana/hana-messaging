@@ -11,7 +11,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent / "public"
 SITE = "https://rivencast.com"
-BUILD = "rc-broad-2026-11-11"
+BUILD = "rc-nodash-2026-11-11"
 CSSV = "15"
 
 ICONS = {
@@ -93,7 +93,7 @@ def head(title, desc, path, extra_ld=None, css="styles.css", noindex=False):
   <meta property="og:image" content="{SITE}/assets/og-rivencast.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Rivencast — AI agents that catch the bots." />
+  <meta property="og:image:alt" content="Rivencast: AI agents that catch the bots." />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="{title}" />
   <meta name="twitter:description" content="{desc}" />
@@ -140,7 +140,7 @@ FOOTER = '''    <footer class="site-footer">
       <div class="foot-inner">
         <div class="foot-brand">
           <img src="/assets/rivencast-logo.svg" alt="Rivencast" width="150" height="44" />
-          <p>AI agents that detect bots, AI content, and fake accounts — with plain-language reasons, so people make the call. Built in Houston, Texas.</p>
+          <p>AI agents that detect bots, AI content, and fake accounts, with plain-language reasons, so people make the call. Built in Houston, Texas.</p>
         </div>
         <div class="foot-col">
           <h2>product</h2>
@@ -215,7 +215,7 @@ NOTFOUND = '''    <main id="main" class="wrap nf">
         <p class="code grad-text" aria-hidden="true">404</p>
         <h1 style="font-size:clamp(1.8rem,4vw,2.6rem);margin-bottom:28px">This page wandered off.</h1>
         <div class="terminal" aria-hidden="true">
-          <div class="term-bar"><i></i><i></i><i></i><span class="term-title">rivencast — lookup</span></div>
+          <div class="term-bar"><i></i><i></i><i></i><span class="term-title">rivencast · lookup</span></div>
           <div class="term-body">
             <div class="ln"><span class="t-prompt">~</span><span class="t-cmd">open <span class="t-str" id="nf-path">/unknown</span></span></div>
             <div class="ln"><span class="t-arrow">→</span><span class="t-step">searching rivencast.com</span><span class="t-dim">404</span></div>
@@ -263,18 +263,18 @@ CONSOLE = f'''<div class="terminal console" role="img" aria-label="Illustrative 
               <div class="scan-list" id="scan-list">
 {scan_rows()}
               </div>
-              <div class="ln scan-foot"><span class="t-q">?</span><span class="t-step">flagged for review — <span class="t-wait">people make the call</span><span class="caret"></span></span></div>
+              <div class="ln scan-foot"><span class="t-q">?</span><span class="t-step">flagged for review: <span class="t-wait">people make the call</span><span class="caret"></span></span></div>
             </div>
             <p class="demo-label">illustrative demo · fictional names, not real results</p>
           </div>'''
 
 SIGNALS = [
-  ("pulse", "Timing & cadence", "When and how often an account posts — inhumanly regular intervals, round-the-clock activity, sudden bursts."),
+  ("pulse", "Timing & cadence", "When and how often an account posts: inhumanly regular intervals, round-the-clock activity, sudden bursts."),
   ("clock", "Account age", "How old an account is, and whether that lines up with how fast and how much it’s doing."),
-  ("globe", "Cross-site footprint", "Where else the same name, links, or text show up publicly — and when. Even a locked-down profile leaves a public trail elsewhere."),
+  ("globe", "Cross-site footprint", "Where else the same name, links, or text show up publicly, and when. Even a locked-down profile leaves a public trail elsewhere."),
   ("copy", "Repeated & templated text", "The same message, lightly reworded, dropped across reviews, threads, inboxes, and comment sections."),
   ("network", "Coordinated activity", "Groups of accounts that post, review, or reply together on a schedule, around the same targets."),
-  ("spark", "AI-writing patterns", "Text that reads like it was generated — the phrasing, structure, and sameness that machine-written content tends to share."),
+  ("spark", "AI-writing patterns", "Text that reads like it was generated: the phrasing, structure, and sameness that machine-written content tends to share."),
 ]
 
 def signal_grid():
@@ -283,11 +283,11 @@ def signal_grid():
         for i, (ic, h, p) in enumerate(SIGNALS)) + "</div>"
 
 SURFACES = [
-  ("mail", "Company email", "Inboxes you connect, with your permission — flag bot- or AI-written inbound, phishing-style automation, and fake leads."),
+  ("mail", "Company email", "Inboxes you connect, with your permission. Flag bot- or AI-written inbound, phishing-style automation, and fake leads."),
   ("globe", "Websites & comment sections", "Comment threads, sign-up spam, and contact-form floods on sites you run or care about."),
-  ("flag", "Product & business reviews", "Review pages for products and businesses — bursts of fake praise or coordinated pile-ons."),
+  ("flag", "Product & business reviews", "Review pages for products and businesses: bursts of fake praise or coordinated pile-ons."),
   ("users", "Public forums", "Community boards and discussion threads where bots farm reputation and drop links."),
-  ("msg", "Social platforms", "Public posts and replies on social sites — Reddit and X are examples, not limits."),
+  ("msg", "Social platforms", "Public posts and replies on social sites. Reddit and X are examples, not limits."),
   ("search", "Just about anywhere public", "If a person could see it on the open web, an agent can read it the same way."),
 ]
 
@@ -315,7 +315,7 @@ def use_grid():
 
 STEPS = [
   ("01 · point", "Tell it where to look", "Connect an inbox with your permission, or point the agents at a review page, a forum, a site, or an account."),
-  ("02 · read", "Agents read the web", "They read publicly visible activity the way a person would — no platform API needed — fast, at scale."),
+  ("02 · read", "Agents read the web", "They read publicly visible activity the way a person would (no platform API needed), fast, at scale."),
   ("03 · explain", "Score + reasons", "Each account or message gets a risk score and a plain-language explanation of why."),
   ("04 · decide", "People make the call", "Rivencast flags. You and your team review and decide what happens next."),
 ]
@@ -332,7 +332,7 @@ HOME = f'''    <section class="hero" aria-labelledby="hero-heading">
           <a class="pill reveal" href="{EARLY}"><span class="dot live" aria-hidden="true"></span>Early access · no platform API needed <span aria-hidden="true">→</span></a>
           <h1 id="hero-heading" class="reveal" style="--d:.05s">AI agents that <span class="grad-text nowrap">catch the bots.</span></h1>
           <p class="lede reveal" style="--d:.1s">
-            Rivencast detects bots, AI-generated content, and fake accounts — in your inbox, on review pages,
+            Rivencast detects bots, AI-generated content, and fake accounts in your inbox, on review pages,
             websites, forums, and social platforms. Our AI agents read the web the way a person would, so they
             don’t depend on platform APIs. Every flag comes with a risk score and plain-language reasons, and people make the final call.
           </p>
@@ -359,7 +359,7 @@ HOME = f'''    <section class="hero" aria-labelledby="hero-heading">
           <div class="section-head reveal">
             <p class="label"><span class="idx">01</span> how it works</p>
             <h2 id="how-heading">Point it anywhere. Get a reason you can read.</h2>
-            <p class="section-lede">Bots and AI-generated content leave patterns — in timing, in text, and in where an account shows up across the web. Our agents find them, score them, and write down why.</p>
+            <p class="section-lede">Bots and AI-generated content leave patterns: in timing, in text, and in where an account shows up across the web. Our agents find them, score them, and write down why.</p>
           </div>
           {steps()}
         </div>
@@ -383,7 +383,7 @@ HOME = f'''    <section class="hero" aria-labelledby="hero-heading">
           <div class="section-head center reveal">
             <p class="label"><span class="idx">03</span> where it works</p>
             <h2 id="where-heading">Not one platform. Just about anywhere.</h2>
-            <p class="section-lede">Because the agents read publicly visible activity instead of relying on platform APIs, they work across surfaces — plus any inbox you connect.</p>
+            <p class="section-lede">Because the agents read publicly visible activity instead of relying on platform APIs, they work across surfaces, plus any inbox you connect.</p>
           </div>
           {surface_grid()}
           {example_chips()}
@@ -395,12 +395,12 @@ HOME = f'''    <section class="hero" aria-labelledby="hero-heading">
           <div class="section-head reveal">
             <p class="label"><span class="idx">04</span> no api required</p>
             <h2 id="out-heading">Reads the web like a person. Explains like an analyst.</h2>
-            <p class="section-lede">A high score is a reason to look closer — never an automatic verdict.</p>
+            <p class="section-lede">A high score is a reason to look closer, never an automatic verdict.</p>
           </div>
           <div class="spec reveal">
             <div class="spec-row"><div class="spec-key">access<small>// public web</small></div><div><strong>No platform API needed.</strong><span class="v">Agents read publicly visible activity the way a person would, so detection doesn’t depend on any platform’s API or permission.</span></div></div>
             <div class="spec-row"><div class="spec-key">footprint<small>// cross-site</small></div><div><strong>Locked profiles still leave a trail.</strong><span class="v">Rivencast can’t see inside private accounts. But where and when an account posts publicly elsewhere still tells a story.</span></div></div>
-            <div class="spec-row"><div class="spec-key">email<small>// with permission</small></div><div><strong>Only inboxes you connect.</strong><span class="v">Email is scanned only when you connect it — never anyone else’s.</span></div></div>
+            <div class="spec-row"><div class="spec-key">email<small>// with permission</small></div><div><strong>Only inboxes you connect.</strong><span class="v">Email is scanned only when you connect it, never anyone else’s.</span></div></div>
             <div class="spec-row"><div class="spec-key">output<small>// score + reasons</small></div><div><strong>A risk score and the reasons, written out.</strong><span class="v">“2-day-old account, five 5-star reviews in an hour, AI-writing patterns.” Not a black box.</span></div></div>
             <div class="spec-row"><div class="spec-key">decision<small>// human</small></div><div><strong>People make the call.</strong><span class="v">Rivencast doesn’t ban, report, or remove anyone on its own.</span></div></div>
           </div>
@@ -424,7 +424,7 @@ HOME = f'''    <section class="hero" aria-labelledby="hero-heading">
             <div>
               <p class="label"><span class="idx">06</span> our mascot</p>
               <h2 id="hana-heading">Meet Hana</h2>
-              <p style="color:var(--muted);margin:14px 0 24px">The face of Rivencast — a little smug about catching bots, and the one you text to ask about Rivencast, request early access, or get help.</p>
+              <p style="color:var(--muted);margin:14px 0 24px">The face of Rivencast: a little smug about catching bots, and the one you text to ask about Rivencast, request early access, or get help.</p>
               <div class="hero-actions" style="margin:0">
                 <a class="btn btn-ghost" href="/agents/hana.html">Meet Hana <span class="arr" aria-hidden="true">→</span></a>
               </div>
@@ -476,8 +476,8 @@ def fb(ic):
 SOON = '<span class="btn btn-soon" aria-disabled="true">Coming soon</span>'
 
 ROLES = [
-  ("globe", "Footprint mapper", "Traces where and when an account shows up publicly across sites — the public trail a locked profile can still leave elsewhere."),
-  ("pulse", "Cadence analyst", "Looks at timing — intervals, bursts, and round-the-clock activity no person keeps up."),
+  ("globe", "Footprint mapper", "Traces where and when an account shows up publicly across sites, and the public trail a locked profile can still leave elsewhere."),
+  ("pulse", "Cadence analyst", "Looks at timing: intervals, bursts, and round-the-clock activity no person keeps up."),
   ("user", "Account profiler", "Checks account age and public history to see whether an account’s story adds up."),
   ("copy", "Text matcher", "Finds repeated and templated text, including lightly reworded copies across reviews, threads, and inboxes."),
   ("spark", "AI-text detector", "Looks for the phrasing, structure, and sameness typical of machine-generated writing."),
@@ -491,7 +491,7 @@ AGENTS = f'''    <header class="page-hero">
         <h1 class="reveal" style="--d:.05s">A team of detection agents. <span class="grad-text">One face.</span></h1>
         <p class="lede reveal" style="--d:.1s">
           Rivencast splits detection into focused AI agents, each watching one kind of signal. They read
-          publicly visible activity the way a person would — no platform API needed — plus any inbox you connect.
+          publicly visible activity the way a person would (no platform API needed), plus any inbox you connect.
           Their findings roll up into one risk score and one plain-language explanation. In early access.
         </p>
         <div class="hero-actions reveal" style="--d:.15s">{EARLY_BTN}</div>
@@ -518,10 +518,10 @@ AGENTS = f'''    <header class="page-hero">
           </div>
           <div class="agent-grid">
 {agent_card("is-live", fb("radar"), "Rivencast detection", "Bots · AI content · fake accounts", "early",
-  "Detection agents for inboxes you connect, review pages, websites, public forums, and social platforms. Risk scores built from timing, account age, cross-site footprint, repeated text, coordinated activity, and AI-writing patterns — each with a plain-language explanation. People make the call.",
+  "Detection agents for inboxes you connect, review pages, websites, public forums, and social platforms. Risk scores built from timing, account age, cross-site footprint, repeated text, coordinated activity, and AI-writing patterns, each with a plain-language explanation. People make the call.",
   EARLY_BTN)}
 {agent_card("is-soon", fb("shield"), "Custom detection agents", "Tuned to you", "soon",
-  "Detection agents tuned to your own rules and patterns — what counts as spam for your business or community, which signals matter most, and how flags reach your team.", SOON)}
+  "Detection agents tuned to your own rules and patterns: what counts as spam for your business or community, which signals matter most, and how flags reach your team.", SOON)}
           </div>
         </div>
       </section>
@@ -532,7 +532,7 @@ AGENTS = f'''    <header class="page-hero">
             <div>
               <p class="label">the face of rivencast</p>
               <h2 id="face-heading">Hana, our mascot</h2>
-              <p style="color:var(--muted);margin:14px 0 24px">The agents do the detecting. Hana does the talking — text her at <span class="mono" style="color:var(--gold-hi)">+1 (833) 408-5702</span> to ask about Rivencast, request early access, or get help.</p>
+              <p style="color:var(--muted);margin:14px 0 24px">The agents do the detecting. Hana does the talking. Text her at <span class="mono" style="color:var(--gold-hi)">+1 (833) 408-5702</span> to ask about Rivencast, request early access, or get help.</p>
               <a class="btn btn-ghost" href="/agents/hana.html">Meet Hana <span class="arr" aria-hidden="true">→</span></a>
             </div>
             <div class="avatars"><img src="/hana-avatar.png" alt="Hana, the Rivencast mascot" width="96" height="96" loading="lazy" style="width:96px;height:96px" /></div>
@@ -546,7 +546,7 @@ QUOTES = [
   "Bots think they’re subtle. Babe, you posted forty identical comments before breakfast.",
   "I don’t ban anyone. I just tell your mods exactly why that account smells like a script.",
   "Yes, I’m an AI. Takes one to know one.",
-  "Want early access? Text me. I’ll make sure the team hears about you — I’m very persuasive.",
+  "Want early access? Text me. I’ll make sure the team hears about you. I’m very persuasive.",
 ]
 
 HANA = f'''    <header class="wrap profile-hero">
@@ -558,7 +558,7 @@ HANA = f'''    <header class="wrap profile-hero">
         <h1 class="reveal" style="--d:.05s"><span class="grad-text">Hana</span></h1>
         <p class="byline reveal" style="--d:.08s">Hana by Rivencast · mascot</p>
         <p class="lede reveal" style="--d:.1s">
-          Rivencast’s detection agents do the quiet work. Hana is the one with the mouth on her —
+          Rivencast’s detection agents do the quiet work. Hana is the one with the mouth on her:
           the AI mascot you text or talk to at +1 (833) 408-5702 to ask about Rivencast,
           request early access, or get help.
         </p>
@@ -593,7 +593,7 @@ HANA = f'''    <header class="wrap profile-hero">
             <h2 id="personality-heading">Sassy, confident, a little smug</h2>
             <p>
               Hana knows she’s good at this and doesn’t pretend otherwise. She’s playful, quick,
-              and a bit smug about catching bots — and she’ll tease you a little while she answers.
+              and a bit smug about catching bots, and she’ll tease you a little while she answers.
             </p>
             <p>
               Under the attitude, she’s straight with you. She’s an AI and says so. If she doesn’t
@@ -638,7 +638,7 @@ HANA = f'''    <header class="wrap profile-hero">
             <p class="label" style="justify-content:center">get in touch</p>
             <h2 id="cta-heading">Want to talk to Hana?</h2>
             <p>
-              Text her at +1 (833) 408-5702 — see the SMS details on the
+              Text her at +1 (833) 408-5702. See the SMS details on the
               <a href="/#opt-in">home page</a>, plus the <a href="/privacy.html">Privacy Policy</a> and
               <a href="/terms.html">Terms of Service</a>. Prefer email? Write to
               <a href="mailto:inquiry@rivencast.com">inquiry@rivencast.com</a>.
@@ -657,7 +657,7 @@ ABOUT = f'''    <header class="page-hero">
         <p class="label reveal">about us</p>
         <h1 class="reveal" style="--d:.05s">An independent AI studio <span class="grad-text nowrap">in Houston.</span></h1>
         <p class="lede reveal" style="--d:.1s">
-          Rivencast builds AI agents that detect bots, AI-generated content, and fake accounts — and explain
+          Rivencast builds AI agents that detect bots, AI-generated content, and fake accounts, and explain
           their reasoning so people can make better calls.
         </p>
       </div>
@@ -671,18 +671,18 @@ ABOUT = f'''    <header class="page-hero">
             <h2 id="what-heading">What Rivencast is</h2>
             <p>
               Rivencast is an independent AI studio in Houston, Texas. We build AI agents that find bots,
-              AI-generated content, and automated or inauthentic accounts — the fake reviews, spam leads,
+              AI-generated content, and automated or inauthentic accounts: the fake reviews, spam leads,
               karma farms, and coordinated networks that wear down businesses and communities.
             </p>
             <p>
-              Our agents read the web the way a person would. They look at publicly visible activity — when and
-              where accounts post, how old they are, what their text looks like, and who they move in step with —
+              Our agents read the web the way a person would. They look at publicly visible activity: when and
+              where accounts post, how old they are, what their text looks like, and who they move in step with,
               so detection doesn’t depend on any platform’s API. For email, they work only on inboxes a
               customer chooses to connect. {PUBLIC_LINE}
             </p>
             <p>
               The platform is in <strong>early access</strong>. Our mascot, <strong>Hana</strong>, is the
-              face of Rivencast — you can <a href="/#sms">text her</a> at +1 (833) 408-5702 to ask about
+              face of Rivencast. You can <a href="/#sms">text her</a> at +1 (833) 408-5702 to ask about
               Rivencast, request early access, or get help.
             </p>
           </div>
@@ -696,8 +696,8 @@ ABOUT = f'''    <header class="page-hero">
             <h2 id="how-heading">Focused agents, one explanation</h2>
             <p class="section-lede">
               Instead of one opaque model making a call, Rivencast splits the job: separate agents each
-              examine one kind of signal — timing, account age, cross-site footprint, repeated text,
-              coordinated activity, AI-writing patterns — and their findings are combined into a single risk
+              examine one kind of signal (timing, account age, cross-site footprint, repeated text,
+              coordinated activity, AI-writing patterns), and their findings are combined into a single risk
               score with a plain-language explanation. Fast, at scale.
             </p>
           </div>
@@ -730,7 +730,7 @@ ABOUT = f'''    <header class="page-hero">
             <p class="section-lede">
               Rivencast does not train its own foundation model. The intelligence underneath comes from
               established language models. What we build is the agents, the detection logic, and the way
-              findings are explained — tuned on top of those models and tested until they hold up.
+              findings are explained, tuned on top of those models and tested until they hold up.
             </p>
           </div>
         </div>
@@ -779,11 +779,11 @@ FAQ = [
   ("What is Rivencast?",
    "<p>Rivencast is an AI-agent detection service for bots, AI-generated content, and automated or inauthentic accounts. The agents give each account or message a risk score and explain it in plain language, so people can decide what to do.</p>"),
   ("Where does it work?",
-   f"<p>Just about anywhere activity is publicly visible — product and business reviews, websites and comment sections, public forums, and social platforms like Reddit or X — plus company inboxes you choose to connect. {NOT_AFFIL}</p>"),
+   f"<p>Just about anywhere activity is publicly visible: product and business reviews, websites and comment sections, public forums, and social platforms like Reddit or X, plus company inboxes you choose to connect. {NOT_AFFIL}</p>"),
   ("Do you need API access?",
    "<p>No. Rivencast’s agents read publicly visible activity the way a person would, so detection doesn’t depend on platform APIs. For email, you connect the inboxes you want checked.</p>"),
   ("Can you see private accounts?",
-   "<p>No. Rivencast doesn’t see private accounts, private messages, or anything behind a login without permission. But even when a profile is locked down, an account’s public footprint elsewhere — where and when it posts publicly — can still tell a story.</p>"),
+   "<p>No. Rivencast doesn’t see private accounts, private messages, or anything behind a login without permission. But even when a profile is locked down, an account’s public footprint elsewhere (where and when it posts publicly) can still tell a story.</p>"),
   ("What signals do the agents look at?",
    "<p>Timing and posting cadence, account age, cross-site footprint, repeated or templated text, coordinated activity between accounts, and AI-writing patterns.</p>"),
   ("Does it work on company email?",
@@ -793,9 +793,9 @@ FAQ = [
   ("Is a high risk score proof?",
    "<p>No. A score is a signal that something deserves a closer look, with the reasons written out. Real people can look unusual, and some bots look ordinary.</p>"),
   ("How do I get early access?",
-   f'<p>Email <a href="{EARLY}">inquiry@rivencast.com</a> and tell us where bots are showing up for you — or text Hana and she’ll pass it to the team.</p>'),
+   f'<p>Email <a href="{EARLY}">inquiry@rivencast.com</a> and tell us where bots are showing up for you, or text Hana and she’ll pass it to the team.</p>'),
   ("Who is Hana?",
-   "<p>Hana is Rivencast’s mascot — an AI with a confident, slightly smug personality. She’s the one you text or talk to about Rivencast, early access, or help. She’s an AI and says so.</p>"),
+   "<p>Hana is Rivencast’s mascot, an AI with a confident, slightly smug personality. She’s the one you text or talk to about Rivencast, early access, or help. She’s an AI and says so.</p>"),
   ("How does texting Hana work?",
    '<p>You opt in by texting Hana first at +1 (833) 408-5702. Messages are conversational; message frequency varies. Message and data rates may apply. Reply STOP to opt out, HELP for help. Mobile opt-in data is never shared with third parties for marketing. Details are in the <a href="/privacy.html">Privacy Policy</a> and <a href="/terms.html">Terms of Service</a>.</p>'),
   ("Will Hana text my friends or family?",
@@ -816,7 +816,7 @@ CONTACT = f'''    <header class="page-hero">
       <div class="wrap">
         <p class="label reveal">contact</p>
         <h1 class="reveal" style="--d:.05s">Talk to <span class="grad-text">Rivencast.</span></h1>
-        <p class="lede reveal" style="--d:.1s">Early access, partnerships, research, press, or help — we read every message.</p>
+        <p class="lede reveal" style="--d:.1s">Early access, partnerships, research, press, or help. We read every message.</p>
       </div>
     </header>
 
@@ -856,22 +856,22 @@ CONTACT = f'''    <header class="page-hero">
     </main>'''
 
 PAGES = {
-  "index.html": ("Rivencast — AI agents that catch the bots",
-                 "Rivencast detects bots, AI-generated content, and fake accounts across inboxes, reviews, websites, forums, and social platforms — no platform API needed. Explainable risk scores; people decide. Early access.",
+  "index.html": ("Rivencast: AI agents that catch the bots",
+                 "Rivencast detects bots, AI-generated content, and fake accounts across inboxes, reviews, websites, forums, and social platforms. No platform API needed. Explainable risk scores; people decide. Early access.",
                  "/", "Home", HOME, None),
-  "agents.html": ("Detection agents — Rivencast",
+  "agents.html": ("Detection agents | Rivencast",
                   "How Rivencast’s detection agents work: focused AI agents that read publicly visible activity and roll their findings into one risk score with a plain-language explanation. Early access.",
                   "/agents.html", "Agents", AGENTS, None),
-  "agents/hana.html": ("Hana — the Rivencast mascot",
+  "agents/hana.html": ("Hana, the Rivencast mascot",
                        "Meet Hana, Rivencast’s sassy AI mascot. Text her at +1 (833) 408-5702 to ask about Rivencast, request early access, or get help.",
                        "/agents/hana.html", "Agents", HANA, None),
-  "about.html": ("About Us — Rivencast",
+  "about.html": ("About Us | Rivencast",
                  "Rivencast is an independent AI studio in Houston building AI agents that detect bots, AI-generated content, and fake accounts, with explainable risk scores and people making the call.",
                  "/about.html", "About", ABOUT, None),
-  "contact.html": ("Contact & FAQ — Rivencast",
+  "contact.html": ("Contact & FAQ | Rivencast",
                    "Contact Rivencast at inquiry@rivencast.com for early access, learn how texting Hana works, and get answers about our AI detection agents.",
                    "/contact.html", "Contact", CONTACT, [FAQ_LD]),
-  "404.html": ("Page not found — Rivencast", "This page could not be found on rivencast.com.",
+  "404.html": ("Page not found | Rivencast", "This page could not be found on rivencast.com.",
                "/404.html", None, NOTFOUND, None),
 }
 
@@ -883,8 +883,8 @@ def build_marketing():
         print("wrote", name)
 
 LEGAL = {
-  "privacy.html": ("Privacy Policy — Rivencast", "Privacy Policy for Rivencast / Hana by Rivencast, operated by Daniel Jordan Reece.", "/privacy.html"),
-  "terms.html": ("Terms of Service — Rivencast", "Terms of Service for Rivencast, operated by Daniel Jordan Reece, doing business as Rivencast.", "/terms.html"),
+  "privacy.html": ("Privacy Policy | Rivencast", "Privacy Policy for Rivencast / Hana by Rivencast, operated by Daniel Jordan Reece.", "/privacy.html"),
+  "terms.html": ("Terms of Service | Rivencast", "Terms of Service for Rivencast, operated by Daniel Jordan Reece, doing business as Rivencast.", "/terms.html"),
 }
 
 def build_legal():

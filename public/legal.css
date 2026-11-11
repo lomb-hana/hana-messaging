@@ -1,4 +1,4 @@
-/* Legal pages — layered on styles.css (rc-tech) */
+/* Legal pages, layered on styles.css (rc-tech) */
 :root { --radius: 18px; }
 .legal-hero { padding-top: 72px; padding-bottom: 32px; }
 .legal-hero h1 { font-size: clamp(2.3rem, 5vw, 3.8rem); margin-bottom: 16px; }
