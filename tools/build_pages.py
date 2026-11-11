@@ -11,8 +11,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent / "public"
 SITE = "https://rivencast.com"
-BUILD = "rc-nodash-2026-11-11"
-CSSV = "15"
+BUILD = "rc-story-2026-11-11"
+CSSV = "16"
 
 ICONS = {
   "wallet": '<rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18M16 14.5h2"/>',
@@ -652,6 +652,44 @@ HANA = f'''    <header class="wrap profile-hero">
       </section>
     </main>'''
 
+STORY = [
+  ("the problem", "mask", "The internet has a fake-activity problem.",
+   "A lot of what looks like people online isn’t. Review pages fill up with fake and AI-written praise. Spam and scam rings run whole fleets of accounts. Sockpuppets argue with each other to make an idea look popular, and coordinated campaigns astroturf support that was never there. Sometimes it’s real people: groups that organize to brigade a thread, pile onto a business, or target someone all at once. In the inbox, it looks like phishing written to sound like a colleague and fake leads that eat a sales team’s week.",
+   ["fake & AI-written reviews", "spam & scam rings", "sockpuppets", "astroturfing", "brigading", "phishing & fake leads"], ""),
+  ("the gap", "lock", "Older detection looks at one site at a time.",
+   "Traditional tools lean on platform APIs, per-platform rules, and blocklists. APIs can be restricted, rate-limited, or priced out of reach. Rules and blocklists are predictable, so bad actors learn to step around them by rotating accounts, wording, and domains. And because each tool watches a single platform, a network spread across reviews, forums, and social sites looks like scattered noise instead of one coordinated effort.",
+   [], ""),
+  ("the shift", "spark", "Agentic AI can read the web like a person.",
+   "AI agents change what’s possible. An agent can open the same public pages a person would, follow an account’s footprint from one site to the next, line up when and where it posts, notice when accounts move in step, and recognize text that reads machine-written. Then it explains what it found in plain language. It does all of that at machine speed, across many sites at once. That’s a new kind of tool against suspicious activity online.",
+   [], " is-shift"),
+  ("what we’re building", "radar", "Rivencast builds those detection agents.",
+   "Rivencast is a studio building detection agents for businesses, brands, moderators, researchers, and platforms. They work from publicly visible activity and from inboxes customers choose to connect, never private accounts or anything behind a login without permission. Every flag comes with a risk score and the reasons behind it, and people make the final call. The goal is simple: make it much harder for fake activity to pass as real.",
+   [], ""),
+  ("what powers it", "gpu", "Serious hardware underneath.",
+   "Reading the web at this pace takes real compute. Rivencast agents utilize dedicated AI servers with server-grade processors, NVIDIA H200 NVL GPUs, and ECC DDR5 memory.",
+   [], ""),
+]
+
+def story_steps():
+    out = []
+    for i, (kicker, ic, title, body, tags, extra) in enumerate(STORY):
+        tag_html = ""
+        if tags:
+            tag_html = '<ul class="story-tags" aria-label="Examples">' + "".join(f"<li>{t}</li>" for t in tags) + "</ul>"
+        link = ""
+        if kicker == "what powers it":
+            link = '<a class="story-link" href="#hardware">See the hardware <span aria-hidden="true">↓</span></a>'
+        out.append(f'''            <li class="story-step{extra} reveal" style="--d:{i*0.06:.2f}s">
+              <div class="story-node" aria-hidden="true">{icon(ic)}</div>
+              <div class="card story-card">
+                <p class="story-kicker"><span>{i+1:02d}</span> {kicker}</p>
+                <h3>{title}</h3>
+                <p>{body}</p>
+                {tag_html}{link}
+              </div>
+            </li>''')
+    return "\n".join(out)
+
 ABOUT = f'''    <header class="page-hero">
       <div class="wrap">
         <p class="label reveal">about us</p>
@@ -664,9 +702,23 @@ ABOUT = f'''    <header class="page-hero">
     </header>
 
     <main id="main">
+      <section class="section tight story-section" aria-labelledby="story-heading">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <p class="label"><span class="idx">01</span> why we exist</p>
+            <h2 id="story-heading">Fake activity keeps getting smarter. Detection has to catch up.</h2>
+            <p class="section-lede">The problem we see online, why older tools keep missing it, and what agentic AI makes possible now.</p>
+          </div>
+          <ol class="story">
+{story_steps()}
+          </ol>
+        </div>
+      </section>
+
+      <hr class="hr-glow" />
       <section class="section tight" aria-labelledby="what-heading">
         <div class="wrap two-col">
-          <p class="label reveal"><span class="idx">01</span> the studio</p>
+          <p class="label reveal"><span class="idx">02</span> the studio</p>
           <div class="prose reveal">
             <h2 id="what-heading">What Rivencast is</h2>
             <p>
@@ -692,7 +744,7 @@ ABOUT = f'''    <header class="page-hero">
       <section class="section" aria-labelledby="how-heading">
         <div class="wrap">
           <div class="section-head reveal">
-            <p class="label"><span class="idx">02</span> how the agents work</p>
+            <p class="label"><span class="idx">03</span> how the agents work</p>
             <h2 id="how-heading">Focused agents, one explanation</h2>
             <p class="section-lede">
               Instead of one opaque model making a call, Rivencast splits the job: separate agents each
@@ -710,7 +762,7 @@ ABOUT = f'''    <header class="page-hero">
       <section class="section" aria-labelledby="principles-heading">
         <div class="wrap">
           <div class="section-head reveal">
-            <p class="label"><span class="idx">03</span> principles</p>
+            <p class="label"><span class="idx">04</span> principles</p>
             <h2 id="principles-heading">How we build detection</h2>
           </div>
           <div class="spec reveal">
@@ -725,7 +777,7 @@ ABOUT = f'''    <header class="page-hero">
       <section class="section tight" aria-labelledby="made-heading">
         <div class="wrap">
           <div class="section-head reveal">
-            <p class="label"><span class="idx">04</span> how they’re made</p>
+            <p class="label"><span class="idx">05</span> how they’re made</p>
             <h2 id="made-heading">Shaped on top of models, tuned for detection</h2>
             <p class="section-lede">
               Rivencast does not train its own foundation model. The intelligence underneath comes from
@@ -736,10 +788,10 @@ ABOUT = f'''    <header class="page-hero">
         </div>
       </section>
 
-      <section class="section" aria-labelledby="hardware-heading">
+      <section class="section" id="hardware" aria-labelledby="hardware-heading">
         <div class="wrap">
           <div class="section-head reveal">
-            <p class="label"><span class="idx">05</span> the hardware</p>
+            <p class="label"><span class="idx">06</span> the hardware</p>
             <h2 id="hardware-heading">What Rivencast agents run on</h2>
             <p class="section-lede">
               Rivencast agents utilize dedicated servers built for AI work: server-grade processors,

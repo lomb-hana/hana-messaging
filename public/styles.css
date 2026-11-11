@@ -582,3 +582,33 @@ html, body { overflow-x: clip; }
 .scan-surf { display: inline-block; margin-right: 8px; padding: 1px 6px; border-radius: 5px; font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--teal); border: 1px solid rgba(143,224,221,0.3); background: rgba(143,224,221,0.06); vertical-align: 1px; }
 .scan-where { color: var(--dim); font-size: 11.5px; margin-top: 2px; }
 .scan-list.animating .scan-row .scan-where { opacity: .6; }
+
+/* ---------- About: why we exist story ---------- */
+.story { list-style: none; margin: 0; padding: 0; max-width: 960px; display: grid; gap: 18px; position: relative; }
+.story::before { content: ""; position: absolute; left: 23px; top: 28px; bottom: 28px; width: 1px; background: linear-gradient(to bottom, var(--gold) 0%, var(--teal) 60%, rgba(143,224,221,0) 100%); opacity: .55; }
+.story-step { display: grid; grid-template-columns: 48px minmax(0,1fr); gap: 22px; align-items: start; }
+.story-node { position: relative; z-index: 1; width: 48px; height: 48px; margin-top: 22px; border-radius: 14px; display: grid; place-items: center; background: var(--panel-solid); border: 1px solid var(--line-strong); box-shadow: 0 0 0 6px var(--bg), 0 0 24px -6px rgba(215,181,122,.45); }
+.story-node .ico { width: 22px; height: 22px; display: grid; place-items: center; background: none; border: 0; box-shadow: none; padding: 0; }
+.story-node svg { width: 20px; height: 20px; fill: none; stroke: var(--gold-hi); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.story-card { padding: 26px 28px; }
+.story-card h3 { font-size: 1.32rem; letter-spacing: -0.025em; margin: 6px 0 10px; }
+.story-card p { line-height: 1.72; }
+.card .story-kicker { margin: 0; font: 500 12px/1.4 var(--mono); letter-spacing: .06em; color: var(--gold); }
+.story-kicker span { color: var(--dim); margin-right: 6px; }
+.story-tags { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.story-tags li { font: 500 11.5px/1 var(--mono); color: var(--text-2); padding: 7px 10px; border-radius: 999px; border: 1px solid var(--line-2); background: rgba(255,255,255,0.025); }
+.story-link { display: inline-flex; gap: 6px; margin-top: 14px; font: 500 13px/1 var(--mono); text-decoration: none; color: var(--gold-hi); }
+.story-link:hover { color: #fff; }
+.story-step.is-shift .story-card { border-color: rgba(143,224,221,0.32); background: linear-gradient(135deg, rgba(143,224,221,0.07), rgba(215,181,122,0.04) 60%, transparent), var(--panel); }
+.story-step.is-shift .story-node { border-color: rgba(143,224,221,0.55); box-shadow: 0 0 0 6px var(--bg), 0 0 30px -4px rgba(143,224,221,.55); }
+.story-step.is-shift .story-node svg { stroke: var(--teal); }
+.card.story-card .story-kicker { color: var(--gold); }
+.story-step.is-shift .card.story-card .story-kicker { color: var(--teal); }
+@media (max-width: 640px) {
+  .story::before { left: 17px; }
+  .story-step { grid-template-columns: 36px minmax(0,1fr); gap: 12px; }
+  .story-node { width: 36px; height: 36px; border-radius: 11px; margin-top: 20px; box-shadow: 0 0 0 4px var(--bg); }
+  .story-node svg { width: 17px; height: 17px; }
+  .story-card { padding: 20px; }
+  .story-card h3 { font-size: 1.16rem; }
+}
