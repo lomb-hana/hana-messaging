@@ -20,7 +20,7 @@ REPO = Path(__file__).resolve().parent.parent
 ROOT = REPO / "public"
 SRC = REPO / "src"
 SITE = "https://rivencast.com"
-BUILD = "rc-cleanup-2026-11-11"
+BUILD = "rc-cleanup2-2026-11-11"
 CSS_SLOT = "/*__RC_CSS__*/"
 
 def esbuild(src, loader):
@@ -91,7 +91,7 @@ ORG = {
   "contactPoint": [{"@type": "ContactPoint", "contactType": "customer support", "email": "inquiry@rivencast.com"}],
 }
 
-def head(title, desc, path, extra_ld=None, css="styles.css", noindex=False):
+def head(title, desc, path, extra_ld=None, extra_css=None, noindex=False):
     canonical = SITE + path
     ld = [ORG] + (extra_ld or [])
     ld_html = "\n".join(f'  <script type="application/ld+json">{json.dumps(x, ensure_ascii=False)}</script>' for x in ld)
@@ -123,8 +123,8 @@ def head(title, desc, path, extra_ld=None, css="styles.css", noindex=False):
   <link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />{FONT_PRELOAD}
-  <style>{CSS_SLOT}</style>{'' if css == 'styles.css' else f'''
-  <link rel="stylesheet" href="/{css}?v={LCSSV}" />'''}
+  <style>{CSS_SLOT}</style>{'' if not extra_css else f'''
+  <link rel="stylesheet" href="/{extra_css}?v={LCSSV}" />'''}
   <script>document.documentElement.classList.add("js")</script>
   <script type="speculationrules">{SPEC_RULES}</script>
 {ld_html}
@@ -1147,7 +1147,7 @@ def build_legal():
         p = ROOT / name
         src = p.read_text(encoding="utf-8")
         # head
-        src = re.sub(r"<head>.*?</head>", lambda m: head(title, desc, path, css="legal.css"), src, count=1, flags=re.S)
+        src = re.sub(r"<head>.*?</head>", lambda m: head(title, desc, path, extra_css="legal.css"), src, count=1, flags=re.S)
         # header chrome: from skip link up to the legal hero section
         m = re.search(r'<section class="legal-hero[^"]*">.*?</section>', src, flags=re.S)
         hero = m.group(0)
@@ -1187,7 +1187,6 @@ def inline_css():
         html = p.read_text(encoding="utf-8")
         html = re.sub(r"<style>.*?</style>", lambda m: "<style>" + inline + "</style>", html, count=1, flags=re.S)
         p.write_text(html, encoding="utf-8")
-    (ROOT / "styles.css").write_text(inline, encoding="utf-8")  # same CSS, for anything still linking /styles.css
     print(f"css: {len(css)} min -> {len(purged)} purged, inlined into {len(pages)} pages")
 
 if __name__ == "__main__":
