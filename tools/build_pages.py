@@ -11,8 +11,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent / "public"
 SITE = "https://rivencast.com"
-BUILD = "rc-sms-contact-2026-11-11"
-CSSV = "23"
+BUILD = "rc-connect-2026-11-11"
+CSSV = "24"
 
 ICONS = {
   "wallet": '<rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18M16 14.5h2"/>',
@@ -66,7 +66,7 @@ ORG = {
   "url": SITE + "/",
   "logo": SITE + "/assets/icon-512.png",
   "email": "inquiry@rivencast.com",
-  "description": "Rivencast is an independent AI studio in Houston, Texas, building AI agents that detect bots, AI-generated content, and fake accounts across inboxes, reviews, websites, forums, and social platforms. The agents read publicly visible activity without relying on platform APIs and explain every risk score in plain language, so people make the call.",
+  "description": "Rivencast is an independent AI studio in Houston, Texas, building AI agents that detect bots, AI-generated content, and fake accounts across the tools a company already uses and the public web. The agents connect to systems like email, helpdesks, and review dashboards through connectors or an API, read publicly visible activity the way a person would without relying on platform APIs, and explain every risk score in plain language, so people make the call.",
   "address": {"@type": "PostalAddress", "addressLocality": "Houston", "addressRegion": "TX", "addressCountry": "US"},
   "contactPoint": [{"@type": "ContactPoint", "contactType": "customer support", "email": "inquiry@rivencast.com"}],
 }
@@ -239,7 +239,7 @@ HANA_REQ = "/hana-access"
 HANA_BTN = '<a class="btn" href="/hana-access">Request access to Hana <span class="arr" aria-hidden="true">→</span></a>'
 EARLY_BTN = f'<a class="btn" href="{EARLY}">Request early access <span class="arr" aria-hidden="true">→</span></a>'
 NOT_AFFIL = "Rivencast is independent and not affiliated with or endorsed by any platform named on this site."
-PUBLIC_LINE = "Rivencast works from publicly visible activity and from accounts and tools you choose to connect. It doesn’t see private accounts, private messages, or anything behind a login without permission."
+PUBLIC_LINE = "Rivencast works from publicly visible activity and from accounts, tools, and APIs you choose to connect. It doesn’t see private accounts, private messages, or anything behind a login without permission."
 FOOTER = FOOTER.replace("{PUBLIC_LINE}", PUBLIC_LINE).replace("{NOT_AFFIL}", NOT_AFFIL)
 
 def _line(arrow, text, status, cls=""):
@@ -361,12 +361,12 @@ def signal_grid():
         for i, (ic, h, p) in enumerate(SIGNALS)) + "</div>"
 
 SURFACES = [
-  ("mail", "Company email", "Inboxes you connect, with your permission. Flag bot- or AI-written inbound, phishing-style automation, and fake leads."),
+  ("mail", "Your connected tools", "Email, helpdesk, review dashboards, community tools, and internal apps you connect through a connector or an API, with your permission."),
   ("globe", "Websites & comment sections", "Comment threads, sign-up spam, and contact-form floods on sites you run or care about."),
   ("flag", "Product & business reviews", "Review pages for products and businesses: bursts of fake praise or coordinated pile-ons."),
   ("users", "Public forums", "Community boards and discussion threads where bots farm reputation and drop links."),
   ("msg", "Social platforms", "Public posts and replies on social sites. Reddit and X are examples, not limits."),
-  ("search", "Just about anywhere public", "If a person could see it on the open web, an agent can read it the same way."),
+  ("search", "Just about anywhere public", "If a person could see it on the open web, an agent can read it the same way, no platform API needed."),
 ]
 
 def surface_grid():
@@ -374,12 +374,12 @@ def surface_grid():
         f'<article class="card reveal" style="--d:{(i%3)*0.06:.2f}s">{icon(ic)}<h3>{h}</h3><p>{p}</p></article>'
         for i, (ic, h, p) in enumerate(SURFACES)) + "</div>"
 
-EXAMPLES = ["Reddit", "X", "review sites", "forums", "comment sections", "company inboxes", "contact forms", "blogs"]
+EXAMPLES = ["Reddit", "X", "review sites", "forums", "comment sections", "email and helpdesks", "internal apps", "contact forms", "blogs"]
 def example_chips():
     return '<ul class="chips reveal" style="margin-top:28px" aria-label="Examples">' + "".join(f'<li class="chip">{e}</li>' for e in EXAMPLES) + "</ul>"
 
 USES = [
-  ("mail", "Businesses & inboxes", "Flag AI-written outreach, fake leads, and phishing-style automation in the inboxes you connect."),
+  ("mail", "Businesses & teams", "Flag AI-written outreach, fake leads, and phishing-style automation in the email and tools you connect."),
   ("megaphone", "Brands & review integrity", "Spot fake reviews, coordinated campaigns, and bot engagement around your name."),
   ("mod", "Community moderators", "Triage suspicious accounts faster, with a reason attached to every flag."),
   ("flask", "Researchers & journalists", "Investigate inauthentic behavior with explainable scoring built on public activity."),
@@ -392,8 +392,8 @@ def use_grid():
         for i, (ic, h, p) in enumerate(USES)) + "</div>"
 
 STEPS = [
-  ("01 · point", "Tell it where to look", "Connect an inbox with your permission, or point the agents at a review page, a forum, a site, or an account."),
-  ("02 · read", "Agents read the web", "They read publicly visible activity the way a person would (no platform API needed), fast, at scale."),
+  ("01 · point", "Tell it where to look", "Connect your email, helpdesk, or other tools with a connector or an API, or point the agents at a review page, a forum, a site, or an account."),
+  ("02 · read", "Agents connect and read", "They work inside the tools you connect, like any AI agent using an API, and read the public web the way a person would (no platform API needed), fast, at scale."),
   ("03 · explain", "Score + reasons", "Each account or message gets a risk score and a plain-language explanation of why."),
   ("04 · decide", "People make the call", "Rivencast flags. You and your team review and decide what happens next."),
 ]
@@ -410,9 +410,10 @@ HOME = f'''    <section class="hero" aria-labelledby="hero-heading">
           <a class="pill reveal" href="{EARLY}"><span class="dot live" aria-hidden="true"></span>Early access · no platform API needed <span aria-hidden="true">→</span></a>
           <h1 id="hero-heading" class="reveal" style="--d:.05s">AI agents that <span class="grad-text nowrap">catch the bots.</span></h1>
           <p class="lede reveal" style="--d:.1s">
-            Rivencast detects bots, AI-generated content, and fake accounts in your inbox, on review pages,
-            websites, forums, and social platforms. Our AI agents read the web the way a person would, so they
-            don’t depend on platform APIs. Every flag comes with a risk score and plain-language reasons, and people make the final call.
+            Rivencast detects bots, AI-generated content, and fake accounts in the tools you already use and across
+            review pages, websites, forums, and social platforms. Our AI agents plug into your programs through connectors
+            or an API, the way AI agents connect to software, and read the public web the way a person would, so they don’t
+            depend on platform APIs. Every flag comes with a risk score and plain-language reasons, and people make the final call.
           </p>
           <div class="hero-actions reveal" style="--d:.15s">
             {EARLY_BTN}
@@ -461,7 +462,7 @@ HOME = f'''    <section class="hero" aria-labelledby="hero-heading">
           <div class="section-head center reveal">
             <p class="label"><span class="idx">03</span> where it works</p>
             <h2 id="where-heading">Not one platform. Just about anywhere.</h2>
-            <p class="section-lede">Because the agents read publicly visible activity instead of relying on platform APIs, they work across surfaces, plus any inbox you connect.</p>
+            <p class="section-lede">Because the agents read publicly visible activity instead of relying on platform APIs, they work across surfaces, plus any tools or APIs you connect.</p>
           </div>
           {surface_grid()}
           {example_chips()}
@@ -471,14 +472,14 @@ HOME = f'''    <section class="hero" aria-labelledby="hero-heading">
       <section class="section tight" aria-labelledby="out-heading">
         <div class="wrap split">
           <div class="section-head reveal">
-            <p class="label"><span class="idx">04</span> no api required</p>
-            <h2 id="out-heading">Reads the web like a person. Explains like an analyst.</h2>
+            <p class="label"><span class="idx">04</span> connect or browse</p>
+            <h2 id="out-heading">Plugs into your tools. Reads the web like a person.</h2>
             <p class="section-lede">A high score is a reason to look closer, never an automatic verdict.</p>
           </div>
           <div class="spec reveal">
             <div class="spec-row"><div class="spec-key">access<small>// public web</small></div><div><strong>No platform API needed.</strong><span class="v">Agents read publicly visible activity the way a person would, so detection doesn’t depend on any platform’s API or permission.</span></div></div>
             <div class="spec-row"><div class="spec-key">footprint<small>// cross-site</small></div><div><strong>Locked profiles still leave a trail.</strong><span class="v">Rivencast can’t see inside private accounts. But where and when an account posts publicly elsewhere still tells a story.</span></div></div>
-            <div class="spec-row"><div class="spec-key">email<small>// with permission</small></div><div><strong>Only inboxes you connect.</strong><span class="v">Email is scanned only when you connect it, never anyone else’s.</span></div></div>
+            <div class="spec-row"><div class="spec-key">connect<small>// with permission</small></div><div><strong>Your tools, through connectors or an API.</strong><span class="v">Link email, a helpdesk, review dashboards, or internal apps the way you’d connect any AI agent. Only what you connect gets scanned.</span></div></div>
             <div class="spec-row"><div class="spec-key">output<small>// score + reasons</small></div><div><strong>A risk score and the reasons, written out.</strong><span class="v">“2-day-old account, five 5-star reviews in an hour, AI-writing patterns.” Not a black box.</span></div></div>
             <div class="spec-row"><div class="spec-key">decision<small>// human</small></div><div><strong>People make the call.</strong><span class="v">Rivencast doesn’t ban, report, or remove anyone on its own.</span></div></div>
           </div>
@@ -549,7 +550,8 @@ AGENTS = f'''    <header class="page-hero">
         <h1 class="reveal" style="--d:.05s">A team of <span class="grad-text">detection agents.</span></h1>
         <p class="lede reveal" style="--d:.1s">
           Rivencast splits detection into focused AI agents, each watching one kind of signal. They read
-          publicly visible activity the way a person would (no platform API needed), plus any inbox you connect.
+          publicly visible activity the way a person would (no platform API needed), and they work inside the tools
+          you connect through connectors or an API.
           Their findings roll up into one risk score and one plain-language explanation. In early access.
         </p>
         <div class="hero-actions reveal" style="--d:.15s">{EARLY_BTN}</div>
@@ -576,7 +578,7 @@ AGENTS = f'''    <header class="page-hero">
           </div>
           <div class="agent-grid">
 {agent_card("is-live", fb("radar"), "Rivencast detection", "Bots · AI content · fake accounts", "early",
-  "Detection agents for inboxes you connect, review pages, websites, public forums, and social platforms. Risk scores built from timing, account age, cross-site footprint, repeated text, coordinated activity, and AI-writing patterns, each with a plain-language explanation. People make the call.",
+  "Detection agents for the tools you connect through connectors or an API, plus review pages, websites, public forums, and social platforms. Risk scores built from timing, account age, cross-site footprint, repeated text, coordinated activity, and AI-writing patterns, each with a plain-language explanation. People make the call.",
   EARLY_BTN)}
 {agent_card("is-soon", fb("shield"), "Custom detection agents", "Tuned to you", "soon",
   "Detection agents tuned to your own rules and patterns: what counts as spam for your business or community, which signals matter most, and how flags reach your team.", SOON)}
@@ -717,14 +719,14 @@ STORY = [
   ("the gap", "lock", "Older detection looks at one site at a time.",
    "Traditional tools lean on platform APIs, per-platform rules, and blocklists. APIs can be restricted, rate-limited, or priced out of reach. Rules and blocklists are predictable, so bad actors learn to step around them by rotating accounts, wording, and domains. And because each tool watches a single platform, a network spread across reviews, forums, and social sites looks like scattered noise instead of one coordinated effort.",
    [], ""),
-  ("the shift", "spark", "Agentic AI can read the web like a person.",
-   "AI agents change what’s possible. An agent can open the same public pages a person would, follow an account’s footprint from one site to the next, line up when and where it posts, notice when accounts move in step, and recognize text that reads machine-written. Then it explains what it found in plain language. It does all of that at machine speed, across many sites at once. That’s a new kind of tool against suspicious activity online.",
+  ("the shift", "spark", "Agentic AI can use software and read the web like a person.",
+   "AI agents change what’s possible. An agent can plug into software through connectors and APIs, open the same public pages a person would, follow an account’s footprint from one site to the next, line up when and where it posts, notice when accounts move in step, and recognize text that reads machine-written. Then it explains what it found in plain language. It does all of that at machine speed, across many sites at once. That’s a new kind of tool against suspicious activity online.",
    [], " is-shift"),
   ("what we’re building", "radar", "Rivencast builds those detection agents.",
-   "Rivencast is a studio building detection agents for businesses, brands, moderators, researchers, and platforms. They work from publicly visible activity and from inboxes customers choose to connect, never private accounts or anything behind a login without permission. Every flag comes with a risk score and the reasons behind it, and people make the final call. The goal is simple: make it much harder for fake activity to pass as real.",
+   "Rivencast is a studio building detection agents for businesses, brands, moderators, researchers, and platforms. They work from publicly visible activity and from the tools and APIs customers choose to connect, never private accounts or anything behind a login without permission. Every flag comes with a risk score and the reasons behind it, and people make the final call. The goal is simple: make it much harder for fake activity to pass as real.",
    [], ""),
   ("what powers it", "gpu", "Serious hardware underneath.",
-   "Reading the web at this pace takes real compute. Rivencast agents utilize dedicated AI servers with server-grade processors, NVIDIA H200 NVL GPUs, and ECC DDR5 memory.",
+   "Working across connected tools and the web at this pace takes real compute. Rivencast agents utilize dedicated AI servers with server-grade processors, NVIDIA H200 NVL GPUs, and ECC DDR5 memory.",
    [], ""),
 ]
 
@@ -787,8 +789,8 @@ ABOUT = f'''    <header class="page-hero">
             <p>
               Our agents read the web the way a person would. They look at publicly visible activity: when and
               where accounts post, how old they are, what their text looks like, and who they move in step with,
-              so detection doesn’t depend on any platform’s API. For email, they work only on inboxes a
-              customer chooses to connect.
+              so detection doesn’t depend on any platform’s API. Companies can also connect their own tools,
+              like email, a helpdesk, or internal apps, through connectors or an API, and the agents work only on what’s connected.
             </p>
             <p>
               The platform is in <strong>early access</strong>. <strong>Hana</strong>, the Rivencast
@@ -826,7 +828,7 @@ ABOUT = f'''    <header class="page-hero">
           <div class="spec reveal">
             <div class="spec-row"><div class="spec-key">explainable<small>// show the work</small></div><div><strong>Every score comes with reasons.</strong><span class="v">If an agent can’t explain a flag in plain language, it shouldn’t be making one.</span></div></div>
             <div class="spec-row"><div class="spec-key">human<small>// final say</small></div><div><strong>People make the call.</strong><span class="v">Rivencast supports businesses, moderators, and teams. It doesn’t ban, report, or remove anyone on its own.</span></div></div>
-            <div class="spec-row"><div class="spec-key">public<small>// data</small></div><div><strong>Publicly visible activity, or your permission.</strong><span class="v">Agents read what any visitor could see on the open web, plus inboxes a customer connects. Nothing private, nothing behind a login without permission.</span></div></div>
+            <div class="spec-row"><div class="spec-key">public<small>// data</small></div><div><strong>Publicly visible activity, or your permission.</strong><span class="v">Agents read what any visitor could see on the open web, plus the tools and APIs a customer connects. Nothing private, nothing behind a login without permission.</span></div></div>
             <div class="spec-row"><div class="spec-key">careful<small>// not a verdict</small></div><div><strong>A score is a signal, not proof.</strong><span class="v">Real people can look unusual, and some bots look ordinary. Scores point a human at what deserves a closer look.</span></div></div>
           </div>
         </div>
@@ -857,7 +859,7 @@ ABOUT = f'''    <header class="page-hero">
             </p>
           </div>
           <div class="grid grid-4 hw">
-            <article class="card reveal"><div class="card-top">{icon("cpu")}<span class="hw-tag">CPU</span></div><h3>Server-grade processors</h3><p>Multi-core data-center CPUs handle everything around the model: reading the web, scheduling scans, and keeping every job moving.</p></article>
+            <article class="card reveal"><div class="card-top">{icon("cpu")}<span class="hw-tag">CPU</span></div><h3>Server-grade processors</h3><p>Multi-core data-center CPUs handle everything around the model: reading the web and connected tools, scheduling scans, and keeping every job moving.</p></article>
             <article class="card reveal" style="--d:.06s"><div class="card-top">{icon("gpu")}<span class="hw-tag">GPU</span></div><h3>NVIDIA H200 NVL</h3><p>Hopper-generation data-center GPUs with large, fast HBM3e memory, linked over NVIDIA NVLink, built to run large models quickly.</p></article>
             <article class="card reveal" style="--d:.12s"><div class="card-top">{icon("ram")}<span class="hw-tag">RAM</span></div><h3>ECC DDR5 memory</h3><p>Error-correcting server memory keeps long-running work stable and accurate.</p></article>
             <article class="card reveal" style="--d:.18s"><div class="card-top">{icon("layers")}<span class="hw-tag">MODELS</span></div><h3>Shaped on top, not trained from scratch</h3><p>Rivencast does not train its own foundation model. Agents are shaped and tuned on top of models for detection and explanation.</p></article>
@@ -1006,15 +1008,15 @@ FAQ = [
   ("What is Rivencast?",
    "<p>Rivencast is an AI-agent detection service for bots, AI-generated content, and automated or inauthentic accounts. The agents give each account or message a risk score and explain it in plain language, so people can decide what to do.</p>"),
   ("Where does it work?",
-   f"<p>Just about anywhere activity is publicly visible: product and business reviews, websites and comment sections, public forums, and social platforms like Reddit or X, plus company inboxes you choose to connect. {NOT_AFFIL}</p>"),
+   f"<p>Just about anywhere activity is publicly visible: product and business reviews, websites and comment sections, public forums, and social platforms like Reddit or X, plus company tools you choose to connect through connectors or an API. {NOT_AFFIL}</p>"),
   ("Do you need API access?",
-   "<p>No. Rivencast’s agents read publicly visible activity the way a person would, so detection doesn’t depend on platform APIs. For email, you connect the inboxes you want checked.</p>"),
+   "<p>No. Rivencast’s agents read publicly visible activity the way a person would, so detection doesn’t depend on platform APIs. If you want your own systems checked, like email, a helpdesk, or an internal app, you can connect them through connectors or an API.</p>"),
   ("Can you see private accounts?",
    "<p>No. Rivencast doesn’t see private accounts, private messages, or anything behind a login without permission. But even when a profile is locked down, an account’s public footprint elsewhere (where and when it posts publicly) can still tell a story.</p>"),
   ("What signals do the agents look at?",
    "<p>Timing and posting cadence, account age, cross-site footprint, repeated or templated text, coordinated activity between accounts, and AI-writing patterns.</p>"),
   ("Does it work on company email?",
-   "<p>Yes, for inboxes your company connects with permission. The agents can flag bot- or AI-written inbound messages, phishing-style automation, and fake leads.</p>"),
+   "<p>Yes, when your company connects its email with permission, through a connector or an API. The agents can flag bot- or AI-written inbound messages, phishing-style automation, and fake leads.</p>"),
   ("Does Rivencast ban or remove accounts?",
    "<p>No. Rivencast flags and explains. You and your team review the flags and make the call.</p>"),
   ("Is a high risk score proof?",
@@ -1086,10 +1088,10 @@ CONTACT = f'''    <header class="page-hero">
 
 PAGES = {
   "index.html": ("Rivencast: AI agents that catch the bots",
-                 "Rivencast detects bots, AI-generated content, and fake accounts across inboxes, reviews, websites, forums, and social platforms. No platform API needed. Explainable risk scores; people decide. Early access.",
+                 "Rivencast detects bots, AI-generated content, and fake accounts across your connected tools, reviews, websites, forums, and social platforms. Connect via API, no platform API needed. Explainable risk scores; people decide. Early access.",
                  "/", "Home", HOME, None),
   "agents.html": ("Detection agents | Rivencast",
-                  "How Rivencast’s detection agents work: focused AI agents that read publicly visible activity and roll their findings into one risk score with a plain-language explanation. Early access.",
+                  "How Rivencast’s detection agents work: focused AI agents that connect to your tools through connectors or an API, read publicly visible activity, and roll their findings into one risk score with a plain-language explanation. Early access.",
                   "/agents.html", "Agents", AGENTS, None),
   "agents/hana.html": ("Hana, the Rivencast assistant",
                        "Hana is the Rivencast assistant. Access is by request: once approved, text or call her to learn what Rivencast does, get a flag explained, or get help.",
