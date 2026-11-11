@@ -129,8 +129,8 @@
   if (nfPath) nfPath.textContent = window.location.pathname;
 
   /* Chat-style agent demo (illustrative, not connected).
-     Scenario 1 is already rendered in the HTML, so the console is never blank;
-     the animation wiring waits until the browser is idle to keep first load light. */
+     Starts as soon as the script runs (the script is deferred, so right after the
+     HTML is parsed). Only the decorative particle canvas waits for idle time. */
   const initDemo = () => {
     const demo = document.getElementById("agent-demo");
     if (!demo) return;
@@ -170,8 +170,16 @@
       input.value = "";
       tabs.forEach((t, i) => t.addEventListener("click", () => show(i)));
     } else {
+      const reset = (sc) => {
+        sc.querySelectorAll(".d-step").forEach((el) => el.classList.remove("on", "ok", "done"));
+        sc.querySelectorAll("[data-score]").forEach((b) => { b.textContent = "0"; });
+      };
+      /* Hide scenario 1's answer right away and show only the question bubble,
+         so the first frame is the start of the animation, never a finished console. */
+      reset(scenes[0]);
       demo.classList.add("anim");
-      scenes[0].querySelectorAll(".d-step").forEach((el) => el.classList.add("on", "ok", "done"));
+      const ask0 = scenes[0].querySelector(".d-user");
+      if (ask0) ask0.classList.add("on");
       const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
       const wait = async (ms, t, holdable) => {
         let left = ms;
@@ -189,17 +197,21 @@
           await wait(40, t);
         }
       };
-      const reset = (sc) => {
-        sc.querySelectorAll(".d-step").forEach((el) => el.classList.remove("on", "ok", "done"));
-        sc.querySelectorAll("[data-score]").forEach((b) => { b.textContent = "0"; });
-      };
-      const play = async (i, t) => {
+      /* first = the on-load run of scenario 1: the question bubble is already showing,
+         so skip typing it and start the agent's answer immediately. */
+      const play = async (i, t, first) => {
         const sc = scenes[i];
         reset(sc);
         show(i);
         const total = 13000; let el0 = 0;
         const tick = (ms) => { el0 += ms; setP(Math.min(1, el0 / total)); };
         input.value = ""; box.classList.remove("ready", "sent");
+        if (first) {
+          const ask = sc.querySelector(".d-user");
+          if (ask) ask.classList.add("on");
+          tick(2000);
+          await wait(150, t);
+        } else {
         await wait(500, t); tick(500);
         box.classList.add("typing");
         const text = sc.dataset.prompt;
@@ -213,7 +225,8 @@
         box.classList.add("sent");
         await wait(160, t); tick(160);
         input.value = ""; box.classList.remove("typing", "ready", "sent");
-        const steps = Array.from(sc.querySelectorAll(".d-step"));
+        }
+        const steps = Array.from(sc.querySelectorAll(".d-step")).filter((el) => !el.classList.contains("on"));
         for (const el of steps) {
           el.classList.add("on");
           if (el.classList.contains("d-line")) {
@@ -237,22 +250,11 @@
         const hold = 5200, p0 = Math.min(0.85, el0 / total);
         for (let k = 200; k <= hold; k += 200) { await wait(200, t, true); setP(p0 + (1 - p0) * (k / hold)); }
       };
-      /* First paint: show scenario 1 already answered so the console is never blank,
-         then move on to the typed scenarios. */
-      const intro = async (t) => {
-        const sc = scenes[0];
-        finish(sc); show(0);
-        input.value = sc.dataset.prompt;
-        const hold = 3600;
-        for (let k = 100; k <= hold; k += 100) { await wait(100, t, true); setP(k / hold); }
-        input.value = "";
-      };
       const loop = async (start, first) => {
         const t = ++token;
         let i = start;
         try {
-          if (first) { await intro(t); i = 1; }
-          for (;;) { await play(i, t); i = (i + 1) % scenes.length; }
+          for (let f = first; ; f = false) { await play(i, t, f); i = (i + 1) % scenes.length; }
         } catch (e) { if (e !== CANCEL) throw e; }
       };
       tabs.forEach((tb, i) => tb.addEventListener("click", () => loop(i)));
@@ -274,11 +276,7 @@
       tabs[n].focus(); tabs[n].click();
     }));
   };
-  const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 200));
-  if (document.getElementById("agent-demo")) {
-    const go = () => idle(initDemo, { timeout: 1500 });
-    document.readyState === "complete" ? go() : window.addEventListener("load", go, { once: true });
-  }
+  initDemo();
 })();
 
 /* Hero particle network */

@@ -1024,3 +1024,8 @@ main > .hr-glow + .section::before, main > .section + .hr-glow { display: none; 
 }
 @media (hover: none) { .btn::after { display: none; } }
 @media (prefers-reduced-motion: reduce) { .btn::after { display: none; } .js .reveal { transform: none; } }
+
+/* Demo first paint: before site.js wires the demo, show only scenario 1's question.
+   If the script never runs, the full answer appears after 2.5s instead. */
+.js .agent-demo:not(.anim) #demo-reddit .d-step:not(.d-user) { opacity: 0; animation: demoFallback 0s linear 2.5s forwards; }
+@keyframes demoFallback { to { opacity: 1; } }
