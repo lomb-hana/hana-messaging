@@ -1,10 +1,17 @@
 #!/usr/bin/env python3
-"""Generate Rivencast pages with a shared head, nav, and footer.
+"""Build rivencast.com into public/.
 
-Marketing pages are rendered from the templates below. The legal pages
-(privacy.html, terms.html) keep their policy body untouched; only the
-head, header chrome, hero, and footer are swapped in place.
-Run: python3 tools/build_pages.py
+What it does, in order:
+  1. Minifies src/site.js -> public/site.js and src/legal.css -> public/legal.css
+     (esbuild via npx). Pages reference them with a content hash (?v=...).
+  2. Renders every marketing page from the templates in this file
+     (shared head, header, disclaimer strip, footer).
+  3. Patches only the chrome (head, header, hero, footer) of the legal pages
+     public/privacy.html and public/terms.html. Their policy text is never edited.
+  4. Minifies src/styles.css, drops selectors no page or script uses (PurgeCSS),
+     and inlines the result plus the @font-face rules into every page.
+
+Run from the repo root:  python3 tools/build_pages.py   (needs Python 3 and Node/npx)
 """
 import hashlib, json, re, subprocess, tempfile
 from pathlib import Path
@@ -13,7 +20,7 @@ REPO = Path(__file__).resolve().parent.parent
 ROOT = REPO / "public"
 SRC = REPO / "src"
 SITE = "https://rivencast.com"
-BUILD = "rc-polish2-2026-11-11"
+BUILD = "rc-cleanup-2026-11-11"
 CSS_SLOT = "/*__RC_CSS__*/"
 
 def esbuild(src, loader):
@@ -38,20 +45,12 @@ FONT_PRELOAD = "".join(f'\n  <link rel="preload" href="{u}" as="font" type="font
 SPEC_RULES = json.dumps({"prerender": [{"where": {"and": [{"href_matches": "/*"}, {"not": {"href_matches": "/thanks*"}}, {"not": {"selector_matches": "[rel~=nofollow], [download]"}}]}, "eagerness": "moderate"}]})
 
 ICONS = {
-  "wallet": '<rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18M16 14.5h2"/>',
-  "cart": '<circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/><path d="M3 4h2.2l2.3 11h10.3L20 8H6.3"/>',
   "mail": '<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/>',
-  "cal": '<rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/>',
   "search": '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/>',
   "msg": '<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/>',
   "globe": '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/>',
-  "bell": '<path d="M6 16v-5a6 6 0 1 1 12 0v5l2 2H4z"/><path d="M10 21h4"/>',
   "users": '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.2A6 6 0 0 1 21.5 20"/>',
   "phone": '<rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/>',
-  "drive": '<path d="M8.5 3h7l6 10.5-3.5 6h-12L2.5 13.5z"/><path d="M8.5 3l6 10.5h7M2.5 13.5h12l-3.5 6"/>',
-  "bank": '<path d="M3 9.5 12 4l9 5.5M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20.5h18"/>',
-  "x": '<path d="M4 4l16 16M20 4 4 20"/>',
-  "plus": '<path d="M12 5v14M5 12h14"/>',
   "lock": '<rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><path d="M12 14.5v2.5"/>',
   "cpu": '<rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/>',
   "gpu": '<rect x="2.5" y="7" width="19" height="10" rx="2"/><circle cx="9" cy="12" r="2.6"/><circle cx="16" cy="12" r="2.6"/><path d="M5 17v3M19 17v3"/>',
@@ -59,10 +58,8 @@ ICONS = {
   "layers": '<path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/>',
   "spark": '<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/>',
   "shield": '<path d="M12 3 4.5 6v6c0 4.5 3.2 7.8 7.5 9 4.3-1.2 7.5-4.5 7.5-9V6z"/><path d="m9 12 2.2 2.2L15.5 10"/>',
-  "brain": '<path d="M9 4a3 3 0 0 0-3 3 3 3 0 0 0-2 5 3 3 0 0 0 2 5 3 3 0 0 0 6 1V5a2 2 0 0 0-3-1zM15 4a3 3 0 0 1 3 3 3 3 0 0 1 2 5 3 3 0 0 1-2 5 3 3 0 0 1-6 1"/>',
   "clock": '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/>',
   "pulse": '<path d="M3 12h4l2.5-6 4 12 2.5-6H21"/>',
-  "chart": '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
   "copy": '<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/>',
   "network": '<circle cx="5" cy="6" r="2.2"/><circle cx="19" cy="6" r="2.2"/><circle cx="12" cy="18" r="2.2"/><circle cx="12" cy="9.5" r="1.6"/><path d="M6.8 7.2 10.6 9M17.2 7.2 13.4 9M12 11.1v4.7"/>',
   "user": '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
@@ -256,7 +253,6 @@ NOTFOUND = '''    <main id="main" class="wrap nf">
 
 
 EARLY = "/request-access"
-HANA_REQ = "/hana-access"
 HANA_BTN = '<a class="btn" href="/hana-access">Request access to Hana <span class="arr" aria-hidden="true">→</span></a>'
 EARLY_BTN = f'<a class="btn" href="{EARLY}">Request early access <span class="arr" aria-hidden="true">→</span></a>'
 NOT_AFFIL = "Rivencast is independent and not affiliated with or endorsed by any platform named on this site."
@@ -397,7 +393,7 @@ def surface_grid():
 
 EXAMPLES = ["Reddit", "X", "review sites", "forums", "comment sections", "email and helpdesks", "internal apps", "contact forms", "blogs"]
 def example_chips():
-    return '<ul class="chips reveal" style="margin-top:28px" aria-label="Examples">' + "".join(f'<li class="chip">{e}</li>' for e in EXAMPLES) + "</ul>"
+    return '<ul class="chips reveal" style="margin-top:28px">' + "".join(f'<li class="chip">{e}</li>' for e in EXAMPLES) + "</ul>"
 
 USES = [
   ("mail", "Businesses & teams", "Flag AI-written outreach, fake leads, and phishing-style automation in the email and tools you connect."),
@@ -440,7 +436,7 @@ HOME = f'''    <section class="hero" aria-labelledby="hero-heading">
             {EARLY_BTN}
             <a class="btn btn-ghost" href="#how">How it works</a>
           </div>
-          <ul class="hero-tags reveal" style="--d:.2s" aria-label="Highlights">
+          <ul class="hero-tags reveal" style="--d:.2s">
             <li>no platform API needed</li>
             <li>explainable scores</li>
             <li>humans decide</li>
@@ -565,7 +561,7 @@ ROLES = [
   ("doc", "Explainer", "Rolls everything into one risk score and a plain-language reason a person can check."),
 ]
 
-AGENTS = f'''    <header class="page-hero">
+AGENTS = f'''    <section class="page-hero">
       <div class="wrap">
         <p class="label reveal">detection agents</p>
         <h1 class="reveal" style="--d:.05s">A team of <span class="grad-text">detection agents.</span></h1>
@@ -577,7 +573,7 @@ AGENTS = f'''    <header class="page-hero">
         </p>
         <div class="hero-actions reveal" style="--d:.15s">{EARLY_BTN}</div>
       </div>
-    </header>
+    </section>
 
     <main id="main">
       <section class="section tight" aria-labelledby="pipe-heading" style="padding-top:16px">
@@ -629,7 +625,7 @@ QUOTES = [
   "Yes, I’m an AI. If I’m not sure about something, I’ll tell you and pass it to the team.",
 ]
 
-HANA = f'''    <header class="wrap profile-hero">
+HANA = f'''    <section class="wrap profile-hero">
       <div class="profile-photo-wrap reveal">
         <img class="profile-photo" src="/assets/hana-512.webp" srcset="/assets/hana-192.webp 192w, /assets/hana-512.webp 512w" sizes="(max-width: 640px) 180px, 260px" alt="Hana, the Rivencast assistant" width="260" height="260" fetchpriority="high" decoding="async" />
       </div>
@@ -643,14 +639,14 @@ HANA = f'''    <header class="wrap profile-hero">
           her check on a scan and explain any flag in plain language.
         </p>
         <div class="hero-actions reveal" style="--d:.13s;margin-bottom:22px">{HANA_BTN}</div>
-        <ul class="kv reveal" style="--d:.15s" aria-label="Hana at a glance">
+        <ul class="kv reveal" style="--d:.15s">
           <li><b>role</b>assistant</li>
           <li><b>access</b>by request</li>
           <li><b>helps with</b>questions, early access, support</li>
           <li><b>is</b>an AI, and says so</li>
         </ul>
       </div>
-    </header>
+    </section>
 
     <main id="main">
       <section class="section" aria-labelledby="ask-heading">
@@ -756,7 +752,7 @@ def story_steps():
     for i, (kicker, ic, title, body, tags, extra) in enumerate(STORY):
         tag_html = ""
         if tags:
-            tag_html = '<ul class="story-tags" aria-label="Examples">' + "".join(f"<li>{t}</li>" for t in tags) + "</ul>"
+            tag_html = '<ul class="story-tags">' + "".join(f"<li>{t}</li>" for t in tags) + "</ul>"
         link = ""
         if kicker == "what powers it":
             link = '<a class="story-link" href="#hardware">See the hardware <span aria-hidden="true">↓</span></a>'
@@ -771,7 +767,7 @@ def story_steps():
             </li>''')
     return "\n".join(out)
 
-ABOUT = f'''    <header class="page-hero">
+ABOUT = f'''    <section class="page-hero">
       <div class="wrap">
         <p class="label reveal">about us</p>
         <h1 class="reveal" style="--d:.05s">An independent AI studio <span class="grad-text nowrap">in Houston.</span></h1>
@@ -780,7 +776,7 @@ ABOUT = f'''    <header class="page-hero">
           their reasoning so people can make better calls.
         </p>
       </div>
-    </header>
+    </section>
 
     <main id="main">
       <section class="section tight story-section" aria-labelledby="story-heading">
@@ -925,13 +921,13 @@ def side_steps(title, items):
             <ol class="form-steps">{lis}</ol>
           </aside>'''
 
-REQUEST = f'''    <header class="page-hero">
+REQUEST = f'''    <section class="page-hero">
       <div class="wrap">
         <p class="label reveal">early access</p>
         <h1 class="reveal" style="--d:.05s">Request <span class="grad-text">early access.</span></h1>
         <p class="lede reveal" style="--d:.1s">Tell us where bots, AI-generated content, or fake accounts are showing up for you. Rivencast is in early access, and we read every request.</p>
       </div>
-    </header>
+    </section>
 
     <main id="main">
       <section class="section tight" aria-labelledby="form-heading" style="padding-top:8px">
@@ -962,13 +958,13 @@ REQUEST = f'''    <header class="page-hero">
       </section>
     </main>'''
 
-HANA_ACCESS = f'''    <header class="page-hero">
+HANA_ACCESS = f'''    <section class="page-hero">
       <div class="wrap">
         <p class="label reveal">hana · by request</p>
         <h1 class="reveal" style="--d:.05s">Request access to <span class="grad-text">Hana.</span></h1>
         <p class="lede reveal" style="--d:.1s">Hana, the Rivencast assistant, helps by text and phone. Access is by request: tell us how you’d use her, and once you’re approved, we’ll email you the details.</p>
       </div>
-    </header>
+    </section>
 
     <main id="main">
       <section class="section tight" aria-labelledby="form-heading" style="padding-top:8px">
@@ -1062,13 +1058,13 @@ FAQ_LD = {
   "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": strip_tags(a)}} for q, a in FAQ],
 }
 
-CONTACT = f'''    <header class="page-hero">
+CONTACT = f'''    <section class="page-hero">
       <div class="wrap">
         <p class="label reveal">contact</p>
         <h1 class="reveal" style="--d:.05s">Talk to <span class="grad-text">Rivencast.</span></h1>
         <p class="lede reveal" style="--d:.1s">Early access, partnerships, research, press, or help. We read every message.</p>
       </div>
-    </header>
+    </section>
 
     <main id="main">
       <section class="section tight" aria-labelledby="reach-heading" style="padding-top:16px">

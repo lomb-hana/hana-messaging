@@ -1,6 +1,39 @@
+# Render Blueprint for rivencast.com (static site).
+# Note: headers below only apply if this service is managed by a Render Blueprint.
+# If it was created by hand in the dashboard, add the same rules under
+# Settings > Headers (see README).
 services:
   - type: web
     name: hana-messaging
     runtime: static
     buildCommand: echo static
     staticPublishPath: public
+    headers:
+      # Self-hosted fonts never change in place.
+      - path: /assets/fonts/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      # Images, icons, logo: stable names, cache for a week.
+      # (Per-extension paths so they never overlap the fonts rule.)
+      - path: /assets/*.webp
+        name: Cache-Control
+        value: public, max-age=604800
+      - path: /assets/*.png
+        name: Cache-Control
+        value: public, max-age=604800
+      - path: /assets/*.svg
+        name: Cache-Control
+        value: public, max-age=604800
+      # site.js and legal.css are always requested with a content hash (?v=...).
+      - path: /site.js
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /legal.css
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
