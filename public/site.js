@@ -96,6 +96,11 @@
     window.addEventListener("pageshow", () => { setBusy(false); if (st && !st.classList.contains("is-error")) st.textContent = ""; });
   });
 
+  /* SMS program disclosure: open when linked directly */
+  const sms = document.getElementById("sms-program");
+  const openSms = () => { if (sms && location.hash === "#sms-program") { sms.open = true; } };
+  openSms(); window.addEventListener("hashchange", openSms);
+
   /* 404 path echo */
   const nfPath = document.getElementById("nf-path");
   if (nfPath) nfPath.textContent = window.location.pathname;

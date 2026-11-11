@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Request access to Hana | Rivencast</title>
   <meta name="description" content="Request access to Hana, the Rivencast assistant, by text and phone. Access is by request and approved by the Rivencast team." />
-  <meta name="rc-build" content="rc-disclaimer-2026-11-11" />
+  <meta name="rc-build" content="rc-sms-contact-2026-11-11" />
   <link rel="canonical" href="https://rivencast.com/hana-access" />
   <meta name="theme-color" content="#06080c" />
   <meta name="color-scheme" content="dark" />
@@ -30,7 +30,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&amp;family=Geist+Mono:wght@400..600&amp;display=swap" />
-  <link rel="stylesheet" href="/styles.css?v=22" />
+  <link rel="stylesheet" href="/styles.css?v=23" />
   <script>document.documentElement.classList.add("js")</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Rivencast", "url": "https://rivencast.com/", "logo": "https://rivencast.com/assets/icon-512.png", "email": "inquiry@rivencast.com", "description": "Rivencast is an independent AI studio in Houston, Texas, building AI agents that detect bots, AI-generated content, and fake accounts across inboxes, reviews, websites, forums, and social platforms. The agents read publicly visible activity without relying on platform APIs and explain every risk score in plain language, so people make the call.", "address": {"@type": "PostalAddress", "addressLocality": "Houston", "addressRegion": "TX", "addressCountry": "US"}, "contactPoint": [{"@type": "ContactPoint", "contactType": "customer support", "email": "inquiry@rivencast.com"}]}</script>
 </head>
@@ -82,13 +82,13 @@
             <div class="field"><label for="ha-phone">Mobile number <span class="opt">optional</span></label><input id="ha-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(555) 555-0100" /></div>
             <div class="field"><label for="ha-use">How would you use Hana?</label><textarea id="ha-use" name="usage" rows="4" required placeholder="For example: questions about Rivencast, checking on scans, support"></textarea></div>
             <label class="consent" for="ha-consent">
-              <input id="ha-consent" name="sms_consent" type="checkbox" value="yes" required />
-              <span>I agree to receive texts and calls from Hana, Rivencast’s assistant, at the number I provide once my request is approved. Message frequency varies. Message and data rates may apply. Reply STOP to opt out, HELP for help. Consent is not a condition of purchase. See the <a href="/privacy.html">Privacy Policy</a> and <a href="/terms.html">Terms of Service</a>.</span>
+              <input id="ha-consent" name="sms_consent" type="checkbox" value="yes" />
+              <span><strong class="opt-tag">Optional.</strong> By checking this box, I agree to receive recurring informational text messages and calls from Rivencast (Hana, the Rivencast assistant), such as replies to my questions, access updates, and support, at the mobile number I provide once my request is approved. Message frequency varies. Message and data rates may apply. Reply HELP for help or STOP to opt out. Consent is not a condition of purchase. See the <a href="/terms.html">Terms of Service</a>, <a href="/privacy.html">Privacy Policy</a>, and <a href="/contact.html#sms-program">SMS program details</a>.</span>
             </label>
             <div class="form-foot">
               <button class="btn form-submit" type="submit"><span class="label-idle">Request access</span><span class="label-busy" aria-hidden="true"><i class="spin"></i>Sending…</span> <span class="arr" aria-hidden="true">→</span></button>
               <p class="form-status" role="status" aria-live="polite"></p>
-              <p class="form-note">Mobile opt-in data is never shared with third parties for marketing.</p>
+              <p class="form-note">You can request access without opting in to texts; we’ll reply by email. Mobile opt-in data is never shared with third parties for marketing.</p>
             </div>
           </form>
           <aside class="card form-side reveal" style="--d:.08s">
@@ -112,7 +112,7 @@
             <li><a href="/agents.html">Detection agents</a></li>
             <li><a href="/#how">How it works</a></li>
             <li><a href="/agents/hana.html">Hana, our assistant</a></li>
-            <li><a href="/#opt-in">Texting with Hana</a></li>
+            <li><a href="/contact.html#sms-program">SMS program</a></li>
           </ul>
         </div>
         <div class="foot-col">
@@ -138,6 +138,6 @@
       </div>
     </footer>
   </div>
-  <script src="/site.js?v=22" defer></script>
+  <script src="/site.js?v=23" defer></script>
 </body>
 </html>

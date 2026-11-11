@@ -795,3 +795,33 @@ html, body { overflow-x: clip; }
 .disclaimer-strip p { max-width: var(--max); margin: 0 auto; padding: 18px 24px; font: 400 11.5px/1.65 var(--mono); color: var(--dim); }
 .disclaimer-strip + .site-footer { margin-top: 0; }
 @media (max-width: 640px) { .disclaimer-strip { margin-top: 48px; } .disclaimer-strip p { padding: 16px 20px; font-size: 11px; } }
+/* Contact: Hana card + SMS program disclosure */
+.hana-card-top { display: flex; align-items: center; justify-content: space-between; }
+.hana-card-top img { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line-strong); box-shadow: 0 0 18px -4px rgba(215,181,122,.5); }
+.hana-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start; margin-top: 4px; }
+.sms-details { min-width: 0; }
+.sms-details[open] { flex-basis: 100%; }
+.sms-details > summary { list-style: none; cursor: pointer; user-select: none; gap: 10px; }
+.sms-details > summary::-webkit-details-marker { display: none; }
+.sms-details .chev { width: 8px; height: 8px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg) translateY(-2px); transition: transform .25s var(--ease); }
+.sms-details[open] .chev { transform: rotate(-135deg) translateY(-1px); }
+.sms-details[open] > summary { box-shadow: 0 0 0 1px var(--line-strong) inset; color: var(--gold-hi); }
+.sms-panel { margin-top: 14px; padding: 20px 22px; border-radius: 14px; border: 1px dashed rgba(143,224,221,0.3); background: rgba(143,224,221,0.035); animation: smsIn .3s var(--ease); }
+@keyframes smsIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+.sms-panel h3 { margin: 0 0 12px; font-size: 1rem; }
+.sms-dl { margin: 0; display: grid; gap: 0; }
+.sms-dl > div { display: grid; grid-template-columns: 120px minmax(0,1fr); gap: 14px; padding: 9px 0; border-top: 1px solid rgba(255,255,255,0.06); }
+.sms-dl > div:first-child { border-top: 0; }
+.sms-dl dt { font: 500 11.5px/1.6 var(--mono); letter-spacing: .03em; color: var(--gold); text-transform: lowercase; }
+.sms-dl dd { margin: 0; font-size: 13.5px; line-height: 1.6; color: var(--text-2); }
+.opt-tag { color: var(--teal); font-weight: 600; }
+@media (max-width: 640px) {
+  .hana-actions .btn, .sms-details > summary { width: 100%; justify-content: center; }
+  .sms-details { flex-basis: 100%; }
+  .sms-panel { padding: 16px; }
+  .sms-dl > div { grid-template-columns: minmax(0,1fr); gap: 2px; }
+}
+@media (prefers-reduced-motion: reduce) { .sms-panel { animation: none; } }
+.contact-grid { align-items: start; }
+.contact-card p.label, .contact-card p.big, .contact-card .sms-panel p { flex: none; }
+.contact-card .hana-actions .btn { align-self: auto; }
