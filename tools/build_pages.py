@@ -13,7 +13,7 @@ REPO = Path(__file__).resolve().parent.parent
 ROOT = REPO / "public"
 SRC = REPO / "src"
 SITE = "https://rivencast.com"
-BUILD = "rc-polish-2026-11-11"
+BUILD = "rc-polish2-2026-11-11"
 CSS_SLOT = "/*__RC_CSS__*/"
 
 def esbuild(src, loader):

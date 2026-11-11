@@ -274,7 +274,7 @@
     w = r.width; h = r.height;
     cv.width = w * dpr; cv.height = h * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const n = Math.round(Math.min(70, (w * h) / 16000));
+    const n = Math.round(Math.min(w < 640 ? 34 : 70, (w * h) / 16000));
     pts = Array.from({ length: n }, () => ({
       x: Math.random() * w, y: Math.random() * h,
       vx: (Math.random() - 0.5) * 0.22, vy: (Math.random() - 0.5) * 0.22,
@@ -305,6 +305,7 @@
     }
     raf = visible ? requestAnimationFrame(step) : 0;
   };
+  const start = () => {
   resize();
   window.addEventListener("resize", () => { resize(); });
   new IntersectionObserver((en) => {
@@ -316,4 +317,7 @@
     if (visible && !raf) raf = requestAnimationFrame(step);
   });
   raf = requestAnimationFrame(step);
+  };
+  /* start after first paint so it never competes with content */
+  ("requestIdleCallback" in window) ? requestIdleCallback(start, { timeout: 1200 }) : setTimeout(start, 300);
 })();
