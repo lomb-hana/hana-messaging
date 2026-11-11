@@ -11,8 +11,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent / "public"
 SITE = "https://rivencast.com"
-BUILD = "rc-forms2-2026-11-11"
-CSSV = "19"
+BUILD = "rc-forms3-2026-11-11"
+CSSV = "20"
 
 ICONS = {
   "wallet": '<rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18M16 14.5h2"/>',
@@ -995,21 +995,29 @@ HANA_ACCESS = f'''    <header class="page-hero">
 
 THANKS = '''    <main id="main" class="wrap nf thanks">
       <div>
-        <p class="label" style="justify-content:center">received</p>
-        <h1 class="reveal">Thanks, <span class="grad-text">we got it.</span></h1>
+        <div class="thanks-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+        <p class="label" id="thanks-label" style="justify-content:center">request received</p>
+        <h1 class="reveal" id="thanks-title">Thanks, <span class="grad-text">we got it.</span></h1>
         <p class="lede" id="thanks-msg" style="margin:18px auto 30px;max-width:560px">Your request is on its way to the Rivencast team. We’ll reply by email from inquiry@rivencast.com.</p>
         <div class="hero-actions" style="justify-content:center">
           <a class="btn" href="/">Back to home <span class="arr" aria-hidden="true">→</span></a>
-          <a class="btn btn-ghost" href="/agents.html">See the agents</a>
+          <a class="btn btn-ghost" id="thanks-alt" href="/agents.html">See the agents</a>
         </div>
       </div>
     </main>
     <script>
       (function () {
         var f = new URLSearchParams(location.search).get("form");
-        var m = document.getElementById("thanks-msg");
-        if (f === "hana") m.textContent = "Your Hana access request is on its way to the Rivencast team. We’ll review it and email you once you’re approved.";
-        if (f === "early") m.textContent = "Your early access request is on its way to the Rivencast team. We’ll reply by email from inquiry@rivencast.com.";
+        var C = {
+          early: ["early access · request received", "Your <span class=\\"grad-text\\">early access request</span> is in.", "Thanks for requesting early access to Rivencast. The team will read your request and reply by email from inquiry@rivencast.com.", "/agents.html", "See the agents"],
+          hana: ["hana · request received", "Your <span class=\\"grad-text\\">Hana request</span> is in.", "Thanks for requesting access to Hana. The Rivencast team will review it and email you once you’re approved. You won’t get texts or calls before then.", "/agents/hana.html", "How Hana helps"]
+        };
+        var c = C[f]; if (!c) return;
+        document.getElementById("thanks-label").textContent = c[0];
+        document.getElementById("thanks-title").innerHTML = c[1];
+        document.getElementById("thanks-msg").textContent = c[2];
+        var alt = document.getElementById("thanks-alt"); alt.href = c[3]; alt.textContent = c[4];
+        document.title = (f === "hana" ? "Hana request received" : "Early access request received") + " | Rivencast";
       })();
     </script>'''
 

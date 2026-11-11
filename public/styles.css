@@ -786,3 +786,6 @@ html, body { overflow-x: clip; }
 .js-fs.is-sending .form-submit, .form-submit:disabled { cursor: progress; filter: saturate(.8); transform: none; }
 .form-status { margin: 0; width: 100%; font: 500 12.5px/1.5 var(--mono); color: var(--teal); }
 .form-status:empty { display: none; }
+.thanks-check { width: 64px; height: 64px; margin: 0 auto 22px; border-radius: 20px; display: grid; place-items: center; background: linear-gradient(135deg, rgba(143,224,221,0.16), rgba(215,181,122,0.10)); border: 1px solid rgba(143,224,221,0.4); box-shadow: 0 0 40px -8px rgba(143,224,221,0.5); }
+.thanks-check svg { width: 30px; height: 30px; fill: none; stroke: var(--teal); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.thanks .hero-actions .btn { min-width: 180px; justify-content: center; }
