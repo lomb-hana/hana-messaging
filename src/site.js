@@ -100,6 +100,16 @@
   const sms = document.getElementById("sms-program");
   const openSms = () => { if (sms && location.hash === "#sms-program") { sms.open = true; } };
   openSms(); window.addEventListener("hashchange", openSms);
+  const smsCollapse = sms && sms.querySelector(".sms-collapse");
+  if (smsCollapse) {
+    smsCollapse.hidden = false;
+    smsCollapse.addEventListener("click", () => {
+      sms.open = false;
+      const head = sms.querySelector("summary");
+      head.focus({ preventScroll: true });
+      if (head.getBoundingClientRect().top < 0) head.scrollIntoView({ block: "center", behavior: reduce ? "auto" : "smooth" });
+    });
+  }
 
   /* Prefetch internal pages on intent (hover / touch / focus) */
   if (!(HTMLScriptElement.supports && HTMLScriptElement.supports("speculationrules"))) {

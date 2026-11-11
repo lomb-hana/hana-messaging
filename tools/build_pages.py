@@ -20,7 +20,7 @@ REPO = Path(__file__).resolve().parent.parent
 ROOT = REPO / "public"
 SRC = REPO / "src"
 SITE = "https://rivencast.com"
-BUILD = "rc-cleanup2-2026-11-11"
+BUILD = "rc-smsmorph-2026-11-11"
 CSS_SLOT = "/*__RC_CSS__*/"
 
 def esbuild(src, loader):
@@ -210,9 +210,9 @@ def page(title, desc, path, active, body, extra_ld=None, noindex=False):
 '''
 
 
-SMS_DISCLOSURE = '''<details class="sms-details" id="sms-program">
-                <summary class="btn btn-ghost"><span>SMS program</span><span class="chev" aria-hidden="true"></span></summary>
-                <div class="sms-panel">
+SMS_DISCLOSURE = '''<details class="sms-morph" id="sms-program">
+                <summary class="sms-head"><span class="sms-title">SMS program</span><span class="sms-toggle" aria-hidden="true"><span class="sms-close">Close</span><span class="sms-icon"></span></span></summary>
+                <div class="sms-body">
                   <h3>Hana by Rivencast: SMS program details</h3>
                   <dl class="sms-dl">
                     <div><dt>Program</dt><dd>Hana by Rivencast (texts from the Rivencast assistant, Hana).</dd></div>
@@ -228,6 +228,7 @@ SMS_DISCLOSURE = '''<details class="sms-details" id="sms-program">
                     <div><dt>Your data</dt><dd>Mobile information and text messaging opt-in data and consent are never shared with or sold to third parties or affiliates for marketing purposes.</dd></div>
                     <div><dt>Policies</dt><dd><a href="/terms.html">Terms of Service</a> · <a href="/privacy.html">Privacy Policy</a></dd></div>
                   </dl>
+                  <button type="button" class="sms-collapse" hidden>Collapse SMS program details</button>
                 </div>
               </details>'''
 
@@ -1083,9 +1084,8 @@ CONTACT = f'''    <section class="page-hero">
               <p class="label no-slash" style="margin:0">hana · by request</p>
               <p class="big">Request access to Hana</p>
               <p style="color:var(--muted)">Hana is the Rivencast assistant. Once you’re approved, you can text or call her to learn what Rivencast does, get a flag explained in plain language, check on a scan (for early-access customers), or get support. Access is by request.</p>
-              <div class="hana-actions">{HANA_BTN}
+              <div class="hana-actions">{HANA_BTN}</div>
               {SMS_DISCLOSURE}
-              </div>
             </article>
           </div>
         </div>

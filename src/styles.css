@@ -883,16 +883,50 @@ html, body { overflow-x: clip; }
 .hana-card-top { display: flex; align-items: center; justify-content: space-between; }
 .hana-card-top img { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line-strong); box-shadow: 0 0 18px -4px rgba(215,181,122,.5); }
 .hana-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start; margin-top: 4px; }
-.sms-details { min-width: 0; }
-.sms-details[open] { flex-basis: 100%; }
-.sms-details > summary { list-style: none; cursor: pointer; user-select: none; gap: 10px; }
-.sms-details > summary::-webkit-details-marker { display: none; }
-.sms-details .chev { width: 8px; height: 8px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg) translateY(-2px); transition: transform .25s var(--ease); }
-.sms-details[open] .chev { transform: rotate(-135deg) translateY(-1px); }
-.sms-details[open] > summary { box-shadow: 0 0 0 1px var(--line-strong) inset; color: var(--gold-hi); }
-.sms-panel { margin-top: 14px; padding: 20px 22px; border-radius: 14px; border: 1px dashed rgba(143,224,221,0.3); background: rgba(143,224,221,0.035); animation: smsIn .3s var(--ease); }
+/* SMS program: the toggle itself grows into the disclosure panel */
+.sms-morph {
+  interpolate-size: allow-keywords;
+  display: block; width: 100%; max-width: 13.5rem; margin-top: 12px; overflow: hidden;
+  border-radius: 12px; border: 1px solid var(--edge);
+  background: linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.02));
+  box-shadow: var(--hl);
+  transition: max-width .45s var(--ease), border-color .3s, background-color .3s, box-shadow .3s, border-radius .3s;
+}
+.sms-morph:hover { border-color: var(--edge-hi); }
+.sms-morph[open] {
+  max-width: 100%; border-radius: 14px; border-color: rgba(143,224,221,0.28);
+  background: linear-gradient(180deg, rgba(143,224,221,0.06), rgba(143,224,221,0.02) 40%, rgba(255,255,255,0.01));
+  box-shadow: var(--hl), 0 0 40px -18px rgba(143,224,221,0.45);
+}
+.sms-morph::details-content { block-size: 0; overflow: clip; transition: block-size .45s var(--ease), content-visibility .45s allow-discrete; }
+.sms-morph[open]::details-content { block-size: auto; }
+.sms-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 12px 16px;
+  list-style: none; cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent;
+  font: 600 15px/1 var(--sans); letter-spacing: -0.005em; color: var(--text); border-radius: inherit;
+}
+.sms-head::-webkit-details-marker { display: none; }
+.sms-head:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+.sms-morph[open] .sms-head { border-bottom: 1px solid rgba(255,255,255,0.06); padding: 16px 20px; }
+.sms-morph[open] .sms-title { color: var(--gold-hi); }
+.sms-toggle { display: inline-flex; align-items: center; gap: 8px; font: 500 11.5px/1 var(--mono); letter-spacing: .06em; text-transform: lowercase; color: var(--muted); }
+.sms-close { display: none; }
+.sms-morph[open] .sms-close { display: inline; }
+.sms-icon { position: relative; width: 18px; height: 18px; border-radius: 6px; flex-shrink: 0; }
+.sms-icon::before, .sms-icon::after { content: ""; position: absolute; left: 50%; top: 50%; width: 9px; height: 1.5px; margin: -0.75px 0 0 -4.5px; border-radius: 1px; background: currentColor; transition: transform .3s var(--ease); }
+.sms-icon::before { transform: translateX(-2.6px) rotate(40deg); }
+.sms-icon::after { transform: translateX(2.6px) rotate(-40deg); }
+.sms-morph[open] .sms-icon { background: rgba(255,255,255,0.06); color: var(--text); }
+.sms-morph[open] .sms-icon::before { transform: rotate(45deg); }
+.sms-morph[open] .sms-icon::after { transform: rotate(-45deg); }
+.sms-head:hover .sms-toggle { color: var(--text-2); }
+.sms-body { padding: 16px 20px 20px; }
+.sms-morph[open] .sms-body { animation: smsIn .4s .1s var(--ease) both; }
 @keyframes smsIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
-.sms-panel h3 { margin: 0 0 12px; font-size: 1rem; }
+.sms-body h3 { margin: 0 0 12px; font-size: 1rem; }
+.sms-collapse { margin-top: 14px; padding: 8px 12px; border-radius: 10px; border: 1px solid var(--edge); background: rgba(255,255,255,0.03); color: var(--text-2); font: 500 12.5px/1 var(--mono); cursor: pointer; transition: border-color .2s, color .2s; }
+.sms-collapse:hover { border-color: var(--edge-hi); color: var(--text); }
+.sms-collapse:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
 .sms-dl { margin: 0; display: grid; gap: 0; }
 .sms-dl > div { display: grid; grid-template-columns: 120px minmax(0,1fr); gap: 14px; padding: 9px 0; border-top: 1px solid rgba(255,255,255,0.06); }
 .sms-dl > div:first-child { border-top: 0; }
@@ -900,14 +934,16 @@ html, body { overflow-x: clip; }
 .sms-dl dd { margin: 0; font-size: 13.5px; line-height: 1.6; color: var(--text-2); }
 .opt-tag { color: var(--teal); font-weight: 600; }
 @media (max-width: 640px) {
-  .hana-actions .btn, .sms-details > summary { width: 100%; justify-content: center; }
-  .sms-details { flex-basis: 100%; }
-  .sms-panel { padding: 16px; }
+  .hana-actions .btn { width: 100%; justify-content: center; }
+  .sms-morph { max-width: 100%; }
+  .sms-head { padding: 13px 16px; }
+  .sms-morph[open] .sms-head { padding: 14px 16px; }
+  .sms-body { padding: 14px 16px 16px; }
   .sms-dl > div { grid-template-columns: minmax(0,1fr); gap: 2px; }
 }
-@media (prefers-reduced-motion: reduce) { .sms-panel { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .sms-morph, .sms-morph::details-content, .sms-icon::before, .sms-icon::after { transition: none !important; } .sms-morph[open] .sms-body { animation: none; } }
 .contact-grid { align-items: start; }
-.contact-card p.label, .contact-card p.big, .contact-card .sms-panel p { flex: none; }
+.contact-card p.label, .contact-card p.big { flex: none; }
 .contact-card .hana-actions .btn { align-self: auto; }
 
 @keyframes navIn { from { opacity: 0; transform: translateY(-6px); } }
