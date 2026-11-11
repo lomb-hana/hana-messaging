@@ -2,244 +2,328 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Rivencast makes personal AI agents with their own personalities that complete tasks for you." />
-  <title>Rivencast — AI agents that get things done</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32" />
-  <link rel="stylesheet" href="styles.css?v=4" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Rivencast — AI agents that actually get things done</title>
+  <meta name="description" content="Rivencast makes personal AI agents with their own personalities that complete real tasks for you — shopping, scheduling, email, research, and more." />
+  <meta name="rc-build" content="rc-tech-2026-11-11" />
+  <link rel="canonical" href="https://rivencast.com/" />
+  <meta name="theme-color" content="#06080c" />
+  <meta name="color-scheme" content="dark" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Rivencast" />
+  <meta property="og:title" content="Rivencast — AI agents that actually get things done" />
+  <meta property="og:description" content="Rivencast makes personal AI agents with their own personalities that complete real tasks for you — shopping, scheduling, email, research, and more." />
+  <meta property="og:url" content="https://rivencast.com/" />
+  <meta property="og:image" content="https://rivencast.com/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Rivencast — AI agents that actually get things done." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Rivencast — AI agents that actually get things done" />
+  <meta name="twitter:description" content="Rivencast makes personal AI agents with their own personalities that complete real tasks for you — shopping, scheduling, email, research, and more." />
+  <meta name="twitter:image" content="https://rivencast.com/assets/og-image.png" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&amp;family=Geist+Mono:wght@400..600&amp;display=swap" />
+  <link rel="stylesheet" href="/styles.css?v=10" />
+  <script>document.documentElement.classList.add("js")</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Rivencast", "url": "https://rivencast.com/", "logo": "https://rivencast.com/assets/icon-512.png", "email": "inquiry@rivencast.com", "description": "Rivencast is an independent AI studio in Houston, Texas, building personal AI agents with real personalities that complete real tasks.", "address": {"@type": "PostalAddress", "addressLocality": "Houston", "addressRegion": "TX", "addressCountry": "US"}, "contactPoint": [{"@type": "ContactPoint", "contactType": "customer support", "email": "inquiry@rivencast.com"}]}</script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
+  <div class="bg-fx" aria-hidden="true"><div class="grid"></div><div class="glow g1"></div><div class="glow g2"></div><div class="glow g3"></div><div class="glow g4"></div><div class="glow g5"></div><div class="noise"></div></div>
   <div class="site">
     <div class="topbar-wrap">
       <header class="topbar">
-        <a class="brand" href="index.html">
-          <img class="brand-logo" src="assets/rivencast-logo.svg" alt="Rivencast" width="180" height="36" />
+        <a class="brand" href="/" aria-label="Rivencast home">
+          <img class="brand-logo" src="/assets/rivencast-logo.svg" alt="Rivencast" width="170" height="50" />
         </a>
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
           <span class="sr-only">Menu</span>
           <span aria-hidden="true"></span>
         </button>
         <nav id="site-nav" class="links" aria-label="Primary">
-          <a href="index.html" aria-current="page">Home</a>
-          <a href="agents.html">Agents</a>
-          <a href="about.html">About</a>
-          <a href="privacy.html">Privacy</a>
-          <a href="terms.html">Terms</a>
+          <a href="/" aria-current="page">Home</a>
+          <a href="/agents.html">Agents</a>
+          <a href="/about.html">About</a>
+          <a href="/contact.html">Contact</a>
+          <a class="btn btn-sm nav-cta" href="/agents/hana.html">Meet Hana <span class="arr" aria-hidden="true">→</span></a>
         </nav>
       </header>
     </div>
 
-    <section class="hero">
-      <div>
-        <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Personal AI agents</p>
-        <h1>AI agents that actually <span class="nowrap">get things done.</span></h1>
-        <p class="lede">
-          Rivencast makes personal AI agents — each with a personality of their own —
-          that complete tasks for you. Not just chat. Your assistant, with opinions,
-          memory, and a habit of finishing what you handed them.
-        </p>
-        <div class="hero-actions">
-          <a class="btn" href="agents.html">Meet the agents</a>
-          <a class="btn btn-ghost" href="#opt-in">Texting with Hana</a>
+    <section class="hero" aria-labelledby="hero-heading">
+      <canvas id="hero-canvas" aria-hidden="true"></canvas>
+      <div class="wrap hero-grid">
+        <div>
+          <a class="pill reveal" href="/agents/hana.html"><span class="dot live" aria-hidden="true"></span>Hana by Rivencast is live <span aria-hidden="true">→</span></a>
+          <h1 id="hero-heading" class="reveal" style="--d:.05s">AI agents that actually <span class="grad-text nowrap">get things done.</span></h1>
+          <p class="lede reveal" style="--d:.1s">
+            Rivencast makes personal AI agents — each with a personality of their own —
+            that complete tasks for you. Not just chat. Your assistant, with opinions,
+            memory, and a habit of finishing what you handed them.
+          </p>
+          <div class="hero-actions reveal" style="--d:.15s">
+            <a class="btn" href="/agents.html">Meet the agents <span class="arr" aria-hidden="true">→</span></a>
+            <a class="btn btn-ghost" href="#opt-in">Texting with Hana</a>
+          </div>
+          <ul class="hero-tags reveal" style="--d:.2s" aria-label="Highlights">
+            <li>asks before money moves</li>
+            <li>vaulted credentials</li>
+            <li>you pick the accounts</li>
+          </ul>
         </div>
-      </div>
-      <div class="hero-mark" aria-hidden="true">
-        <img src="assets/favicon.svg" alt="" width="220" height="220" />
+        <div class="hero-visual reveal" style="--d:.2s">
+          <div class="orb" aria-hidden="true"></div>
+          <div class="terminal" role="img" aria-label="Example: Hana completing a task and asking for your OK before placing an order">
+            <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i><span class="term-title" id="term-title">hana — groceries</span><span class="term-badge"><span class="dot live"></span>agent</span></div>
+            <div class="term-body" id="term-body" aria-hidden="true">
+                <div class="ln"><span class="t-prompt">~</span><span class="t-cmd">hana <span class="t-str">"reorder my usual groceries, keep it under $60"</span></span></div>
+                <div class="ln"><span class="t-arrow">→</span><span class="t-step">pulling your usual list from memory</span><span class="t-ok">done</span></div>
+                <div class="ln"><span class="t-arrow">→</span><span class="t-step">comparing prices at two stores</span><span class="t-ok">done</span></div>
+                <div class="ln"><span class="t-arrow">→</span><span class="t-step">cart built · $54.12 · delivery after 9 AM</span><span class="t-ok">done</span></div>
+                <div class="ln"><span class="t-arrow">→</span><span class="t-step">card filled from encrypted vault · never shown to agent</span><span class="t-lock">sealed</span></div>
+                <div class="ln"><span class="t-q">?</span><span class="t-step"><span class="t-cmd">place the order?</span> <span class="t-wait">waiting for your OK</span><span class="caret"></span></span></div>
+            </div>
+            <div class="term-foot" id="term-dots"></div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <main class="home-main" id="main">
+    <main id="main">
       <section class="section" aria-labelledby="what-heading">
-        <div class="section-head">
-          <p class="eyebrow">What they are</p>
-          <h2 id="what-heading">Your personal AI assistant, not a chatbot in a costume.</h2>
-          <p class="section-lede">
-            They take on the work that piles up — money, shopping, email, scheduling, research, messages —
-            and stay with it. You choose which accounts they can use. They ask before they spend money
-            or send anything on your behalf, and they keep what you share to themselves.
-          </p>
+        <div class="wrap split">
+          <div class="section-head reveal">
+            <p class="label"><span class="idx">01</span> what they are</p>
+            <h2 id="what-heading">Your personal AI assistant, not a chatbot in a costume.</h2>
+            <p class="section-lede">
+              They take on the work that piles up — money, shopping, email, scheduling, research, messages —
+              and stay with it. You choose which accounts they can use. They ask before they spend money
+              or send anything on your behalf, and they keep what you share to themselves.
+            </p>
+          </div>
+          <ol class="flow flow-2" style="list-style:none;margin:0;padding:0">
+            <li class="card reveal"><p class="flow-step">01 · ask</p><h3>Hand it off in plain words</h3><p>Text it, type it, say it like you would to someone who already knows you.</p></li>
+            <li class="card reveal" style="--d:.06s"><p class="flow-step">02 · plan</p><h3>They break it into steps</h3><p>Look it up, open the account you connected, compare, draft — the actual work.</p></li>
+            <li class="card reveal" style="--d:.12s"><p class="flow-step">03 · check in</p><h3>They ask when it counts</h3><p>Before money moves or a message goes out in your name, you get the final say.</p></li>
+            <li class="card reveal" style="--d:.18s"><p class="flow-step">04 · done</p><h3>They finish it</h3><p>Then tell you what happened — no pile of tabs left on your desk.</p></li>
+          </ol>
         </div>
       </section>
 
+      <hr class="hr-glow" />
+
       <section class="section" aria-labelledby="can-heading">
-        <div class="section-head">
-          <p class="eyebrow">Capabilities</p>
-          <h2 id="can-heading">What an agent can do for you</h2>
-          <p class="section-lede">A broad range, on purpose. You ask; they handle it — and they check with you when it counts.</p>
-        </div>
-        <div class="cap-grid">
-          <article class="feature-card">
-            <span class="feature-icon" aria-hidden="true">01</span>
+        <div class="wrap">
+          <div class="section-head reveal">
+            <p class="label"><span class="idx">02</span> capabilities</p>
+            <h2 id="can-heading">What an agent can do for you</h2>
+            <p class="section-lede">A broad range, on purpose. You ask; they handle it — and they check with you when it counts.</p>
+          </div>
+        <div class="grid grid-5 cap-grid">
+          <article class="card reveal" style="--d:0.00s">
+            <div class="card-top"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18M16 14.5h2"/></svg></span><span class="card-idx">01</span></div>
             <h3>Help managing your money</h3>
             <p>Bank account and transaction overviews through secure read-only connections, bill tracking, and paycheck planning. An agent never pays anything without your OK.</p>
           </article>
-          <article class="feature-card">
-            <span class="feature-icon" aria-hidden="true">02</span>
+          <article class="card reveal" style="--d:0.05s">
+            <div class="card-top"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/><path d="M3 4h2.2l2.3 11h10.3L20 8H6.3"/></svg></span><span class="card-idx">02</span></div>
             <h3>Shopping and ordering</h3>
             <p>Groceries, food, Amazon- and Walmart-style orders, and price checks. They can shop and place orders for you when you ask them to.</p>
           </article>
-          <article class="feature-card">
-            <span class="feature-icon" aria-hidden="true">03</span>
+          <article class="card reveal" style="--d:0.10s">
+            <div class="card-top"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg></span><span class="card-idx">03</span></div>
             <h3>Email and inbox organization</h3>
             <p>Sort the pile, catch you up, and keep the important things from drowning in everything else.</p>
           </article>
-          <article class="feature-card">
-            <span class="feature-icon" aria-hidden="true">04</span>
+          <article class="card reveal" style="--d:0.15s">
+            <div class="card-top"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span><span class="card-idx">04</span></div>
             <h3>Calendar and scheduling</h3>
             <p>Keep your calendar straight, find a time that works, and get things on the books without the back-and-forth living in your head.</p>
           </article>
-          <article class="feature-card">
-            <span class="feature-icon" aria-hidden="true">05</span>
+          <article class="card reveal" style="--d:0.20s">
+            <div class="card-top"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg></span><span class="card-idx">05</span></div>
             <h3>Research</h3>
             <p>Look things up, compare notes, and come back with a clear answer instead of a pile of tabs.</p>
           </article>
-          <article class="feature-card">
-            <span class="feature-icon" aria-hidden="true">06</span>
+          <article class="card reveal" style="--d:0.00s">
+            <div class="card-top"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></svg></span><span class="card-idx">06</span></div>
             <h3>Messages and drafts</h3>
             <p>Draft emails and messages, and send them only when you say so.</p>
           </article>
-          <article class="feature-card">
-            <span class="feature-icon" aria-hidden="true">07</span>
+          <article class="card reveal" style="--d:0.05s">
+            <div class="card-top"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg></span><span class="card-idx">07</span></div>
             <h3>Web and browser tasks</h3>
             <p>Get things done in the browser — lookups, comparisons, forms, the clicks you’d rather not do yourself.</p>
           </article>
-          <article class="feature-card">
-            <span class="feature-icon" aria-hidden="true">08</span>
+          <article class="card reveal" style="--d:0.10s">
+            <div class="card-top"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 1 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></svg></span><span class="card-idx">08</span></div>
             <h3>Reminders and routines</h3>
             <p>Nudges, check-ins, and recurring routines so the small stuff doesn’t slip.</p>
           </article>
-          <article class="feature-card">
-            <span class="feature-icon" aria-hidden="true">09</span>
+          <article class="card reveal" style="--d:0.15s">
+            <div class="card-top"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.2A6 6 0 0 1 21.5 20"/></svg></span><span class="card-idx">09</span></div>
             <h3>Discord and community</h3>
             <p>Chat and hang out on Discord and in the communities you already use — conversation, company, and help with whatever you bring them.</p>
           </article>
-          <article class="feature-card">
-            <span class="feature-icon" aria-hidden="true">10</span>
+          <article class="card reveal" style="--d:0.20s">
+            <div class="card-top"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></span><span class="card-idx">10</span></div>
             <h3>Phone and SMS</h3>
-            <p><a href="#sms">Text Hana directly at +1 (833) 408-5702</a> to chat, ask questions, and get things done.</p>
+            <p><a href="/#sms">Text Hana directly at +1 (833) 408-5702</a> to chat, ask questions, and get things done.</p>
           </article>
+        </div>
         </div>
       </section>
 
-      <section class="section" aria-labelledby="connect-heading">
-        <div class="section-head">
-          <p class="eyebrow">Connectors</p>
-          <h2 id="connect-heading">They plug into the services you already use</h2>
-          <p class="section-lede">
-            Your agent can connect to tools you already live in — mail, calendar, files, banking, chat, and messaging.
-            You approve each connection. Nothing gets hooked up in the background.
-          </p>
+      <section class="section tight" aria-labelledby="connect-heading">
+        <div class="wrap">
+          <div class="section-head center reveal">
+            <p class="label"><span class="idx">03</span> connectors</p>
+            <h2 id="connect-heading">They plug into the services you already use</h2>
+            <p class="section-lede">
+              Your agent can connect to tools you already live in — mail, calendar, files, banking, chat, and messaging.
+              You approve each connection. Nothing gets hooked up in the background.
+            </p>
+          </div>
         </div>
-        <ul class="connector-list">
-          <li>Gmail</li>
-          <li>Google Calendar</li>
-          <li>Google Drive</li>
-          <li>Bank connections</li>
-          <li>Discord</li>
-          <li>X</li>
-          <li>Text messaging</li>
-          <li>And more</li>
-        </ul>
+        <div class="marquee">
+          <div class="marquee-track">
+            <ul class="chips"><li class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>Gmail</li><li class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Google Calendar</li><li class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 3h7l6 10.5-3.5 6h-12L2.5 13.5z"/><path d="M8.5 3l6 10.5h7M2.5 13.5h12l-3.5 6"/></svg>Google Drive</li><li class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9.5 12 4l9 5.5M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20.5h18"/></svg>Bank connections</li><li class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.2A6 6 0 0 1 21.5 20"/></svg>Discord</li><li class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4l16 16M20 4 4 20"/></svg>X</li><li class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>Text messaging</li><li class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>And more</li></ul>
+            <ul class="chips" aria-hidden="true"><li class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>Gmail</li><li class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Google Calendar</li><li class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 3h7l6 10.5-3.5 6h-12L2.5 13.5z"/><path d="M8.5 3l6 10.5h7M2.5 13.5h12l-3.5 6"/></svg>Google Drive</li><li class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9.5 12 4l9 5.5M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20.5h18"/></svg>Bank connections</li><li class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.2A6 6 0 0 1 21.5 20"/></svg>Discord</li><li class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4l16 16M20 4 4 20"/></svg>X</li><li class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>Text messaging</li><li class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>And more</li></ul>
+          </div>
+        </div>
       </section>
 
       <section class="section" aria-labelledby="made-heading">
-        <div class="section-head">
-          <p class="eyebrow">How they’re made</p>
-          <h2 id="made-heading">Custom-tuned personalities, trained on how you work</h2>
-          <p class="section-lede">
-            Every Rivencast agent starts with a custom-built personality, voice, and set of behavior rules.
-            Those personalities are shaped through careful prompt design and testing,
-            so they stay in character and stay useful.
-          </p>
-        </div>
-        <div class="principle-list made-list">
-          <div>
-            <strong>A character, built on purpose.</strong>
-            <span>Each agent has their own voice, judgment, and way of talking. We write and test those rules until the personality holds — custom-tuned, not slapped on.</span>
-          </div>
-          <div>
-            <strong>Trained on how you work.</strong>
-            <span>Through long-term memory, your agent learns your preferences, routines, and the details that make help useful. It gets better at working with you over time.</span>
-          </div>
-          <div>
-            <strong>We shape the agent, not a model of our own.</strong>
-            <span>The intelligence underneath comes from established language models. What Rivencast builds is the character, the behavior, and the way that agent works with you.</span>
-          </div>
-        </div>
-      </section>
-
-
-      <section class="section" aria-labelledby="cast-heading">
-        <div class="meet-strip">
-          <div>
-            <p class="eyebrow">The cast</p>
-            <h2 id="cast-heading">Meet the agents</h2>
-            <p>See who’s available now and who’s coming next.</p>
-          </div>
-          <a class="btn" href="agents.html">Meet the agents</a>
-        </div>
-      </section>
-
-      <section class="section about-section" aria-labelledby="about-heading">
-        <div class="about-card">
-          <div>
-            <p class="eyebrow">About</p>
-            <h2 id="about-heading">Rivencast</h2>
-            <p>
-              Rivencast is an independent AI studio in Houston, Texas, building personal AI agents:
-              characters with real personalities that also do real work. Each one gets its own voice,
-              judgment, and boundaries, then gets wired into the tools people actually use so it can
-              read, plan, shop, schedule, and follow through.
+        <div class="wrap">
+          <div class="section-head reveal">
+            <p class="label"><span class="idx">04</span> how they’re made</p>
+            <h2 id="made-heading">Custom-tuned personalities, trained on how you work</h2>
+            <p class="section-lede">
+              Every Rivencast agent starts with a custom-built personality, voice, and set of behavior rules.
+              Those personalities are shaped through careful prompt design and testing,
+              so they stay in character and stay useful.
             </p>
-            <p>
-              We care about two things equally: agents you'd genuinely like talking to, and agents you
-              can trust with your accounts. That means asking before money moves or messages go out,
-              keeping passwords, card numbers, and login codes in an encrypted vault the agents never see
-              (they're filled in directly, never shown to the agent), read-only access wherever it's enough, and memory that works for you instead of against you.
-              We test every personality and every capability until it holds up.
-            </p>
-            <p><a href="about.html">Read more about Rivencast</a></p>
           </div>
-          <div class="about-meta">
-            <p><a href="mailto:inquiry@rivencast.com">inquiry@rivencast.com</a></p>
+          <div class="spec reveal">
+            <div class="spec-row"><div class="spec-key">personality<small>// character.rules</small></div><div><strong>A character, built on purpose.</strong><span class="v">Each agent has their own voice, judgment, and way of talking. We write and test those rules until the personality holds — custom-tuned, not slapped on.</span></div></div>
+            <div class="spec-row"><div class="spec-key">memory<small>// long-term</small></div><div><strong>Trained on how you work.</strong><span class="v">Through long-term memory, your agent learns your preferences, routines, and the details that make help useful. It gets better at working with you over time.</span></div></div>
+            <div class="spec-row"><div class="spec-key">model<small>// foundation</small></div><div><strong>We shape the agent, not a model of our own.</strong><span class="v">The intelligence underneath comes from established language models. What Rivencast builds is the character, the behavior, and the way that agent works with you.</span></div></div>
           </div>
         </div>
       </section>
 
-      <section class="section" id="opt-in" aria-labelledby="texting-heading">
-        <div class="optin-box" id="sms">
-          <p class="eyebrow">SMS program</p>
-          <h2 id="texting-heading">Texting with Hana</h2>
-          <p>
-            Program name: <strong>Hana by Rivencast</strong>. You opt in by texting Hana first at
-            <strong>+1 (833) 408-5702</strong>.
-            Messages are conversational; message frequency varies. Message and data rates may apply.
-            Reply <strong>STOP</strong> to opt out, <strong>HELP</strong> for help.
-            Mobile opt-in data is never shared with third parties for marketing.
-            See the <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a>.
-          </p>
+      <section class="section tight" aria-labelledby="cast-heading">
+        <div class="wrap">
+          <div class="card cast-card reveal">
+            <div>
+              <p class="label"><span class="idx">05</span> the cast</p>
+              <h2 id="cast-heading">Meet the agents</h2>
+              <p style="color:var(--muted);margin:14px 0 24px">See who’s available now and who’s coming next.</p>
+              <a class="btn" href="/agents.html">Meet the agents <span class="arr" aria-hidden="true">→</span></a>
+            </div>
+            <div class="avatars">
+              <img src="/hana-avatar.png" alt="Hana" width="64" height="64" loading="lazy" />
+              <img src="/assets/mochi-avatar.webp" alt="Mochi" width="64" height="64" loading="lazy" />
+              <img src="/assets/dante-avatar.webp" alt="Dante" width="64" height="64" loading="lazy" />
+              <span class="avatar-fallback" role="img" aria-label="Custom agent">C</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section tight" aria-labelledby="about-heading">
+        <div class="wrap">
+          <div class="card about-teaser reveal">
+            <div>
+              <p class="label"><span class="idx">06</span> about</p>
+              <h2 id="about-heading" style="margin-bottom:20px">Rivencast</h2>
+              <p>
+                Rivencast is an independent AI studio in Houston, Texas, building personal AI agents:
+                characters with real personalities that also do real work. Each one gets its own voice,
+                judgment, and boundaries, then gets wired into the tools people actually use so it can
+                read, plan, shop, schedule, and follow through.
+              </p>
+              <p>
+                We care about two things equally: agents you'd genuinely like talking to, and agents you
+                can trust with your accounts. That means asking before money moves or messages go out,
+                keeping passwords, card numbers, and login codes in an encrypted vault the agents never see
+                (they're filled in directly, never shown to the agent), read-only access wherever it's enough, and memory that works for you instead of against you.
+                We test every personality and every capability until it holds up.
+              </p>
+              <p style="margin:0"><a href="/about.html">Read more about Rivencast →</a></p>
+            </div>
+            <ul class="meta-list">
+              <li><span>studio</span><span>Rivencast</span></li>
+              <li><span>based</span><span>Houston, TX</span></li>
+              <li><span>builds</span><span>personal AI agents</span></li>
+              <li><span>contact</span><a href="mailto:inquiry@rivencast.com">inquiry@rivencast.com</a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section tight" id="opt-in" aria-labelledby="texting-heading">
+        <div class="wrap">
+          <div class="optin reveal" id="sms">
+            <p class="label">sms program</p>
+            <h2 id="texting-heading">Texting with Hana</h2>
+            <p>
+              Program name: <strong>Hana by Rivencast</strong>. You opt in by texting Hana first at
+              <strong class="num">+1 (833) 408-5702</strong>.
+              Messages are conversational; message frequency varies. Message and data rates may apply.
+              Reply <strong>STOP</strong> to opt out, <strong>HELP</strong> for help.
+              Mobile opt-in data is never shared with third parties for marketing.
+              See the <a href="/privacy.html">Privacy Policy</a> and <a href="/terms.html">Terms of Service</a>.
+            </p>
+          </div>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <div class="foot-brand">
-        <img src="assets/rivencast-logo.svg" alt="" width="140" height="28" />
+      <div class="foot-inner">
+        <div class="foot-brand">
+          <img src="/assets/rivencast-logo.svg" alt="Rivencast" width="150" height="44" />
+          <p>Personal AI agents with real personalities that do real work for you. Built in Houston, Texas.</p>
+        </div>
+        <div class="foot-col">
+          <h2>product</h2>
+          <ul>
+            <li><a href="/agents.html">Agents</a></li>
+            <li><a href="/agents/hana.html">Hana</a></li>
+            <li><a href="/#opt-in">Texting with Hana</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h2>company</h2>
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/contact.html">Contact &amp; FAQ</a></li>
+            <li><a href="/privacy.html">Privacy</a></li>
+            <li><a href="/terms.html">Terms</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h2>contact</h2>
+          <ul>
+            <li><a href="mailto:inquiry@rivencast.com">inquiry@rivencast.com</a></li>
+            <li><span>Text HELP to +1 (833) 408-5702</span></li>
+          </ul>
+        </div>
       </div>
-      <div class="foot-links">
-        <a href="index.html">Home</a>
-        <a href="agents.html">Agents</a>
-        <a href="about.html">About</a>
-        <a href="privacy.html">Privacy</a>
-        <a href="terms.html">Terms</a>
-        <a href="mailto:inquiry@rivencast.com">inquiry@rivencast.com</a>
-        <span>Text HELP to +1 (833) 408-5702</span>
+      <div class="foot-bottom">
+        <p class="foot-copy">© 2026 Daniel Jordan Reece, d/b/a Rivencast · Houston, Texas</p>
+        <p class="foot-copy"><a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></p>
       </div>
-      <p class="foot-copy">© 2026 Daniel Jordan Reece, d/b/a Rivencast · Houston, Texas</p>
     </footer>
   </div>
-  <script src="site.js"></script>
+  <script src="/site.js?v=10" defer></script>
 </body>
 </html>
