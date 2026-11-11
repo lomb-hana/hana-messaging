@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Request access to Hana | Rivencast</title>
   <meta name="description" content="Request access to Hana, the Rivencast assistant, by text and phone. Access is by request and approved by the Rivencast team." />
-  <meta name="rc-build" content="rc-forms-2026-11-11" />
+  <meta name="rc-build" content="rc-forms2-2026-11-11" />
   <link rel="canonical" href="https://rivencast.com/hana-access" />
   <meta name="theme-color" content="#06080c" />
   <meta name="color-scheme" content="dark" />
@@ -30,7 +30,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&amp;family=Geist+Mono:wght@400..600&amp;display=swap" />
-  <link rel="stylesheet" href="/styles.css?v=18" />
+  <link rel="stylesheet" href="/styles.css?v=19" />
   <script>document.documentElement.classList.add("js")</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Rivencast", "url": "https://rivencast.com/", "logo": "https://rivencast.com/assets/icon-512.png", "email": "inquiry@rivencast.com", "description": "Rivencast is an independent AI studio in Houston, Texas, building AI agents that detect bots, AI-generated content, and fake accounts across inboxes, reviews, websites, forums, and social platforms. The agents read publicly visible activity without relying on platform APIs and explain every risk score in plain language, so people make the call.", "address": {"@type": "PostalAddress", "addressLocality": "Houston", "addressRegion": "TX", "addressCountry": "US"}, "contactPoint": [{"@type": "ContactPoint", "contactType": "customer support", "email": "inquiry@rivencast.com"}]}</script>
 </head>
@@ -68,7 +68,7 @@
     <main id="main">
       <section class="section tight" aria-labelledby="form-heading" style="padding-top:8px">
         <div class="wrap form-layout">
-          <form class="card form-card reveal" action="https://formsubmit.co/inquiry@rivencast.com" method="POST" accept-charset="UTF-8">
+          <form class="card form-card reveal js-fs" action="https://formsubmit.co/inquiry@rivencast.com" method="POST" accept-charset="UTF-8">
             <h2 id="form-heading" class="form-title"><span class="mono">hana</span> · access request</h2>
             <input type="hidden" name="_subject" value="Hana access request" />
               <input type="hidden" name="_template" value="table" />
@@ -80,13 +80,14 @@
               <div class="field"><label for="ha-email">Email</label><input id="ha-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com" /></div>
             </div>
             <div class="field"><label for="ha-phone">Mobile number <span class="opt">optional</span></label><input id="ha-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(555) 555-0100" /></div>
-            <div class="field"><label for="ha-use">How would you use Hana?</label><textarea id="ha-use" name="use" rows="4" required placeholder="For example: questions about Rivencast, checking on scans, support"></textarea></div>
+            <div class="field"><label for="ha-use">How would you use Hana?</label><textarea id="ha-use" name="usage" rows="4" required placeholder="For example: questions about Rivencast, checking on scans, support"></textarea></div>
             <label class="consent" for="ha-consent">
-              <input id="ha-consent" name="consent" type="checkbox" value="Agreed to receive texts and calls from Hana once approved" required />
+              <input id="ha-consent" name="sms_consent" type="checkbox" value="yes" required />
               <span>I agree to receive texts and calls from Hana, Rivencast’s assistant, at the number I provide once my request is approved. Message frequency varies. Message and data rates may apply. Reply STOP to opt out, HELP for help. Consent is not a condition of purchase. See the <a href="/privacy.html">Privacy Policy</a> and <a href="/terms.html">Terms of Service</a>.</span>
             </label>
             <div class="form-foot">
-              <button class="btn" type="submit">Request access <span class="arr" aria-hidden="true">→</span></button>
+              <button class="btn form-submit" type="submit"><span class="label-idle">Request access</span><span class="label-busy" aria-hidden="true"><i class="spin"></i>Sending…</span> <span class="arr" aria-hidden="true">→</span></button>
+              <p class="form-status" role="status" aria-live="polite"></p>
               <p class="form-note">Mobile opt-in data is never shared with third parties for marketing.</p>
             </div>
           </form>
@@ -136,6 +137,6 @@
       </div>
     </footer>
   </div>
-  <script src="/site.js?v=18" defer></script>
+  <script src="/site.js?v=19" defer></script>
 </body>
 </html>

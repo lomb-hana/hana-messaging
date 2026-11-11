@@ -11,8 +11,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent / "public"
 SITE = "https://rivencast.com"
-BUILD = "rc-forms-2026-11-11"
-CSSV = "18"
+BUILD = "rc-forms2-2026-11-11"
+CSSV = "19"
 
 ICONS = {
   "wallet": '<rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18M16 14.5h2"/>',
@@ -932,7 +932,7 @@ REQUEST = f'''    <header class="page-hero">
     <main id="main">
       <section class="section tight" aria-labelledby="form-heading" style="padding-top:8px">
         <div class="wrap form-layout">
-          <form class="card form-card reveal" action="{FS}" method="POST" accept-charset="UTF-8">
+          <form class="card form-card reveal js-fs" action="{FS}" method="POST" accept-charset="UTF-8">
             <h2 id="form-heading" class="form-title"><span class="mono">rivencast</span> · early access request</h2>
             {fs_hidden("Rivencast early access request", "early")}
             <div class="field-row">
@@ -948,7 +948,8 @@ REQUEST = f'''    <header class="page-hero">
             </div>
             <div class="field"><label for="ea-msg">Message <span class="opt">optional</span></label><textarea id="ea-msg" name="message" rows="4" placeholder="Where are bots showing up, and what would help?"></textarea></div>
             <div class="form-foot">
-              <button class="btn" type="submit">Send request <span class="arr" aria-hidden="true">→</span></button>
+              <button class="btn form-submit" type="submit"><span class="label-idle">Send request</span><span class="label-busy" aria-hidden="true"><i class="spin"></i>Sending…</span> <span class="arr" aria-hidden="true">→</span></button>
+              <p class="form-status" role="status" aria-live="polite"></p>
               <p class="form-note">We use your details only to reply to your request. See the <a href="/privacy.html">Privacy Policy</a>.</p>
             </div>
           </form>
@@ -968,7 +969,7 @@ HANA_ACCESS = f'''    <header class="page-hero">
     <main id="main">
       <section class="section tight" aria-labelledby="form-heading" style="padding-top:8px">
         <div class="wrap form-layout">
-          <form class="card form-card reveal" action="{FS}" method="POST" accept-charset="UTF-8">
+          <form class="card form-card reveal js-fs" action="{FS}" method="POST" accept-charset="UTF-8">
             <h2 id="form-heading" class="form-title"><span class="mono">hana</span> · access request</h2>
             {fs_hidden("Hana access request", "hana")}
             <div class="field-row">
@@ -976,13 +977,14 @@ HANA_ACCESS = f'''    <header class="page-hero">
               <div class="field"><label for="ha-email">Email</label><input id="ha-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com" /></div>
             </div>
             <div class="field"><label for="ha-phone">Mobile number <span class="opt">optional</span></label><input id="ha-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(555) 555-0100" /></div>
-            <div class="field"><label for="ha-use">How would you use Hana?</label><textarea id="ha-use" name="use" rows="4" required placeholder="For example: questions about Rivencast, checking on scans, support"></textarea></div>
+            <div class="field"><label for="ha-use">How would you use Hana?</label><textarea id="ha-use" name="usage" rows="4" required placeholder="For example: questions about Rivencast, checking on scans, support"></textarea></div>
             <label class="consent" for="ha-consent">
-              <input id="ha-consent" name="consent" type="checkbox" value="Agreed to receive texts and calls from Hana once approved" required />
+              <input id="ha-consent" name="sms_consent" type="checkbox" value="yes" required />
               <span>I agree to receive texts and calls from Hana, Rivencast’s assistant, at the number I provide once my request is approved. Message frequency varies. Message and data rates may apply. Reply STOP to opt out, HELP for help. Consent is not a condition of purchase. See the <a href="/privacy.html">Privacy Policy</a> and <a href="/terms.html">Terms of Service</a>.</span>
             </label>
             <div class="form-foot">
-              <button class="btn" type="submit">Request access <span class="arr" aria-hidden="true">→</span></button>
+              <button class="btn form-submit" type="submit"><span class="label-idle">Request access</span><span class="label-busy" aria-hidden="true"><i class="spin"></i>Sending…</span> <span class="arr" aria-hidden="true">→</span></button>
+              <p class="form-status" role="status" aria-live="polite"></p>
               <p class="form-note">Mobile opt-in data is never shared with third parties for marketing.</p>
             </div>
           </form>

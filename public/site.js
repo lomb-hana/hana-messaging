@@ -44,6 +44,24 @@
     }, { passive: true });
   }
 
+  /* Request forms: show a sending state (FormSubmit can take a few seconds) */
+  document.querySelectorAll("form.js-fs").forEach((f) => {
+    const b = f.querySelector(".form-submit");
+    const st = f.querySelector(".form-status");
+    const reset = () => {
+      f.classList.remove("is-sending");
+      if (b) { b.disabled = false; b.removeAttribute("aria-busy"); }
+      if (st) st.textContent = "";
+    };
+    f.addEventListener("submit", () => {
+      if (f.classList.contains("is-sending")) return;
+      f.classList.add("is-sending");
+      if (st) st.textContent = "Sending your request. This can take a few seconds.";
+      if (b) { b.setAttribute("aria-busy", "true"); setTimeout(() => { b.disabled = true; }, 0); }
+    });
+    window.addEventListener("pageshow", reset);
+  });
+
   /* 404 path echo */
   const nfPath = document.getElementById("nf-path");
   if (nfPath) nfPath.textContent = window.location.pathname;

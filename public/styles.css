@@ -778,3 +778,11 @@ html, body { overflow-x: clip; }
   .form-foot .btn { width: 100%; justify-content: center; }
   .form-side { padding: 22px 18px; }
 }
+/* form sending state */
+.form-submit .label-busy { display: none; align-items: center; gap: 8px; }
+.form-submit .spin { width: 14px; height: 14px; border-radius: 50%; border: 2px solid rgba(26,20,8,0.25); border-top-color: #1a1408; animation: dspin .7s linear infinite; }
+.js-fs.is-sending .form-submit .label-idle, .js-fs.is-sending .form-submit .arr { display: none; }
+.js-fs.is-sending .form-submit .label-busy { display: inline-flex; }
+.js-fs.is-sending .form-submit, .form-submit:disabled { cursor: progress; filter: saturate(.8); transform: none; }
+.form-status { margin: 0; width: 100%; font: 500 12.5px/1.5 var(--mono); color: var(--teal); }
+.form-status:empty { display: none; }
