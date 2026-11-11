@@ -44,22 +44,56 @@
     }, { passive: true });
   }
 
-  /* Request forms: show a sending state (FormSubmit can take a few seconds) */
+  /* Request forms: submit via FormSubmit AJAX, then go to our own thanks page.
+     The normal action + _next stay as the no-JS fallback. */
+  const FS_AJAX = "https://formsubmit.co/ajax/inquiry@rivencast.com";
+  const FS_ERR = "Something went wrong. Try again, or email inquiry@rivencast.com.";
   document.querySelectorAll("form.js-fs").forEach((f) => {
     const b = f.querySelector(".form-submit");
     const st = f.querySelector(".form-status");
-    const reset = () => {
-      f.classList.remove("is-sending");
-      if (b) { b.disabled = false; b.removeAttribute("aria-busy"); }
-      if (st) st.textContent = "";
+    const thanks = f.dataset.thanks || "/thanks";
+    let busy = false;
+    const setBusy = (on) => {
+      busy = on;
+      f.classList.toggle("is-sending", on);
+      if (b) { b.disabled = on; on ? b.setAttribute("aria-busy", "true") : b.removeAttribute("aria-busy"); }
     };
-    f.addEventListener("submit", () => {
-      if (f.classList.contains("is-sending")) return;
-      f.classList.add("is-sending");
-      if (st) st.textContent = "Sending your request. This can take a few seconds.";
-      if (b) { b.setAttribute("aria-busy", "true"); setTimeout(() => { b.disabled = true; }, 0); }
+    const fail = () => {
+      setBusy(false);
+      if (st) { st.classList.add("is-error"); st.textContent = FS_ERR; }
+    };
+    f.addEventListener("submit", async (e) => {
+      if (!window.fetch) return; /* old browsers: normal form POST */
+      e.preventDefault();
+      if (busy) return;
+      setBusy(true);
+      if (st) { st.classList.remove("is-error"); st.textContent = "Sending your request. This can take a few seconds."; }
+      const fd = new FormData(f);
+      if ((fd.get("_honey") || "").toString().trim() !== "") { window.location.href = thanks; return; }
+      const data = {};
+      fd.forEach((v, k) => { if (k !== "_honey" && k !== "_next") data[k] = v; });
+      try {
+        const ctrl = "AbortController" in window ? new AbortController() : null;
+        const timer = ctrl ? setTimeout(() => ctrl.abort(), 45000) : 0;
+        const res = await fetch(FS_AJAX, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify(data),
+          signal: ctrl ? ctrl.signal : undefined,
+        });
+        clearTimeout(timer);
+        let out = {};
+        try { out = JSON.parse(await res.text()); } catch (_) { out = {}; }
+        if (res.ok && (out.success === true || out.success === "true")) {
+          window.location.href = thanks;
+        } else {
+          fail();
+        }
+      } catch (_) {
+        fail();
+      }
     });
-    window.addEventListener("pageshow", reset);
+    window.addEventListener("pageshow", () => { setBusy(false); if (st && !st.classList.contains("is-error")) st.textContent = ""; });
   });
 
   /* 404 path echo */

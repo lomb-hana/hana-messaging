@@ -11,8 +11,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent / "public"
 SITE = "https://rivencast.com"
-BUILD = "rc-forms3-2026-11-11"
-CSSV = "20"
+BUILD = "rc-forms-ajax-2026-11-11"
+CSSV = "21"
 
 ICONS = {
   "wallet": '<rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18M16 14.5h2"/>',
@@ -932,7 +932,7 @@ REQUEST = f'''    <header class="page-hero">
     <main id="main">
       <section class="section tight" aria-labelledby="form-heading" style="padding-top:8px">
         <div class="wrap form-layout">
-          <form class="card form-card reveal js-fs" action="{FS}" method="POST" accept-charset="UTF-8">
+          <form class="card form-card reveal js-fs" action="{FS}" method="POST" accept-charset="UTF-8" data-thanks="/thanks?form=early">
             <h2 id="form-heading" class="form-title"><span class="mono">rivencast</span> · early access request</h2>
             {fs_hidden("Rivencast early access request", "early")}
             <div class="field-row">
@@ -969,7 +969,7 @@ HANA_ACCESS = f'''    <header class="page-hero">
     <main id="main">
       <section class="section tight" aria-labelledby="form-heading" style="padding-top:8px">
         <div class="wrap form-layout">
-          <form class="card form-card reveal js-fs" action="{FS}" method="POST" accept-charset="UTF-8">
+          <form class="card form-card reveal js-fs" action="{FS}" method="POST" accept-charset="UTF-8" data-thanks="/thanks?form=hana">
             <h2 id="form-heading" class="form-title"><span class="mono">hana</span> · access request</h2>
             {fs_hidden("Hana access request", "hana")}
             <div class="field-row">
