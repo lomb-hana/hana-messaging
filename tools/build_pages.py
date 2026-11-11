@@ -12,7 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent / "public"
 SITE = "https://rivencast.com"
 BUILD = "rc-tech-2026-11-11"
-CSSV = "10"
+CSSV = "11"
 
 ICONS = {
   "wallet": '<rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18M16 14.5h2"/>',
@@ -53,7 +53,7 @@ ORG = {
   "url": SITE + "/",
   "logo": SITE + "/assets/icon-512.png",
   "email": "inquiry@rivencast.com",
-  "description": "Rivencast is an independent AI studio in Houston, Texas, building personal AI agents with real personalities that complete real tasks.",
+  "description": "Rivencast is an independent AI studio in Houston, Texas, building AI agents that complete real tasks, with Hana, a personal AI assistant, as the face of the studio.",
   "address": {"@type": "PostalAddress", "addressLocality": "Houston", "addressRegion": "TX", "addressCountry": "US"},
   "contactPoint": [{"@type": "ContactPoint", "contactType": "customer support", "email": "inquiry@rivencast.com"}],
 }
@@ -127,7 +127,7 @@ FOOTER = '''    <footer class="site-footer">
       <div class="foot-inner">
         <div class="foot-brand">
           <img src="/assets/rivencast-logo.svg" alt="Rivencast" width="150" height="44" />
-          <p>Personal AI agents with real personalities that do real work for you. Built in Houston, Texas.</p>
+          <p>AI agents that do real work for you, with Hana as the face. Built in Houston, Texas.</p>
         </div>
         <div class="foot-col">
           <h2>product</h2>
@@ -206,18 +206,6 @@ def cap_grid(caps):
           </article>''')
     return '        <div class="grid grid-5 cap-grid">\n' + "\n".join(out) + "\n        </div>"
 
-def chips(items):
-    lis = "".join(f'<li class="chip">{svg(ic)}{name}</li>' for ic, name in items)
-    return f'''        <div class="marquee">
-          <div class="marquee-track">
-            <ul class="chips">{lis}</ul>
-            <ul class="chips" aria-hidden="true">{lis}</ul>
-          </div>
-        </div>'''
-
-HOME_CONNECT = [("mail", "Gmail"), ("cal", "Google Calendar"), ("drive", "Google Drive"), ("bank", "Bank connections"), ("users", "Discord"), ("x", "X"), ("phone", "Text messaging"), ("plus", "And more")]
-ABOUT_CONNECT = [("mail", "Gmail"), ("cal", "Google Calendar"), ("drive", "Google Drive"), ("bank", "Read-only bank connections"), ("cart", "Shopping and orders"), ("phone", "Text messaging"), ("users", "Discord"), ("x", "X"), ("plus", "And others you approve")]
-
 SMS_BOX = '''      <section class="section tight" id="opt-in" aria-labelledby="texting-heading">
         <div class="wrap">
           <div class="optin reveal" id="sms">
@@ -249,9 +237,9 @@ HOME = f'''    <section class="hero" aria-labelledby="hero-heading">
           <a class="pill reveal" href="/agents/hana.html"><span class="dot live" aria-hidden="true"></span>Hana by Rivencast is live <span aria-hidden="true">→</span></a>
           <h1 id="hero-heading" class="reveal" style="--d:.05s">AI agents that actually <span class="grad-text nowrap">get things done.</span></h1>
           <p class="lede reveal" style="--d:.1s">
-            Rivencast makes personal AI agents — each with a personality of their own —
-            that complete tasks for you. Not just chat. Your assistant, with opinions,
-            memory, and a habit of finishing what you handed them.
+            Rivencast builds AI agents that complete tasks for you — fronted by Hana,
+            a personal AI assistant with a personality of her own. Not just chat. Your assistant,
+            with opinions, memory, and a habit of finishing what you handed her.
           </p>
           <div class="hero-actions reveal" style="--d:.15s">
             <a class="btn" href="/agents.html">Meet the agents <span class="arr" aria-hidden="true">→</span></a>
@@ -310,33 +298,19 @@ HOME = f'''    <section class="hero" aria-labelledby="hero-heading">
         </div>
       </section>
 
-      <section class="section tight" aria-labelledby="connect-heading">
-        <div class="wrap">
-          <div class="section-head center reveal">
-            <p class="label"><span class="idx">03</span> connectors</p>
-            <h2 id="connect-heading">They plug into the services you already use</h2>
-            <p class="section-lede">
-              Your agent can connect to tools you already live in — mail, calendar, files, banking, chat, and messaging.
-              You approve each connection. Nothing gets hooked up in the background.
-            </p>
-          </div>
-        </div>
-{chips(HOME_CONNECT)}
-      </section>
-
       <section class="section" aria-labelledby="made-heading">
         <div class="wrap">
           <div class="section-head reveal">
-            <p class="label"><span class="idx">04</span> how they’re made</p>
-            <h2 id="made-heading">Custom-tuned personalities, trained on how you work</h2>
+            <p class="label"><span class="idx">03</span> how they’re made</p>
+            <h2 id="made-heading">A custom-tuned personality, trained on how you work</h2>
             <p class="section-lede">
-              Every Rivencast agent starts with a custom-built personality, voice, and set of behavior rules.
-              Those personalities are shaped through careful prompt design and testing,
-              so they stay in character and stay useful.
+              Hana starts with a custom-built personality, voice, and set of behavior rules.
+              That personality is shaped through careful prompt design and testing,
+              so she stays in character and stays useful.
             </p>
           </div>
           <div class="spec reveal">
-            <div class="spec-row"><div class="spec-key">personality<small>// character.rules</small></div><div><strong>A character, built on purpose.</strong><span class="v">Each agent has their own voice, judgment, and way of talking. We write and test those rules until the personality holds — custom-tuned, not slapped on.</span></div></div>
+            <div class="spec-row"><div class="spec-key">personality<small>// character.rules</small></div><div><strong>A character, built on purpose.</strong><span class="v">Hana has her own voice, judgment, and way of talking. We write and test those rules until the personality holds — custom-tuned, not slapped on.</span></div></div>
             <div class="spec-row"><div class="spec-key">memory<small>// long-term</small></div><div><strong>Trained on how you work.</strong><span class="v">Through long-term memory, your agent learns your preferences, routines, and the details that make help useful. It gets better at working with you over time.</span></div></div>
             <div class="spec-row"><div class="spec-key">model<small>// foundation</small></div><div><strong>We shape the agent, not a model of our own.</strong><span class="v">The intelligence underneath comes from established language models. What Rivencast builds is the character, the behavior, and the way that agent works with you.</span></div></div>
           </div>
@@ -347,16 +321,16 @@ HOME = f'''    <section class="hero" aria-labelledby="hero-heading">
         <div class="wrap">
           <div class="card cast-card reveal">
             <div>
-              <p class="label"><span class="idx">05</span> the cast</p>
-              <h2 id="cast-heading">Meet the agents</h2>
-              <p style="color:var(--muted);margin:14px 0 24px">See who’s available now and who’s coming next.</p>
-              <a class="btn" href="/agents.html">Meet the agents <span class="arr" aria-hidden="true">→</span></a>
+              <p class="label"><span class="idx">04</span> the face of rivencast</p>
+              <h2 id="cast-heading">Meet Hana</h2>
+              <p style="color:var(--muted);margin:14px 0 24px">Your personal AI assistant — calm, a little teasing, and built to get things done.</p>
+              <div class="hero-actions" style="margin:0">
+                <a class="btn" href="/agents/hana.html">Meet Hana <span class="arr" aria-hidden="true">→</span></a>
+                <a class="btn btn-ghost" href="/agents.html">Our agents</a>
+              </div>
             </div>
             <div class="avatars">
-              <img src="/hana-avatar.png" alt="Hana" width="64" height="64" loading="lazy" />
-              <img src="/assets/mochi-avatar.webp" alt="Mochi" width="64" height="64" loading="lazy" />
-              <img src="/assets/dante-avatar.webp" alt="Dante" width="64" height="64" loading="lazy" />
-              <span class="avatar-fallback" role="img" aria-label="Custom agent">C</span>
+              <img src="/hana-avatar.png" alt="Hana" width="96" height="96" loading="lazy" style="width:96px;height:96px" />
             </div>
           </div>
         </div>
@@ -366,12 +340,12 @@ HOME = f'''    <section class="hero" aria-labelledby="hero-heading">
         <div class="wrap">
           <div class="card about-teaser reveal">
             <div>
-              <p class="label"><span class="idx">06</span> about</p>
+              <p class="label"><span class="idx">05</span> about</p>
               <h2 id="about-heading" style="margin-bottom:20px">Rivencast</h2>
               <p>
                 Rivencast is an independent AI studio in Houston, Texas, building personal AI agents:
-                characters with real personalities that also do real work. Each one gets its own voice,
-                judgment, and boundaries, then gets wired into the tools people actually use so it can
+                agents that do real work, fronted by Hana, a personal AI assistant with a real personality.
+                Every agent gets clear judgment and boundaries, then gets wired into the tools people actually use so it can
                 read, plan, shop, schedule, and follow through.
               </p>
               <p>
@@ -415,11 +389,11 @@ def agent_card(cls, img, name, byline, status, text, cta):
 SOON = '<span class="btn btn-soon" aria-disabled="true">Coming soon</span>'
 AGENTS = f'''    <header class="page-hero">
       <div class="wrap">
-        <p class="label reveal">the cast</p>
-        <h1 class="reveal" style="--d:.05s">AI agents, each with a <span class="grad-text">voice of their own.</span></h1>
+        <p class="label reveal">agents</p>
+        <h1 class="reveal" style="--d:.05s">Agents that do the work. <span class="grad-text">Hana is the face.</span></h1>
         <p class="lede reveal" style="--d:.1s">
           Every Rivencast agent can complete real tasks for you — shopping, scheduling, messages, research, and more.
-          They ask before they spend money or send anything on your behalf. Hana is here now; Mochi, Dante, and a custom agent built around you are on the way.
+          They ask before they spend money or send anything on your behalf. Hana, your personal AI assistant, is here now. Custom detection agents for your community are coming soon.
         </p>
       </div>
     </header>
@@ -432,12 +406,8 @@ AGENTS = f'''    <header class="page-hero">
 {agent_card("is-live", '<img class="agent-photo" src="/hana-avatar.png" alt="Hana" width="76" height="76" />', "Hana", "Hana by Rivencast", "live",
   "Your personal AI assistant. She knows she’s an AI and doesn’t hide it — calm, dry, a bit teasing, and useful first. She’ll handle tasks and tell you the truth.",
   '<a class="btn" href="/agents/hana.html">Meet Hana <span class="arr" aria-hidden="true">→</span></a>')}
-{agent_card("is-soon", '<img class="agent-photo" src="/assets/mochi-avatar.webp" alt="Mochi" width="76" height="76" loading="lazy" />', "Mochi", "Mochi by Rivencast", "soon",
-  "Bubbly, sweet, and endlessly encouraging — Mochi brings emoji-and-sparkles energy to whatever you hand her, the friend who refuses to let you talk down to yourself. She’ll cheer you on while she gets your stuff done. Like every Rivencast agent, she can complete real tasks for you, not just keep you company.", SOON)}
-{agent_card("is-soon", '<img class="agent-photo" src="/assets/dante-avatar.webp" alt="Dante" width="76" height="76" loading="lazy" />', "Dante", "Dante by Rivencast", "soon",
-  "Charming, laid-back, and silver-tongued — Dante has a way of making the to-do list sound like a good time. Confident without the hard sell, he’ll talk you through it and then actually handle it. Like every Rivencast agent, he can complete real tasks for you.", SOON)}
-{agent_card("is-soon", '<div class="agent-photo-fallback" aria-hidden="true">C</div>', "Custom Agent", "Built around you", "soon",
-  "Have a custom AI agent built around your own needs and personality — same task-completing core, with a voice and focus that fit you.", SOON)}
+{agent_card("is-soon", '<div class="agent-photo-fallback" aria-hidden="true">' + svg("shield") + '</div>', "Custom Detection Agents", "For your community", "soon",
+  "Detection agents built for your community — watching for bots, spam, and fake accounts, flagging suspicious activity, and explaining why, so your moderators make the call. Not a character: a tool that works quietly in the background, with Hana as the face of Rivencast.", SOON)}
           </div>
         </div>
       </section>
@@ -446,8 +416,8 @@ AGENTS = f'''    <header class="page-hero">
         <div class="wrap">
           <div class="section-head reveal">
             <p class="label">shared core</p>
-            <h2 id="core-heading">Different personalities. Same task-completing core.</h2>
-            <p class="section-lede">Whoever you talk to, the way they work with you stays the same.</p>
+            <h2 id="core-heading">One task-completing core behind every agent.</h2>
+            <p class="section-lede">Whatever the agent is built for, the way it works with you stays the same.</p>
           </div>
           <div class="grid grid-3">
             <article class="card reveal">{icon("brain")}<h3>Memory that learns how you work</h3><p>Your preferences, routines, and the details that make help useful — remembered so you don’t repeat yourself.</p></article>
@@ -595,8 +565,8 @@ ABOUT = f'''    <header class="page-hero">
         <p class="label reveal">about us</p>
         <h1 class="reveal" style="--d:.05s">An independent AI studio <span class="grad-text nowrap">in Houston.</span></h1>
         <p class="lede reveal" style="--d:.1s">
-          Rivencast builds personal AI agents with real personalities that do real work for you —
-          not just chat. Hana is live. Mochi, Dante, and custom agents are coming next.
+          Rivencast builds AI agents that do real work for you — not just chat.
+          Hana, our personal AI assistant, is live. Custom detection agents for communities are coming next.
         </p>
       </div>
     </header>
@@ -608,8 +578,8 @@ ABOUT = f'''    <header class="page-hero">
           <div class="prose reveal">
             <h2 id="what-heading">What Rivencast is</h2>
             <p>
-              Rivencast is an independent AI studio in Houston. We build personal AI agents —
-              characters with their own voices, judgment, and habits — and we connect them to the
+              Rivencast is an independent AI studio in Houston. We build AI agents with clear
+              judgment and good habits — fronted by Hana, a personal assistant with a voice of her own — and we connect them to the
               tools you already use so they can finish the work you hand them.
             </p>
             <p>
@@ -622,7 +592,7 @@ ABOUT = f'''    <header class="page-hero">
             <p>
               <strong>Hana</strong> is live: Hana by Rivencast, your personal AI assistant.
               You can <a href="/#sms">text her directly</a> at +1 (833) 408-5702.
-              <strong>Mochi</strong>, <strong>Dante</strong>, and custom agents built around you
+              Custom detection agents — built to help online communities spot bots, spam, and fake accounts —
               are coming next. Every agent — live or on the way — is built to complete real tasks,
               not just keep a chat going.
             </p>
@@ -671,25 +641,10 @@ ABOUT = f'''    <header class="page-hero">
         </div>
       </section>
 
-      <section class="section tight" aria-labelledby="connect-heading">
-        <div class="wrap">
-          <div class="section-head center reveal">
-            <p class="label"><span class="idx">04</span> connectors</p>
-            <h2 id="connect-heading">You choose which accounts they use</h2>
-            <p class="section-lede">
-              An agent can work inside the services you already live in — mail, calendar, files,
-              banking, chat, shopping, and text messaging. You approve each connection. Nothing
-              gets hooked up in the background, and you can disconnect a service anytime.
-            </p>
-          </div>
-        </div>
-{chips(ABOUT_CONNECT)}
-      </section>
-
       <section class="section" aria-labelledby="trust-heading">
         <div class="wrap">
           <div class="section-head reveal">
-            <p class="label"><span class="idx">05</span> how we handle your accounts</p>
+            <p class="label"><span class="idx">04</span> how we handle your accounts</p>
             <h2 id="trust-heading">They ask first. Some things they never see.</h2>
           </div>
           <div class="card vault reveal">
@@ -720,16 +675,16 @@ ABOUT = f'''    <header class="page-hero">
       <section class="section tight" aria-labelledby="made-heading">
         <div class="wrap">
           <div class="section-head reveal">
-            <p class="label"><span class="idx">06</span> how they’re made</p>
-            <h2 id="made-heading">Custom-tuned personalities, shaped on top of models</h2>
+            <p class="label"><span class="idx">05</span> how they’re made</p>
+            <h2 id="made-heading">A custom-tuned personality, shaped on top of models</h2>
             <p class="section-lede">
-              Every Rivencast agent starts with a custom-built personality, voice, and set of behavior rules.
-              Those personalities are shaped through careful prompt design and testing, so they stay in
-              character and stay useful.
+              Hana starts with a custom-built personality, voice, and set of behavior rules.
+              That personality is shaped through careful prompt design and testing, so she stays in
+              character and stays useful. Every Rivencast agent follows the same behavior rules about asking first.
             </p>
           </div>
           <div class="spec reveal">
-            <div class="spec-row"><div class="spec-key">personality<small>// character.rules</small></div><div><strong>A character, built on purpose.</strong><span class="v">Each agent has their own voice, judgment, and way of talking. We write and test those rules until the personality holds — custom-tuned, not slapped on.</span></div></div>
+            <div class="spec-row"><div class="spec-key">personality<small>// character.rules</small></div><div><strong>A character, built on purpose.</strong><span class="v">Hana has her own voice, judgment, and way of talking. We write and test those rules until the personality holds — custom-tuned, not slapped on.</span></div></div>
             <div class="spec-row"><div class="spec-key">memory<small>// long-term</small></div><div><strong>Memory that learns how you work.</strong><span class="v">Through long-term memory, your agent learns your preferences, routines, and the details that make help useful. It gets better at working with you over time.</span></div></div>
             <div class="spec-row"><div class="spec-key">model<small>// foundation</small></div><div><strong>We shape the agent, not a model of our own.</strong><span class="v">Rivencast does not train its own foundation model. The intelligence underneath comes from established language models. What we build is the character, the behavior, and the way that agent works with you — tuned on top of those models.</span></div></div>
           </div>
@@ -739,7 +694,7 @@ ABOUT = f'''    <header class="page-hero">
       <section class="section" aria-labelledby="hardware-heading">
         <div class="wrap">
           <div class="section-head reveal">
-            <p class="label"><span class="idx">07</span> the hardware</p>
+            <p class="label"><span class="idx">06</span> the hardware</p>
             <h2 id="hardware-heading">What Rivencast agents run on</h2>
             <p class="section-lede">
               Rivencast agents utilize dedicated servers built for AI work: server-grade processors,
@@ -763,7 +718,7 @@ ABOUT = f'''    <header class="page-hero">
             <p>
               Questions about Rivencast — write to
               <a href="mailto:inquiry@rivencast.com">inquiry@rivencast.com</a>.
-              To meet the cast, see the <a href="/agents.html">agents</a>.
+              To see what we build, visit the <a href="/agents.html">agents</a> page.
               To text with Hana, see the SMS details on the
               <a href="/#opt-in">home page</a>,
               plus the <a href="/privacy.html">Privacy Policy</a> and
@@ -780,9 +735,9 @@ ABOUT = f'''    <header class="page-hero">
 
 FAQ = [
   ("What is Rivencast?",
-   "<p>Rivencast is an independent AI studio in Houston, Texas, building personal AI agents — characters with real personalities that complete real tasks for you, like shopping, scheduling, inbox cleanup, research, and messages.</p>"),
+   "<p>Rivencast is an independent AI studio in Houston, Texas, building AI agents that complete real tasks for you, with Hana, a personal AI assistant, as its face — like shopping, scheduling, inbox cleanup, research, and messages.</p>"),
   ("Which agents can I use right now?",
-   '<p>Hana by Rivencast is available now. Mochi, Dante, and custom agents built around you are coming soon. See the <a href="/agents.html">agents page</a>.</p>'),
+   '<p>Hana by Rivencast, your personal AI assistant, is available now. Custom detection agents for online communities are coming soon. See the <a href="/agents.html">agents page</a>.</p>'),
   ("Is Hana a real person?",
    "<p>No. Hana is an AI agent, and she’ll tell you so. She has a personality and opinions, but she never pretends to be human.</p>"),
   ("How does texting Hana work?",
@@ -872,16 +827,16 @@ NOTFOUND = '''    <main id="main" class="wrap nf">
 
 PAGES = {
   "index.html": ("Rivencast — AI agents that actually get things done",
-                 "Rivencast makes personal AI agents with their own personalities that complete real tasks for you — shopping, scheduling, email, research, and more.",
+                 "Rivencast builds AI agents that complete real tasks for you — shopping, scheduling, email, research, and more — with Hana, your personal AI assistant, as the face.",
                  "/", "Home", HOME, None),
   "agents.html": ("Agents — Rivencast",
-                  "Meet the AI agents by Rivencast. Hana is available now — a personal assistant who completes real tasks for you. Mochi, Dante, and custom agents are coming soon.",
+                  "AI agents by Rivencast. Hana, your personal AI assistant, is available now. Custom detection agents for online communities are coming soon.",
                   "/agents.html", "Agents", AGENTS, None),
   "agents/hana.html": ("Hana by Rivencast — your personal AI assistant",
                        "Hana by Rivencast is your personal AI assistant — calm, a little teasing, and built to complete real tasks for you.",
                        "/agents/hana.html", "Agents", HANA, None),
   "about.html": ("About Us — Rivencast",
-                 "Rivencast is an independent AI studio in Houston building personal AI agents with real personalities that do real work.",
+                 "Rivencast is an independent AI studio in Houston building AI agents that do real work, with Hana as the face.",
                  "/about.html", "About", ABOUT, None),
   "contact.html": ("Contact & FAQ — Rivencast",
                    "Contact Rivencast at inquiry@rivencast.com, learn how texting Hana works, and get answers to common questions about our AI agents.",
