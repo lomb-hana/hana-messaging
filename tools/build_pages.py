@@ -11,8 +11,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent / "public"
 SITE = "https://rivencast.com"
-BUILD = "rc-hana-help-2026-11-11"
-CSSV = "17"
+BUILD = "rc-forms-2026-11-11"
+CSSV = "18"
 
 ICONS = {
   "wallet": '<rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18M16 14.5h2"/>',
@@ -131,7 +131,7 @@ def header(active):
         </button>
         <nav id="site-nav" class="links" aria-label="Primary">
 {links}
-          <a class="btn btn-sm nav-cta" href="mailto:inquiry@rivencast.com?subject=Rivencast%20early%20access">Early access <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn btn-sm nav-cta" href="/request-access">Early access <span class="arr" aria-hidden="true">→</span></a>
         </nav>
       </header>
     </div>'''
@@ -164,7 +164,7 @@ FOOTER = '''    <footer class="site-footer">
           <h2>contact</h2>
           <ul>
             <li><a href="mailto:inquiry@rivencast.com">inquiry@rivencast.com</a></li>
-            <li><span>Text HELP to +1 (833) 408-5702</span></li>
+            <li><a href="/hana-access">Request access to Hana</a></li>
           </ul>
         </div>
       </div>
@@ -197,10 +197,11 @@ SMS_BOX = '''      <section class="section tight" id="opt-in" aria-labelledby="t
             <p class="label">sms program</p>
             <h2 id="texting-heading">Texting with Hana</h2>
             <p>
-              Program name: <strong>Hana by Rivencast</strong>. You opt in by texting Hana first at
-              <strong class="num">+1 (833) 408-5702</strong>.
+              Program name: <strong>Hana by Rivencast</strong>. Access to Hana is by request. You opt in by
+              submitting the <a href="/hana-access">Hana access request form</a> and checking the consent box.
+              Once your request is approved, Hana can text and call you at the number you provide.
               Messages are conversational; message frequency varies. Message and data rates may apply.
-              Reply <strong>STOP</strong> to opt out, <strong>HELP</strong> for help.
+              Reply <strong>STOP</strong> to opt out, <strong>HELP</strong> for help. Consent is not a condition of purchase.
               Mobile opt-in data is never shared with third parties for marketing.
               See the <a href="/privacy.html">Privacy Policy</a> and <a href="/terms.html">Terms of Service</a>.
             </p>
@@ -230,7 +231,9 @@ NOTFOUND = '''    <main id="main" class="wrap nf">
     </main>'''
 
 
-EARLY = "mailto:inquiry@rivencast.com?subject=Rivencast%20early%20access"
+EARLY = "/request-access"
+HANA_REQ = "/hana-access"
+HANA_BTN = '<a class="btn" href="/hana-access">Request access to Hana <span class="arr" aria-hidden="true">→</span></a>'
 EARLY_BTN = f'<a class="btn" href="{EARLY}">Request early access <span class="arr" aria-hidden="true">→</span></a>'
 NOT_AFFIL = "Rivencast is independent and not affiliated with or endorsed by any platform named on this site."
 PUBLIC_LINE = "Rivencast works from publicly visible activity and from inboxes you choose to connect. It doesn’t see private accounts, private messages, or anything behind a login without permission."
@@ -495,9 +498,10 @@ HOME = f'''    <section class="hero" aria-labelledby="hero-heading">
             <div>
               <p class="label"><span class="idx">06</span> need a hand?</p>
               <h2 id="hana-heading">Meet Hana</h2>
-              <p style="color:var(--muted);margin:14px 0 24px">Hana is the Rivencast assistant. Text or call her at <span class="mono" style="color:var(--gold-hi)">+1 (833) 408-5702</span> to find out what Rivencast does, request early access, get a flag explained in plain language, or get help.</p>
+              <p style="color:var(--muted);margin:14px 0 24px">Hana is the Rivencast assistant. Access is by request. Once you’re approved, you can text or call her to find out what Rivencast does, get a flag explained in plain language, or get help.</p>
               <div class="hero-actions" style="margin:0">
-                <a class="btn btn-ghost" href="/agents/hana.html">How Hana helps <span class="arr" aria-hidden="true">→</span></a>
+                {HANA_BTN}
+                <a class="btn btn-ghost" href="/agents/hana.html">How Hana helps</a>
               </div>
             </div>
             <div class="avatars">
@@ -603,8 +607,8 @@ AGENTS = f'''    <header class="page-hero">
             <div>
               <p class="label">need a hand?</p>
               <h2 id="face-heading">Hana, the Rivencast assistant</h2>
-              <p style="color:var(--muted);margin:14px 0 24px">Text or call Hana at <span class="mono" style="color:var(--gold-hi)">+1 (833) 408-5702</span> to ask what Rivencast does, request early access, or get support. Once you’re in early access, she can check on a scan and explain any flag in plain language.</p>
-              <a class="btn btn-ghost" href="/agents/hana.html">How Hana helps <span class="arr" aria-hidden="true">→</span></a>
+              <p style="color:var(--muted);margin:14px 0 24px">Access to Hana is by request. Once you’re approved, you can text or call her to ask what Rivencast does or get support. Early-access customers can also have her check on a scan and explain any flag in plain language.</p>
+              <div class="hero-actions" style="margin:0">{HANA_BTN}<a class="btn btn-ghost" href="/agents/hana.html">How Hana helps</a></div>
             </div>
             <div class="avatars"><img src="/hana-avatar.png" alt="Hana, the Rivencast mascot" width="96" height="96" loading="lazy" style="width:96px;height:96px" /></div>
           </div>
@@ -629,13 +633,14 @@ HANA = f'''    <header class="wrap profile-hero">
         <h1 class="reveal" style="--d:.05s"><span class="grad-text">Hana</span></h1>
         <p class="byline reveal" style="--d:.08s">Hana by Rivencast · assistant</p>
         <p class="lede reveal" style="--d:.1s">
-          Hana is the Rivencast assistant. Text or call her at +1 (833) 408-5702 to find out what
-          Rivencast does, request early access, or get help. Once you’re in early access, she can
-          check on a scan and explain any flag in plain language.
+          Hana is the Rivencast assistant. Access is by request. Once you’re approved, you can text
+          or call her to find out what Rivencast does or get help, and early-access customers can have
+          her check on a scan and explain any flag in plain language.
         </p>
+        <div class="hero-actions reveal" style="--d:.13s;margin-bottom:22px">{HANA_BTN}</div>
         <ul class="kv reveal" style="--d:.15s" aria-label="Hana at a glance">
           <li><b>role</b>assistant</li>
-          <li><b>text or call</b>+1 (833) 408-5702</li>
+          <li><b>access</b>by request</li>
           <li><b>helps with</b>questions, early access, support</li>
           <li><b>is</b>an AI, and says so</li>
         </ul>
@@ -695,7 +700,7 @@ HANA = f'''    <header class="wrap profile-hero">
           </div>
           <div class="spec reveal">
             <div class="spec-row"><div class="spec-key">01 · honest</div><div><strong>She’s an AI, and she says so.</strong><span class="v">No pretending to be a person. If she isn’t sure, she tells you.</span></div></div>
-            <div class="spec-row"><div class="spec-key">02 · opt-in</div><div><strong>You start the conversation.</strong><span class="v">For texts, you opt in by texting her first. The number is only for people contacting Hana directly. She doesn’t text or call anyone’s friends or family on their behalf.</span></div></div>
+            <div class="spec-row"><div class="spec-key">02 · opt-in</div><div><strong>Access by request.</strong><span class="v">You opt in through the <a href="/hana-access">Hana access form</a>. She only contacts people who requested access and were approved, and she doesn’t text or call anyone’s friends or family on their behalf.</span></div></div>
             <div class="spec-row"><div class="spec-key">03 · in control</div><div><strong>STOP means stop.</strong><span class="v">Reply STOP to opt out and HELP for help, anytime.</span></div></div>
             <div class="spec-row"><div class="spec-key">04 · private</div><div><strong>She keeps things private.</strong><span class="v">Mobile opt-in data is never shared with third parties for marketing.</span></div></div>
           </div>
@@ -708,13 +713,14 @@ HANA = f'''    <header class="wrap profile-hero">
             <p class="label" style="justify-content:center">get in touch</p>
             <h2 id="cta-heading">Want to talk to Hana?</h2>
             <p>
-              Text or call her at +1 (833) 408-5702. See the SMS details on the
+              Access to Hana is by request. Fill out the <a href="/hana-access">Hana access form</a>, and once
+              you’re approved we’ll send you the details. See the SMS details on the
               <a href="/#opt-in">home page</a>, plus the <a href="/privacy.html">Privacy Policy</a> and
               <a href="/terms.html">Terms of Service</a>. Prefer email? Write to
               <a href="mailto:inquiry@rivencast.com">inquiry@rivencast.com</a>.
             </p>
             <div class="hero-actions">
-              <a class="btn" href="/#opt-in">Texting with Hana <span class="arr" aria-hidden="true">→</span></a>
+              {HANA_BTN}
               <a class="btn btn-ghost" href="{EARLY}">Request early access</a>
             </div>
           </div>
@@ -804,8 +810,8 @@ ABOUT = f'''    <header class="page-hero">
             </p>
             <p>
               The platform is in <strong>early access</strong>. <strong>Hana</strong>, the Rivencast
-              assistant, is there to help: <a href="/#sms">text</a> or call her at +1 (833) 408-5702 to ask
-              what Rivencast does, request early access, or get support.
+              assistant, is there to help. Access is <a href="/hana-access">by request</a>: once you’re approved,
+              you can text or call her to ask what Rivencast does or get support.
             </p>
           </div>
         </div>
@@ -897,6 +903,114 @@ ABOUT = f'''    <header class="page-hero">
       </section>
     </main>'''
 
+FS = "https://formsubmit.co/inquiry@rivencast.com"
+
+def fs_hidden(subject, nxt):
+    return f'''<input type="hidden" name="_subject" value="{subject}" />
+              <input type="hidden" name="_template" value="table" />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_next" value="{SITE}/thanks?form={nxt}" />
+              <div class="hp" aria-hidden="true"><label>Leave this empty <input type="text" name="_honey" tabindex="-1" autocomplete="off" /></label></div>'''
+
+DETECT = ["Company email", "Websites & comment sections", "Product & business reviews", "Forums / Reddit", "Social platforms", "Other"]
+
+def side_steps(title, items):
+    lis = "".join(f'<li><span>{i+1:02d}</span><div><strong>{h}</strong><p>{t}</p></div></li>' for i, (h, t) in enumerate(items))
+    return f'''<aside class="card form-side reveal" style="--d:.08s">
+            <p class="label">{title}</p>
+            <ol class="form-steps">{lis}</ol>
+          </aside>'''
+
+REQUEST = f'''    <header class="page-hero">
+      <div class="wrap">
+        <p class="label reveal">early access</p>
+        <h1 class="reveal" style="--d:.05s">Request <span class="grad-text">early access.</span></h1>
+        <p class="lede reveal" style="--d:.1s">Tell us where bots, AI-generated content, or fake accounts are showing up for you. Rivencast is in early access, and we read every request.</p>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="section tight" aria-labelledby="form-heading" style="padding-top:8px">
+        <div class="wrap form-layout">
+          <form class="card form-card reveal" action="{FS}" method="POST" accept-charset="UTF-8">
+            <h2 id="form-heading" class="form-title"><span class="mono">rivencast</span> · early access request</h2>
+            {fs_hidden("Rivencast early access request", "early")}
+            <div class="field-row">
+              <div class="field"><label for="ea-name">Name</label><input id="ea-name" name="name" type="text" autocomplete="name" required placeholder="Jordan Example" /></div>
+              <div class="field"><label for="ea-email">Email</label><input id="ea-email" name="email" type="email" autocomplete="email" required placeholder="you@company.com" /></div>
+            </div>
+            <div class="field"><label for="ea-company">Company <span class="opt">optional</span></label><input id="ea-company" name="company" type="text" autocomplete="organization" placeholder="Company or community" /></div>
+            <div class="field"><label for="ea-detect">What do you want to detect?</label>
+              <div class="select-wrap"><select id="ea-detect" name="detect" required>
+                <option value="" disabled selected>Choose one</option>
+                {"".join(f'<option>{d}</option>' for d in DETECT)}
+              </select></div>
+            </div>
+            <div class="field"><label for="ea-msg">Message <span class="opt">optional</span></label><textarea id="ea-msg" name="message" rows="4" placeholder="Where are bots showing up, and what would help?"></textarea></div>
+            <div class="form-foot">
+              <button class="btn" type="submit">Send request <span class="arr" aria-hidden="true">→</span></button>
+              <p class="form-note">We use your details only to reply to your request. See the <a href="/privacy.html">Privacy Policy</a>.</p>
+            </div>
+          </form>
+          {side_steps("what happens next", [("We read it", "Every request goes straight to the Rivencast team."), ("We reply by email", "From inquiry@rivencast.com, usually with a few questions about your setup."), ("Early access", "If it’s a fit, we set up detection for the surfaces you care about.")])}
+        </div>
+      </section>
+    </main>'''
+
+HANA_ACCESS = f'''    <header class="page-hero">
+      <div class="wrap">
+        <p class="label reveal">hana · by request</p>
+        <h1 class="reveal" style="--d:.05s">Request access to <span class="grad-text">Hana.</span></h1>
+        <p class="lede reveal" style="--d:.1s">Hana, the Rivencast assistant, helps by text and phone. Access is by request: tell us how you’d use her, and once you’re approved, we’ll email you the details.</p>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="section tight" aria-labelledby="form-heading" style="padding-top:8px">
+        <div class="wrap form-layout">
+          <form class="card form-card reveal" action="{FS}" method="POST" accept-charset="UTF-8">
+            <h2 id="form-heading" class="form-title"><span class="mono">hana</span> · access request</h2>
+            {fs_hidden("Hana access request", "hana")}
+            <div class="field-row">
+              <div class="field"><label for="ha-name">Name</label><input id="ha-name" name="name" type="text" autocomplete="name" required placeholder="Jordan Example" /></div>
+              <div class="field"><label for="ha-email">Email</label><input id="ha-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com" /></div>
+            </div>
+            <div class="field"><label for="ha-phone">Mobile number <span class="opt">optional</span></label><input id="ha-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(555) 555-0100" /></div>
+            <div class="field"><label for="ha-use">How would you use Hana?</label><textarea id="ha-use" name="use" rows="4" required placeholder="For example: questions about Rivencast, checking on scans, support"></textarea></div>
+            <label class="consent" for="ha-consent">
+              <input id="ha-consent" name="consent" type="checkbox" value="Agreed to receive texts and calls from Hana once approved" required />
+              <span>I agree to receive texts and calls from Hana, Rivencast’s assistant, at the number I provide once my request is approved. Message frequency varies. Message and data rates may apply. Reply STOP to opt out, HELP for help. Consent is not a condition of purchase. See the <a href="/privacy.html">Privacy Policy</a> and <a href="/terms.html">Terms of Service</a>.</span>
+            </label>
+            <div class="form-foot">
+              <button class="btn" type="submit">Request access <span class="arr" aria-hidden="true">→</span></button>
+              <p class="form-note">Mobile opt-in data is never shared with third parties for marketing.</p>
+            </div>
+          </form>
+          {side_steps("how access works", [("Send a request", "Tell us who you are and how you’d use Hana."), ("We review it", "Access is approved by the Rivencast team. We’ll email you either way."), ("Once approved", "You’ll get the details to text or call Hana. Reply STOP anytime to opt out.")])}
+        </div>
+      </section>
+    </main>'''
+
+THANKS = '''    <main id="main" class="wrap nf thanks">
+      <div>
+        <p class="label" style="justify-content:center">received</p>
+        <h1 class="reveal">Thanks, <span class="grad-text">we got it.</span></h1>
+        <p class="lede" id="thanks-msg" style="margin:18px auto 30px;max-width:560px">Your request is on its way to the Rivencast team. We’ll reply by email from inquiry@rivencast.com.</p>
+        <div class="hero-actions" style="justify-content:center">
+          <a class="btn" href="/">Back to home <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn btn-ghost" href="/agents.html">See the agents</a>
+        </div>
+      </div>
+    </main>
+    <script>
+      (function () {
+        var f = new URLSearchParams(location.search).get("form");
+        var m = document.getElementById("thanks-msg");
+        if (f === "hana") m.textContent = "Your Hana access request is on its way to the Rivencast team. We’ll review it and email you once you’re approved.";
+        if (f === "early") m.textContent = "Your early access request is on its way to the Rivencast team. We’ll reply by email from inquiry@rivencast.com.";
+      })();
+    </script>'''
+
 FAQ = [
   ("What is Rivencast?",
    "<p>Rivencast is an AI-agent detection service for bots, AI-generated content, and automated or inauthentic accounts. The agents give each account or message a risk score and explain it in plain language, so people can decide what to do.</p>"),
@@ -915,13 +1029,13 @@ FAQ = [
   ("Is a high risk score proof?",
    "<p>No. A score is a signal that something deserves a closer look, with the reasons written out. Real people can look unusual, and some bots look ordinary.</p>"),
   ("How do I get early access?",
-   f'<p>Email <a href="{EARLY}">inquiry@rivencast.com</a> and tell us where bots are showing up for you, or text Hana and she’ll pass it to the team.</p>'),
+   f'<p>Fill out the <a href="{EARLY}">early access form</a> and tell us where bots are showing up for you, or email <a href="mailto:inquiry@rivencast.com">inquiry@rivencast.com</a>.</p>'),
   ("Who is Hana?",
-   "<p>Hana is the Rivencast assistant. Text or call her at +1 (833) 408-5702 to ask what Rivencast does, request early access, or get support. Early-access customers can also ask her to check on a scan or explain a flag in plain language. She’s an AI and says so.</p>"),
+   '<p>Hana is the Rivencast assistant. Access is by request through the <a href="/hana-access">Hana access form</a>. Once you’re approved, you can text or call her to ask what Rivencast does or get support, and early-access customers can ask her to check on a scan or explain a flag in plain language. She’s an AI and says so.</p>'),
   ("How does texting Hana work?",
-   '<p>You opt in by texting Hana first at +1 (833) 408-5702. Messages are conversational; message frequency varies. Message and data rates may apply. Reply STOP to opt out, HELP for help. Mobile opt-in data is never shared with third parties for marketing. Details are in the <a href="/privacy.html">Privacy Policy</a> and <a href="/terms.html">Terms of Service</a>.</p>'),
+   '<p>You opt in by requesting access through the <a href="/hana-access">Hana access form</a> and checking the consent box. Once you’re approved, Hana can text and call you at the number you provided. Messages are conversational; message frequency varies. Message and data rates may apply. Reply STOP to opt out, HELP for help. Consent is not a condition of purchase. Mobile opt-in data is never shared with third parties for marketing. Details are in the <a href="/privacy.html">Privacy Policy</a> and <a href="/terms.html">Terms of Service</a>.</p>'),
   ("Will Hana text my friends or family?",
-   "<p>No. The number is only for people texting Hana directly. Hana doesn’t text anyone’s friends or family on their behalf.</p>"),
+   "<p>No. Hana only contacts people who requested access and were approved. She doesn’t text or call anyone’s friends or family on their behalf.</p>"),
   ("Does Rivencast train its own AI model?",
    "<p>No. The intelligence underneath comes from established language models. Rivencast builds the detection agents, the detection logic, and the explanations on top of them.</p>"),
 ]
@@ -956,10 +1070,10 @@ CONTACT = f'''    <header class="page-hero">
             </article>
             <article class="card contact-card reveal" style="--d:.06s">
               {icon("phone")}
-              <p class="label no-slash" style="margin:0">text hana</p>
-              <p class="big">+1 (833) 408-5702</p>
-              <p style="color:var(--muted)">Text or call Hana, the Rivencast assistant, to ask what Rivencast does, request early access, or get help. For texts, you opt in by texting her first. Reply STOP to opt out, HELP for help. Message and data rates may apply.</p>
-              <a class="btn btn-ghost" href="/#opt-in">SMS program details</a>
+              <p class="label no-slash" style="margin:0">hana</p>
+              <p class="big">By request</p>
+              <p style="color:var(--muted)">Hana, the Rivencast assistant, is available by request. Once you’re approved, you can text or call her to ask what Rivencast does or get help. Reply STOP to opt out, HELP for help. Message and data rates may apply.</p>
+              <div class="hero-actions" style="margin:0">{HANA_BTN}<a class="btn btn-ghost" href="/#opt-in">SMS program details</a></div>
             </article>
           </div>
         </div>
@@ -985,14 +1099,21 @@ PAGES = {
                   "How Rivencast’s detection agents work: focused AI agents that read publicly visible activity and roll their findings into one risk score with a plain-language explanation. Early access.",
                   "/agents.html", "Agents", AGENTS, None),
   "agents/hana.html": ("Hana, the Rivencast assistant",
-                       "Hana is the Rivencast assistant. Text or call +1 (833) 408-5702 to learn what Rivencast does, request early access, get a flag explained, or get help.",
+                       "Hana is the Rivencast assistant. Access is by request: once approved, text or call her to learn what Rivencast does, get a flag explained, or get help.",
                        "/agents/hana.html", "Agents", HANA, None),
   "about.html": ("About Us | Rivencast",
                  "Rivencast is an independent AI studio in Houston building AI agents that detect bots, AI-generated content, and fake accounts, with explainable risk scores and people making the call.",
                  "/about.html", "About", ABOUT, None),
   "contact.html": ("Contact & FAQ | Rivencast",
-                   "Contact Rivencast at inquiry@rivencast.com for early access, learn how texting Hana works, and get answers about our AI detection agents.",
+                   "Contact Rivencast at inquiry@rivencast.com, request early access or access to Hana, and get answers about our AI detection agents.",
                    "/contact.html", "Contact", CONTACT, [FAQ_LD]),
+  "request-access.html": ("Request early access | Rivencast",
+                          "Request early access to Rivencast’s AI detection agents for bots, AI-generated content, and fake accounts.",
+                          "/request-access", None, REQUEST, None),
+  "hana-access.html": ("Request access to Hana | Rivencast",
+                       "Request access to Hana, the Rivencast assistant, by text and phone. Access is by request and approved by the Rivencast team.",
+                       "/hana-access", None, HANA_ACCESS, None),
+  "thanks.html": ("Thanks | Rivencast", "Thanks for your request.", "/thanks", None, THANKS, None),
   "404.html": ("Page not found | Rivencast", "This page could not be found on rivencast.com.",
                "/404.html", None, NOTFOUND, None),
 }
@@ -1000,7 +1121,7 @@ PAGES = {
 
 def build_marketing():
     for name, (title, desc, path, active, body, ld) in PAGES.items():
-        html = page(title, desc, path, active, body, ld, noindex=(name == "404.html"))
+        html = page(title, desc, path, active, body, ld, noindex=(name in ("404.html", "thanks.html")))
         (ROOT / name).write_text(html, encoding="utf-8")
         print("wrote", name)
 
