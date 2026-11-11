@@ -290,7 +290,7 @@ DEMO = [
      _line("◇", "comparing reviewer accounts, timing, and wording", "ok"),
    ],
    "results": [
-     _row("review burst · example.com/reviews", "", 88, "high", ["7 five-star reviews in 52 min", "6 from accounts under a week old", "same phrases, reordered"], tag="alert"),
+     _row("example.com/reviews", "", 88, "high", ["burst: 7 five-star reviews in 52 min", "6 from accounts under a week old", "same phrases, reordered"], tag="alert"),
      _row("reviewer_example_3", "", 72, "mid", ["account 2 days old", "same wording as 4 other reviews"]),
      _row("reviewer_example_6", "", 66, "mid", ["first review anywhere", "posted 4 min after reviewer_example_3"]),
    ],
